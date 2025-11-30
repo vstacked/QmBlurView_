@@ -14,8 +14,9 @@
 [![License](https://img.shields.io/github/license/QmDeve/QmBlurView.svg?logo=github&color=blue&label=License)](https://github.com/QmDeve/QmBlurView/blob/master/LICENSE)
 [![Android](https://img.shields.io/badge/Android-5.0%2B-brightgreen.svg)](https://developer.android.com)
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.qmdeve/QmBlurView?label=Maven%20Central)](https://central.sonatype.com/artifact/com.qmdeve/QmBlurView)
-[![GitHub Release](https://img.shields.io/github/release/QmDeve/QmBlurView?label=GitHub%20Release)](https://github.com/QmDeve/QmBlurView/releases)
+[![Maven Central Version](https://img.shields.io/maven-central/v/com.qmdeve/QmBlurView?label=Maven%20Central%20Version)](https://central.sonatype.com/artifact/com.qmdeve/QmBlurView)
+[![GitHub Release Version](https://img.shields.io/github/release/QmDeve/QmBlurView?label=GitHub%20Release%20Version)](https://github.com/QmDeve/QmBlurView/releases)
+[![Jitpack Beta Version](https://img.shields.io/jitpack/v/QmDeve/QmBlurView.svg?label=Jitpack%20Beta%20Version&color=red)](https://jitpack.io/#QmDeve/QmBlurView)
 
 <br>
 
@@ -52,22 +53,57 @@ English | [Français](./README_fr.md) | [简体中文](./README_zh.md) | [Рус
 
 ## Installation
 
+### Use the stable Version (Maven Central)
 Add the dependencies to your module's `build.gradle` file:
 
 ```gradle
 dependencies {
     // Core Library (Required)
-    implementation 'com.qmdeve:QmBlurView:1.0.5-Beta04'
+    implementation 'com.qmdeve:QmBlurView:1.0.4.7'
 
     // Bottom Navigation Support (Optional)
-    implementation 'com.qmdeve:QmBlurView.BottomNavigation:1.0.5-Beta04'
+    implementation 'com.qmdeve:QmBlurView.BottomNavigation:1.0.4.7'
 
     // Image Loading Transformations (Optional - Glide/Picasso)
-    implementation 'com.qmdeve:QmBlurView.Transform:1.0.5-Beta04'
+    implementation 'com.qmdeve:QmBlurView.Transform:1.0.4.7'
 }
 ```
 
 *Check the badge above for the latest version.*
+
+### Use the test Version (Jitpack)
+
+> ### Warning
+>
+> Jitpack will not release stable/official version and RC version
+>
+> **It is recommended to use the `Maven Central`**
+
+1.Add the repository to the project's `settings.gradle`:
+
+```gradle
+dependencyResolutionManagement {
+	repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+	repositories {
+		maven { url 'https://jitpack.io' }
+	}
+}
+```
+
+2.Add the dependencies to your module's `build.gradle` file:
+
+```gradle
+dependencies {
+   // Core Library (Required)
+   implementation 'com.github.QmDeve.QmBlurView:QmBlurView:v1.0.5-Beta04'
+   
+   // Bottom Navigation Support (Optional)
+   implementation 'com.github.QmDeve.QmBlurView:ButtomNavigation:v1.0.5-Beta04'
+   
+   // Image Loading Transformations (Optional - Glide/Picasso)
+   implementation 'com.github.QmDeve.QmBlurView:Transform:v1.0.5-Beta04'
+}
+```
 
 ## Usage
 

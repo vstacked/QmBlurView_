@@ -15,8 +15,9 @@
 [![License](https://img.shields.io/github/license/QmDeve/QmBlurView.svg?logo=github&color=blue&label=License)](https://github.com/QmDeve/QmBlurView/blob/master/LICENSE)
 [![Android](https://img.shields.io/badge/Android-5.0%2B-brightgreen.svg)](https://developer.android.com)
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.qmdeve/QmBlurView?label=Maven%20Central)](https://central.sonatype.com/artifact/com.qmdeve/QmBlurView)
-[![GitHub Release](https://img.shields.io/github/release/QmDeve/QmBlurView?label=GitHub%20Release)](https://github.com/QmDeve/QmBlurView/releases)
+[![Maven Central 版本](https://img.shields.io/maven-central/v/com.qmdeve/QmBlurView?label=Maven%20Central%20版本)](https://central.sonatype.com/artifact/com.qmdeve/QmBlurView)
+[![GitHub Release 版本](https://img.shields.io/github/release/QmDeve/QmBlurView?label=GitHub%20Release%20版本)](https://github.com/QmDeve/QmBlurView/releases)
+[![Jitpack 测试版本](https://img.shields.io/jitpack/v/QmDeve/QmBlurView.svg?label=Jitpack%20测试版本&color=red)](https://jitpack.io/#QmDeve/QmBlurView)
 
 <br>
 
@@ -53,22 +54,57 @@
 
 ## 集成
 
+### 使用稳定版本 (Maven Central)
 在模块的 `build.gradle` 文件中添加依赖项：
 
 ```gradle
 dependencies {
     // 核心库（必需）
-    implementation 'com.qmdeve:QmBlurView:1.0.5-Beta04'
+    implementation 'com.qmdeve:QmBlurView:1.0.4.7'
 
     // 底部导航支持（可选）
-    implementation 'com.qmdeve:QmBlurView.BottomNavigation:1.0.5-Beta04'
+    implementation 'com.qmdeve:QmBlurView.BottomNavigation:1.0.4.7'
 
     // 图片加载变换（可选 - Glide/Picasso）
-    implementation 'com.qmdeve:QmBlurView.Transform:1.0.5-Beta04'
+    implementation 'com.qmdeve:QmBlurView.Transform:1.0.4.7'
 }
 ```
 
 *查看上方的徽章以获取最新版本。*
+
+### 使用测试版本 (Jitpack)
+
+> ### 警告
+> 
+> `Jitpack` 将不会发布 `稳定版/正式版、RC版本`
+> 
+> **建议使用 `Maven Central` 集成方式**
+
+1.在项目的 `settings.gradle` 文件中添加存储库:
+
+```gradle
+dependencyResolutionManagement {
+	repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+	repositories {
+		maven { url 'https://jitpack.io' }
+	}
+}
+```
+
+2.在模块的 `build.gradle` 文件中添加依赖项：
+
+```gradle
+dependencies {
+   // 核心库（必需）
+   implementation 'com.github.QmDeve.QmBlurView:QmBlurView:v1.0.5-Beta04'
+   
+   // 底部导航支持（可选）
+   implementation 'com.github.QmDeve.QmBlurView:ButtomNavigation:v1.0.5-Beta04'
+   
+   // 图片加载变换（可选 - Glide/Picasso）
+   implementation 'com.github.QmDeve.QmBlurView:Transform:v1.0.5-Beta04'
+}
+```
 
 ## 使用方法
 
