@@ -14,8 +14,9 @@
 [![License](https://img.shields.io/github/license/QmDeve/QmBlurView.svg?logo=github&color=blue&label=License)](https://github.com/QmDeve/QmBlurView/blob/master/LICENSE)
 [![Android](https://img.shields.io/badge/Android-5.0%2B-brightgreen.svg)](https://developer.android.com)
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.qmdeve/QmBlurView?label=Maven%20Central)](https://central.sonatype.com/artifact/com.qmdeve/QmBlurView)
-[![GitHub Release](https://img.shields.io/github/release/QmDeve/QmBlurView?label=GitHub%20Release)](https://github.com/QmDeve/QmBlurView/releases)
+[![Maven Central Version](https://img.shields.io/maven-central/v/com.qmdeve/QmBlurView?label=Maven%20Central%20Version)](https://central.sonatype.com/artifact/com.qmdeve/QmBlurView)
+[![GitHub Release Version](https://img.shields.io/github/release/QmDeve/QmBlurView?label=GitHub%20Release%20Version)](https://github.com/QmDeve/QmBlurView/releases)
+[![Jitpack Beta Version](https://img.shields.io/jitpack/v/QmDeve/QmBlurView.svg?label=Jitpack%20Beta%20Version&color=orange)](https://jitpack.io/#QmDeve/QmBlurView)
 
 <br>
 
@@ -42,7 +43,8 @@
 - **Haute Performance** : Algorithme de flou natif implémenté en C/C++ pour une vitesse et une fluidité maximales.
 - **Flou en Temps Réel** : Met automatiquement à jour l'effet de flou lorsque le contenu de l'arrière-plan change.
 - **Bibliothèque de Composants Riche** :
-  - `BlurView` : Conteneur personnalisable pour n'importe quelle mise en page.
+  - `BlurView` : Vue blur universelle
+  - `BlurViewGroup`: Conteneur personnalisable pour n'importe quelle mise en page.
   - `BlurButtonView` : Boutons avec effets de verre dépoli.
   - `BlurBottomNavigationView` : Navigation inférieure élégante et floutée.
   - `BlurTitlebarView`, `BlurSwitchButtonView`, `BlurFloatingButtonView`, et `ProgressiveBlurView`.
@@ -52,22 +54,57 @@
 
 ## Installation
 
+### Utilisez la version stable (Maven Central)
 Ajoutez les dépendances au fichier `build.gradle` de votre module :
 
 ```gradle
 dependencies {
     // Bibliothèque Principale (Requis)
-    implementation 'com.qmdeve:QmBlurView:1.0.5-Beta04'
+    implementation 'com.qmdeve:QmBlurView:1.0.4.7'
 
     // Support de Navigation Inférieure (Optionnel)
-    implementation 'com.qmdeve:QmBlurView.BottomNavigation:1.0.5-Beta04'
+    implementation 'com.qmdeve:QmBlurView.BottomNavigation:1.0.4.7'
 
     // Transformations de Chargement d'Images (Optionnel - Glide/Picasso)
-    implementation 'com.qmdeve:QmBlurView.Transform:1.0.5-Beta04'
+    implementation 'com.qmdeve:QmBlurView.Transform:1.0.4.7'
 }
 ```
 
 *Vérifiez le badge ci-dessus pour la dernière version.*
+
+### Utilisez la version d'essai (Jitpack)
+
+> ### Avertir
+>
+> Jitpack ne publiera pas la version stable/officielle et la version RC.
+>
+> **Il est recommandé d'utiliser la méthode d'intégration `Maven Central`**
+
+1.Ajouter un référentiel au fichier `settings.gradle` du projet:
+
+```gradle
+dependencyResolutionManagement {
+	repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+	repositories {
+		maven { url 'https://jitpack.io' }
+	}
+}
+```
+
+2.Ajoutez les dépendances au fichier `build.gradle` de votre module:
+
+```gradle
+dependencies {
+   // Bibliothèque Principale (Requis)
+   implementation 'com.github.QmDeve.QmBlurView:QmBlurView:v1.0.5-Beta04'
+   
+   // Support de Navigation Inférieure (Optionnel)
+   implementation 'com.github.QmDeve.QmBlurView:ButtomNavigation:v1.0.5-Beta04'
+   
+   // Transformations de Chargement d'Images (Optionnel - Glide/Picasso)
+   implementation 'com.github.QmDeve.QmBlurView:Transform:v1.0.5-Beta04'
+}
+```
 
 ## Utilisation
 

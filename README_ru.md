@@ -14,8 +14,9 @@
 [![License](https://img.shields.io/github/license/QmDeve/QmBlurView.svg?logo=github&color=blue&label=License)](https://github.com/QmDeve/QmBlurView/blob/master/LICENSE)
 [![Android](https://img.shields.io/badge/Android-5.0%2B-brightgreen.svg)](https://developer.android.com)
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.qmdeve/QmBlurView?label=Maven%20Central)](https://central.sonatype.com/artifact/com.qmdeve/QmBlurView)
-[![GitHub Release](https://img.shields.io/github/release/QmDeve/QmBlurView?label=GitHub%20Release)](https://github.com/QmDeve/QmBlurView/releases)
+[![Maven Central Version](https://img.shields.io/maven-central/v/com.qmdeve/QmBlurView?label=Maven%20Central%20Version)](https://central.sonatype.com/artifact/com.qmdeve/QmBlurView)
+[![GitHub Release Version](https://img.shields.io/github/release/QmDeve/QmBlurView?label=GitHub%20Release%20Version)](https://github.com/QmDeve/QmBlurView/releases)
+[![Jitpack Beta Version](https://img.shields.io/jitpack/v/QmDeve/QmBlurView.svg?label=Jitpack%20Beta%20Version&color=orange)](https://jitpack.io/#QmDeve/QmBlurView)
 
 <br>
 
@@ -42,7 +43,8 @@
 - **Высокая Производительность**: Нативный алгоритм размытия, реализованный на C/C++ для максимальной скорости и плавности.
 - **Размытие в Реальном Времени**: Автоматически обновляет эффект размытия при изменении содержимого фона.
 - **Богатая Библиотека Компонентов**:
-  - `BlurView`: Настраиваемый контейнер для любой разметки.
+  - `BlurView`: Универсальный нечеткий вид
+  - `BlurViewGroup`: Настраиваемый контейнер для любой разметки.
   - `BlurButtonView`: Кнопки с эффектом матового стекла.
   - `BlurBottomNavigationView`: Стильная нижняя навигация с размытием.
   - `BlurTitlebarView`, `BlurSwitchButtonView`, `BlurFloatingButtonView` и `ProgressiveBlurView`.
@@ -52,22 +54,57 @@
 
 ## Установка
 
+### Используйте стабильную версию (Maven Central)
 Добавьте зависимости в файл `build.gradle` вашего модуля:
 
 ```gradle
 dependencies {
     // Основная библиотека (Обязательно)
-    implementation 'com.qmdeve:QmBlurView:1.0.5-Beta04'
+    implementation 'com.qmdeve:QmBlurView:1.0.4.7'
 
     // Поддержка нижней навигации (Опционально)
-    implementation 'com.qmdeve:QmBlurView.BottomNavigation:1.0.5-Beta04'
+    implementation 'com.qmdeve:QmBlurView.BottomNavigation:1.0.4.7'
 
     // Трансформации для загрузки изображений (Опционально - Glide/Picasso)
-    implementation 'com.qmdeve:QmBlurView.Transform:1.0.5-Beta04'
+    implementation 'com.qmdeve:QmBlurView.Transform:1.0.4.7'
 }
 ```
 
 *Проверьте значок выше для получения последней версии.*
+
+### Используйте тестовую версию (Jitpack)
+
+> ### Предупреждать
+>
+> `Jitpack не выпустит стабильную версию/официальную версию и версию RC`
+>
+> **Рекомендуется использовать метод интеграции `Maven Central`**
+
+1.Добавить репозиторий в файл `settings.gradle` проекта:
+
+```gradle
+dependencyResolutionManagement {
+	repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+	repositories {
+		maven { url 'https://jitpack.io' }
+	}
+}
+```
+
+2.Добавьте зависимости в файл `build.gradle` вашего модуля:
+
+```gradle
+dependencies {
+   // Основная библиотека (Обязательно)
+   implementation 'com.github.QmDeve.QmBlurView:QmBlurView:v1.0.5-Beta04'
+   
+   // Поддержка нижней навигации (Опционально)
+   implementation 'com.github.QmDeve.QmBlurView:ButtomNavigation:v1.0.5-Beta04'
+   
+   // Трансформации для загрузки изображений (Опционально - Glide/Picasso)
+   implementation 'com.github.QmDeve.QmBlurView:Transform:v1.0.5-Beta04'
+}
+```
 
 ## Использование
 
