@@ -43,7 +43,8 @@
 - **Haute Performance** : Algorithme de flou natif implémenté en C/C++ pour une vitesse et une fluidité maximales.
 - **Flou en Temps Réel** : Met automatiquement à jour l'effet de flou lorsque le contenu de l'arrière-plan change.
 - **Bibliothèque de Composants Riche** :
-  - `BlurView` : Conteneur personnalisable pour n'importe quelle mise en page.
+  - `BlurView` : Vue blur universelle
+  - `BlurViewGroup`: Conteneur personnalisable pour n'importe quelle mise en page.
   - `BlurButtonView` : Boutons avec effets de verre dépoli.
   - `BlurBottomNavigationView` : Navigation inférieure élégante et floutée.
   - `BlurTitlebarView`, `BlurSwitchButtonView`, `BlurFloatingButtonView`, et `ProgressiveBlurView`.

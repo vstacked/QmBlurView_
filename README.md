@@ -43,7 +43,8 @@ English | [Français](./README_fr.md) | [简体中文](./README_zh.md) | [Рус
 - **High Performance**: Native blur algorithm implemented in C/C++ for maximum speed and smoothness.
 - **Real-time Blurring**: Automatically updates the blur effect as the background content changes.
 - **Rich Component Library**:
-  - `BlurView`: Customizable container for any layout.
+  - `BlurView`: Universal blur view
+  - `BlurViewGroup`: Customizable container for any layout.
   - `BlurButtonView`: Buttons with frosted glass effects.
   - `BlurBottomNavigationView`: Stylish blurred bottom navigation.
   - `BlurTitlebarView`, `BlurSwitchButtonView`, `BlurFloatingButtonView`, and `ProgressiveBlurView`.
