@@ -97,13 +97,13 @@ dependencyResolutionManagement {
 ```gradle
 dependencies {
    // 核心库（必需）
-   implementation 'com.github.QmDeve.QmBlurView:QmBlurView:v1.0.5-Beta04'
+   implementation 'com.github.QmDeve.QmBlurView:QmBlurView:v1.0.5-Beta05'
    
    // 底部导航支持（可选）
-   implementation 'com.github.QmDeve.QmBlurView:ButtomNavigation:v1.0.5-Beta04'
+   implementation 'com.github.QmDeve.QmBlurView:ButtomNavigation:v1.0.5-Beta05'
    
    // 图片加载变换（可选 - Glide/Picasso）
-   implementation 'com.github.QmDeve.QmBlurView:Transform:v1.0.5-Beta04'
+   implementation 'com.github.QmDeve.QmBlurView:Transform:v1.0.5-Beta05'
 }
 ```
 

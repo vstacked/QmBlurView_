@@ -96,13 +96,13 @@ dependencyResolutionManagement {
 ```gradle
 dependencies {
    // Основная библиотека (Обязательно)
-   implementation 'com.github.QmDeve.QmBlurView:QmBlurView:v1.0.5-Beta04'
+   implementation 'com.github.QmDeve.QmBlurView:QmBlurView:v1.0.5-Beta05'
    
    // Поддержка нижней навигации (Опционально)
-   implementation 'com.github.QmDeve.QmBlurView:ButtomNavigation:v1.0.5-Beta04'
+   implementation 'com.github.QmDeve.QmBlurView:ButtomNavigation:v1.0.5-Beta05'
    
    // Трансформации для загрузки изображений (Опционально - Glide/Picasso)
-   implementation 'com.github.QmDeve.QmBlurView:Transform:v1.0.5-Beta04'
+   implementation 'com.github.QmDeve.QmBlurView:Transform:v1.0.5-Beta05'
 }
 ```
 
