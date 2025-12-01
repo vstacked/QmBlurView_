@@ -23,7 +23,6 @@ jobs:
       - name: Read properties from gradle.properties
         id: read_props
         run: |
-          # 读取 QMBLURVIEW_VERSION
           if grep -q "^QMBLURVIEW_VERSION=" gradle.properties; then
             VERSION=$(grep "^QMBLURVIEW_VERSION=" gradle.properties | cut -d'=' -f2 | tr -d '\r')
             if [ -z "$VERSION" ]; then
@@ -81,7 +80,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           TAG_NAME="v${{ steps.read_props.outputs.version }}"
           git tag $TAG_NAME
-          git push origin $TAG_NAME
+          git push https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/${{ github.repository }}.git $TAG_NAME
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
@@ -94,4 +93,4 @@ jobs:
           draft: false
           prerelease: false
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
