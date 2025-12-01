@@ -17,7 +17,6 @@
 
 [![Maven Central 版本](https://img.shields.io/maven-central/v/com.qmdeve/QmBlurView?label=Maven%20Central%20版本)](https://central.sonatype.com/artifact/com.qmdeve/QmBlurView)
 [![GitHub Release 版本](https://img.shields.io/github/release/QmDeve/QmBlurView?label=GitHub%20Release%20版本)](https://github.com/QmDeve/QmBlurView/releases)
-[![Jitpack 测试版本](https://img.shields.io/jitpack/v/QmDeve/QmBlurView.svg?label=Jitpack%20测试版本&color=orange)](https://jitpack.io/#QmDeve/QmBlurView)
 
 <br>
 
@@ -55,7 +54,6 @@
 
 ## 集成
 
-### 使用稳定版本 (Maven Central)
 在模块的 `build.gradle` 文件中添加依赖项：
 
 ```gradle
@@ -73,40 +71,6 @@ dependencies {
 
 *查看上方的徽章以获取最新版本。*
 
-### 使用测试版本 (Jitpack)
-
-> ### 警告
-> 
-> `Jitpack` 将不会发布 `稳定版/正式版、RC版本`
-> 
-> **建议使用 `Maven Central` 集成方式**
-
-1.在项目的 `settings.gradle` 文件中添加存储库:
-
-```gradle
-dependencyResolutionManagement {
-	repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-	repositories {
-		maven { url 'https://jitpack.io' }
-	}
-}
-```
-
-2.在模块的 `build.gradle` 文件中添加依赖项：
-
-```gradle
-dependencies {
-   // 核心库（必需）
-   implementation 'com.github.QmDeve.QmBlurView:QmBlurView:v1.0.5-Beta04'
-   
-   // 底部导航支持（可选）
-   implementation 'com.github.QmDeve.QmBlurView:ButtomNavigation:v1.0.5-Beta04'
-   
-   // 图片加载变换（可选 - Glide/Picasso）
-   implementation 'com.github.QmDeve.QmBlurView:Transform:v1.0.5-Beta04'
-}
-```
-
 ## 使用方法
 
 ### 1. 基础 BlurView
@@ -121,8 +85,7 @@ dependencies {
     android:layout_height="200dp"
     app:blurRadius="25dp"
     app:cornerRadius="15dp"
-    app:overlayColor="#80FFFFFF"
-    android:layout_centerInParent="true" />
+    app:overlayColor="#80FFFFFF" />
 ```
 
 **Java:**
@@ -133,7 +96,31 @@ blurView.setCornerRadius(15);
 blurView.setOverlayColor(Color.parseColor("#80FFFFFF"));
 ```
 
-### 2. BlurButtonView
+### 2. BlurViewGroup
+
+使用 `BlurViewGroup` 容器
+
+**XML:**
+```xml
+```xml
+<com.qmdeve.blurview.widget.BlurViewGroup
+    android:id="@+id/blurViewGroup"
+    android:layout_width="200dp"
+    android:layout_height="200dp"
+    app:blurRadius="25dp"
+    app:cornerRadius="15dp"
+    app:overlayColor="#80FFFFFF" />
+```
+
+**Java:**
+```java
+BlurViewGroup blurViewGroup = findViewById(R.id.blurViewGroup);
+blurViewGroup.setBlurRadius(25);
+blurViewGroup.setCornerRadius(15);
+blurViewGroup.setOverlayColor(Color.parseColor("#80FFFFFF"));
+```
+
+### 3. BlurButtonView
 
 具有模糊背景的可定制按钮。
 
@@ -151,7 +138,7 @@ blurView.setOverlayColor(Color.parseColor("#80FFFFFF"));
     app:buttonTextBold="true" />
 ```
 
-### 3. BlurBottomNavigationView
+### 4. BlurBottomNavigationView
 
 内置模糊效果的底部导航栏。
 
@@ -168,7 +155,7 @@ blurView.setOverlayColor(Color.parseColor("#80FFFFFF"));
     android:layout_alignParentBottom="true" />
 ```
 
-### 4. 图片加载变换
+### 5. 图片加载变换
 
 直接对使用 Glide 或 Picasso 加载的图片应用模糊。
 
