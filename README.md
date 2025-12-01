@@ -52,9 +52,9 @@ English | [简体中文](./README_zh.md)
 - **Easy Integration**: Simple XML attributes and Java/Kotlin APIs.
 - **Broad Compatibility**: Supports Android 5.0 (API 21) and above.
 
-## integrated
+## Integration
 
-### Maven Central integration (recommended)
+### Maven Central Integration method (recommended)
 
 [![Maven Central Version](https://img.shields.io/maven-central/v/com.qmdeve.blurview/core?label=Maven%20Central%20Version)](https://central.sonatype.com/artifact/com.qmdeve.blurview/core)
 
@@ -73,7 +73,7 @@ dependencies {
 }
 ```
 
-### JitPack integration
+### JitPack Integration method
 
 [![JitPack Latest Version](https://jitpack.io/v/com.qmdeve/QmBlurView.svg?label=JitPack%20Latest%20Version)](https://jitpack.io/#com.qmdeve/QmBlurView)
 
