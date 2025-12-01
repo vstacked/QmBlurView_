@@ -14,12 +14,13 @@
 [![License](https://img.shields.io/github/license/QmDeve/QmBlurView.svg?logo=github&color=blue&label=License)](https://github.com/QmDeve/QmBlurView/blob/master/LICENSE)
 [![Android](https://img.shields.io/badge/Android-5.0%2B-brightgreen.svg)](https://developer.android.com)
 
-[![Maven Central Version](https://img.shields.io/maven-central/v/com.qmdeve/QmBlurView?label=Maven%20Central%20Version)](https://central.sonatype.com/artifact/com.qmdeve/QmBlurView)
+[![Maven Central Version](https://img.shields.io/maven-central/v/com.qmdeve.blurview/core?label=Maven%20Central%20Version)](https://central.sonatype.com/artifact/com.qmdeve.blurview/core)
+[![JitPack Latest Version](https://jitpack.io/v/com.qmdeve/QmBlurView.svg?label=JitPack%20Latest%20Version)](https://jitpack.io/#com.qmdeve/QmBlurView)
 [![GitHub Release Version](https://img.shields.io/github/release/QmDeve/QmBlurView?label=GitHub%20Release%20Version)](https://github.com/QmDeve/QmBlurView/releases)
 
 <br>
 
-English | [Français](./README_fr.md) | [简体中文](./README_zh.md) | [Русский](./README_ru.md)
+English | [简体中文](./README_zh.md)
 
 </div>
 
@@ -51,24 +52,57 @@ English | [Français](./README_fr.md) | [简体中文](./README_zh.md) | [Рус
 - **Easy Integration**: Simple XML attributes and Java/Kotlin APIs.
 - **Broad Compatibility**: Supports Android 5.0 (API 21) and above.
 
-## Installation
+## integrated
+
+### Maven Central integration (recommended)
+
+[![Maven Central Version](https://img.shields.io/maven-central/v/com.qmdeve.blurview/core?label=Maven%20Central%20Version)](https://central.sonatype.com/artifact/com.qmdeve.blurview/core)
 
 Add the dependencies to your module's `build.gradle` file:
 
 ```gradle
 dependencies {
     // Core Library (Required)
-    implementation 'com.qmdeve:QmBlurView:1.0.4.7'
+    implementation 'com.qmdeve.blurview:core:<version>'
 
-    // Bottom Navigation Support (Optional)
-    implementation 'com.qmdeve:QmBlurView.BottomNavigation:1.0.4.7'
+    // Navigation Support (Optional)
+    implementation 'com.qmdeve.blurview:navigation:<version>'
 
     // Image Loading Transformations (Optional - Glide/Picasso)
-    implementation 'com.qmdeve:QmBlurView.Transform:1.0.4.7'
+    implementation 'com.qmdeve.blurview:transform:<version>'
 }
 ```
 
-*Check the badge above for the latest version.*
+### JitPack integration
+
+[![JitPack Latest Version](https://jitpack.io/v/com.qmdeve/QmBlurView.svg?label=JitPack%20Latest%20Version)](https://jitpack.io/#com.qmdeve/QmBlurView)
+
+**1.Add the repository to the project's `settings.gradle `file:**
+
+```gradle
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+    }
+}
+```
+
+**2.Add the dependencies to your module's `build.gradle` file:**
+
+```gradle
+dependencies {
+    // Core Library (Required)
+    implementation 'com.qmdeve.QmBlurView:QmBlurView:<version>'
+	
+	// Navigation Support (Optional)
+    implementation 'com.qmdeve.QmBlurView:Navigation:<version>'
+	
+	// Image Loading Transformations (Optional - Glide/Picasso)
+    implementation 'com.qmdeve.QmBlurView:Transform:v1.0.5-Beta05'
+}
+```
 
 ## Usage
 

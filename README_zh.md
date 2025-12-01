@@ -15,12 +15,13 @@
 [![License](https://img.shields.io/github/license/QmDeve/QmBlurView.svg?logo=github&color=blue&label=License)](https://github.com/QmDeve/QmBlurView/blob/master/LICENSE)
 [![Android](https://img.shields.io/badge/Android-5.0%2B-brightgreen.svg)](https://developer.android.com)
 
-[![Maven Central 版本](https://img.shields.io/maven-central/v/com.qmdeve/QmBlurView?label=Maven%20Central%20版本)](https://central.sonatype.com/artifact/com.qmdeve/QmBlurView)
+[![Maven Central 版本](https://img.shields.io/maven-central/v/com.qmdeve.blurview/core?label=Maven%20Central%20版本)](https://central.sonatype.com/artifact/com.qmdeve.blurview/core)
+[![JitPack 最新版本](https://jitpack.io/v/com.qmdeve/QmBlurView.svg?label=JitPack%20版本)](https://jitpack.io/#com.qmdeve/QmBlurView)
 [![GitHub Release 版本](https://img.shields.io/github/release/QmDeve/QmBlurView?label=GitHub%20Release%20版本)](https://github.com/QmDeve/QmBlurView/releases)
 
 <br>
 
-[English](./README.md) | [Français](./README_fr.md) | 简体中文 | [Русский](./README_ru.md)
+[English](./README.md) | 简体中文
 
 </div>
 
@@ -54,22 +55,55 @@
 
 ## 集成
 
+### Maven Central 集成方式 (推荐)
+
+[![最新版本](https://img.shields.io/maven-central/v/com.qmdeve.blurview/core?label=最新版本)](https://central.sonatype.com/artifact/com.qmdeve.blurview/core)
+
 在模块的 `build.gradle` 文件中添加依赖项：
 
 ```gradle
 dependencies {
     // 核心库（必需）
-    implementation 'com.qmdeve:QmBlurView:1.0.4.7'
+    implementation 'com.qmdeve.blurview:core:<version>'
 
-    // 底部导航支持（可选）
-    implementation 'com.qmdeve:QmBlurView.BottomNavigation:1.0.4.7'
+    // 导航支持（可选）
+    implementation 'com.qmdeve.blurview:navigation:<version>'
 
     // 图片加载变换（可选 - Glide/Picasso）
-    implementation 'com.qmdeve:QmBlurView.Transform:1.0.4.7'
+    implementation 'com.qmdeve.blurview:transform:<version>'
 }
 ```
 
-*查看上方的徽章以获取最新版本。*
+### JitPack 集成方式
+
+[![JitPack 最新版本](https://jitpack.io/v/com.qmdeve/QmBlurView.svg?label=JitPack%20版本)](https://jitpack.io/#com.qmdeve/QmBlurView)
+
+**1.在项目的 `settings.gradle` 文件中添加存储库：**
+
+```gradle
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+    }
+}
+```
+
+**2.在模块的 `build.gradle` 文件中添加依赖项：**
+
+```gradle
+dependencies {
+    // 核心库（必需）
+    implementation 'com.qmdeve.QmBlurView:QmBlurView:<version>'
+	
+	// 导航支持（可选）
+    implementation 'com.qmdeve.QmBlurView:Navigation:<version>'
+	
+	// 图片加载变换（可选 - Glide/Picasso）
+    implementation 'com.qmdeve.QmBlurView:Transform:v1.0.5-Beta05'
+}
+```
 
 ## 使用方法
 
