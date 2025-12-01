@@ -16,7 +16,6 @@
 
 [![Maven Central Version](https://img.shields.io/maven-central/v/com.qmdeve/QmBlurView?label=Maven%20Central%20Version)](https://central.sonatype.com/artifact/com.qmdeve/QmBlurView)
 [![GitHub Release Version](https://img.shields.io/github/release/QmDeve/QmBlurView?label=GitHub%20Release%20Version)](https://github.com/QmDeve/QmBlurView/releases)
-[![Jitpack Beta Version](https://img.shields.io/jitpack/v/QmDeve/QmBlurView.svg?label=Jitpack%20Beta%20Version&color=orange)](https://jitpack.io/#QmDeve/QmBlurView)
 
 <br>
 
@@ -54,7 +53,6 @@ English | [Français](./README_fr.md) | [简体中文](./README_zh.md) | [Рус
 
 ## Installation
 
-### Use the stable Version (Maven Central)
 Add the dependencies to your module's `build.gradle` file:
 
 ```gradle
@@ -72,40 +70,6 @@ dependencies {
 
 *Check the badge above for the latest version.*
 
-### Use the test Version (Jitpack)
-
-> ### Warning
->
-> Jitpack will not release stable/official version and RC version
->
-> **It is recommended to use the `Maven Central`**
-
-1.Add the repository to the project's `settings.gradle`:
-
-```gradle
-dependencyResolutionManagement {
-	repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-	repositories {
-		maven { url 'https://jitpack.io' }
-	}
-}
-```
-
-2.Add the dependencies to your module's `build.gradle` file:
-
-```gradle
-dependencies {
-   // Core Library (Required)
-   implementation 'com.github.QmDeve.QmBlurView:QmBlurView:v1.0.5-Beta04'
-   
-   // Bottom Navigation Support (Optional)
-   implementation 'com.github.QmDeve.QmBlurView:ButtomNavigation:v1.0.5-Beta04'
-   
-   // Image Loading Transformations (Optional - Glide/Picasso)
-   implementation 'com.github.QmDeve.QmBlurView:Transform:v1.0.5-Beta04'
-}
-```
-
 ## Usage
 
 ### 1. Basic BlurView
@@ -120,8 +84,7 @@ Use `BlurView` to blur any part of your UI. It works best when placed on top of 
     android:layout_height="200dp"
     app:blurRadius="25dp"
     app:cornerRadius="15dp"
-    app:overlayColor="#80FFFFFF"
-    android:layout_centerInParent="true" />
+    app:overlayColor="#80FFFFFF" />
 ```
 
 **Java:**
@@ -132,7 +95,31 @@ blurView.setCornerRadius(15);
 blurView.setOverlayColor(Color.parseColor("#80FFFFFF"));
 ```
 
-### 2. BlurButtonView
+### 2. BlurViewGroup
+
+Use the `BlurViewGroup` container
+
+**XML:**
+```xml
+```xml
+<com.qmdeve.blurview.widget.BlurViewGroup
+    android:id="@+id/blurViewGroup"
+    android:layout_width="200dp"
+    android:layout_height="200dp"
+    app:blurRadius="25dp"
+    app:cornerRadius="15dp"
+    app:overlayColor="#80FFFFFF" />
+```
+
+**Java:**
+```java
+BlurViewGroup blurViewGroup = findViewById(R.id.blurViewGroup);
+blurViewGroup.setBlurRadius(25);
+blurViewGroup.setCornerRadius(15);
+blurViewGroup.setOverlayColor(Color.parseColor("#80FFFFFF"));
+```
+
+### 3. BlurButtonView
 
 A customizable button with a blur background.
 
@@ -150,7 +137,7 @@ A customizable button with a blur background.
     app:buttonTextBold="true" />
 ```
 
-### 3. BlurBottomNavigationView
+### 4. BlurBottomNavigationView
 
 A bottom navigation bar with a built-in blur effect.
 
@@ -167,7 +154,7 @@ A bottom navigation bar with a built-in blur effect.
     android:layout_alignParentBottom="true" />
 ```
 
-### 4. Image Loading Transformations
+### 5. Image Loading Transformations
 
 Apply blur directly to images loaded with Glide or Picasso.
 
