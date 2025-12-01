@@ -54,7 +54,6 @@
 
 ## 集成
 
-### 使用稳定版本 (Maven Central)
 在模块的 `build.gradle` 文件中添加依赖项：
 
 ```gradle
