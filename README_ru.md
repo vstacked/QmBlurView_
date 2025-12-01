@@ -16,7 +16,6 @@
 
 [![Maven Central Version](https://img.shields.io/maven-central/v/com.qmdeve/QmBlurView?label=Maven%20Central%20Version)](https://central.sonatype.com/artifact/com.qmdeve/QmBlurView)
 [![GitHub Release Version](https://img.shields.io/github/release/QmDeve/QmBlurView?label=GitHub%20Release%20Version)](https://github.com/QmDeve/QmBlurView/releases)
-[![Jitpack Beta Version](https://img.shields.io/jitpack/v/QmDeve/QmBlurView.svg?label=Jitpack%20Beta%20Version&color=orange)](https://jitpack.io/#QmDeve/QmBlurView)
 
 <br>
 
@@ -54,7 +53,6 @@
 
 ## Установка
 
-### Используйте стабильную версию (Maven Central)
 Добавьте зависимости в файл `build.gradle` вашего модуля:
 
 ```gradle
@@ -72,40 +70,6 @@ dependencies {
 
 *Проверьте значок выше для получения последней версии.*
 
-### Используйте тестовую версию (Jitpack)
-
-> ### Предупреждать
->
-> `Jitpack не выпустит стабильную версию/официальную версию и версию RC`
->
-> **Рекомендуется использовать метод интеграции `Maven Central`**
-
-1.Добавить репозиторий в файл `settings.gradle` проекта:
-
-```gradle
-dependencyResolutionManagement {
-	repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-	repositories {
-		maven { url 'https://jitpack.io' }
-	}
-}
-```
-
-2.Добавьте зависимости в файл `build.gradle` вашего модуля:
-
-```gradle
-dependencies {
-   // Основная библиотека (Обязательно)
-   implementation 'com.github.QmDeve.QmBlurView:QmBlurView:v1.0.5-Beta05'
-   
-   // Поддержка нижней навигации (Опционально)
-   implementation 'com.github.QmDeve.QmBlurView:ButtomNavigation:v1.0.5-Beta05'
-   
-   // Трансформации для загрузки изображений (Опционально - Glide/Picasso)
-   implementation 'com.github.QmDeve.QmBlurView:Transform:v1.0.5-Beta05'
-}
-```
-
 ## Использование
 
 ### 1. Базовый BlurView
@@ -120,8 +84,7 @@ dependencies {
     android:layout_height="200dp"
     app:blurRadius="25dp"
     app:cornerRadius="15dp"
-    app:overlayColor="#80FFFFFF"
-    android:layout_centerInParent="true" />
+    app:overlayColor="#80FFFFFF" />
 ```
 
 **Java:**
@@ -132,7 +95,31 @@ blurView.setCornerRadius(15);
 blurView.setOverlayColor(Color.parseColor("#80FFFFFF"));
 ```
 
-### 2. BlurButtonView
+### 2. BlurViewGroup
+
+Используйте контейнер `BlurViewGroup`
+
+**XML:**
+```xml
+```xml
+<com.qmdeve.blurview.widget.BlurViewGroup
+    android:id="@+id/blurViewGroup"
+    android:layout_width="200dp"
+    android:layout_height="200dp"
+    app:blurRadius="25dp"
+    app:cornerRadius="15dp"
+    app:overlayColor="#80FFFFFF" />
+```
+
+**Java:**
+```java
+BlurViewGroup blurViewGroup = findViewById(R.id.blurViewGroup);
+blurViewGroup.setBlurRadius(25);
+blurViewGroup.setCornerRadius(15);
+blurViewGroup.setOverlayColor(Color.parseColor("#80FFFFFF"));
+```
+
+### 3. BlurButtonView
 
 Настраиваемая кнопка с размытым фоном.
 
@@ -150,7 +137,7 @@ blurView.setOverlayColor(Color.parseColor("#80FFFFFF"));
     app:buttonTextBold="true" />
 ```
 
-### 3. BlurBottomNavigationView
+### 4. BlurBottomNavigationView
 
 Нижняя навигационная панель со встроенным эффектом размытия.
 
@@ -167,7 +154,7 @@ blurView.setOverlayColor(Color.parseColor("#80FFFFFF"));
     android:layout_alignParentBottom="true" />
 ```
 
-### 4. Трансформации для Загрузки Изображений
+### 5. Трансформации для Загрузки Изображений
 
 Применяйте размытие непосредственно к изображениям, загруженным с помощью Glide или Picasso.
 

@@ -16,7 +16,6 @@
 
 [![Maven Central Version](https://img.shields.io/maven-central/v/com.qmdeve/QmBlurView?label=Maven%20Central%20Version)](https://central.sonatype.com/artifact/com.qmdeve/QmBlurView)
 [![GitHub Release Version](https://img.shields.io/github/release/QmDeve/QmBlurView?label=GitHub%20Release%20Version)](https://github.com/QmDeve/QmBlurView/releases)
-[![Jitpack Beta Version](https://img.shields.io/jitpack/v/QmDeve/QmBlurView.svg?label=Jitpack%20Beta%20Version&color=orange)](https://jitpack.io/#QmDeve/QmBlurView)
 
 <br>
 
@@ -54,7 +53,6 @@
 
 ## Installation
 
-### Utilisez la version stable (Maven Central)
 Ajoutez les dépendances au fichier `build.gradle` de votre module :
 
 ```gradle
@@ -72,40 +70,6 @@ dependencies {
 
 *Vérifiez le badge ci-dessus pour la dernière version.*
 
-### Utilisez la version d'essai (Jitpack)
-
-> ### Avertir
->
-> Jitpack ne publiera pas la version stable/officielle et la version RC.
->
-> **Il est recommandé d'utiliser la méthode d'intégration `Maven Central`**
-
-1.Ajouter un référentiel au fichier `settings.gradle` du projet:
-
-```gradle
-dependencyResolutionManagement {
-	repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-	repositories {
-		maven { url 'https://jitpack.io' }
-	}
-}
-```
-
-2.Ajoutez les dépendances au fichier `build.gradle` de votre module:
-
-```gradle
-dependencies {
-   // Bibliothèque Principale (Requis)
-   implementation 'com.github.QmDeve.QmBlurView:QmBlurView:v1.0.5-Beta05'
-   
-   // Support de Navigation Inférieure (Optionnel)
-   implementation 'com.github.QmDeve.QmBlurView:ButtomNavigation:v1.0.5-Beta05'
-   
-   // Transformations de Chargement d'Images (Optionnel - Glide/Picasso)
-   implementation 'com.github.QmDeve.QmBlurView:Transform:v1.0.5-Beta05'
-}
-```
-
 ## Utilisation
 
 ### 1. BlurView Basique
@@ -120,8 +84,7 @@ Utilisez `BlurView` pour flouter n'importe quelle partie de votre interface util
     android:layout_height="200dp"
     app:blurRadius="25dp"
     app:cornerRadius="15dp"
-    app:overlayColor="#80FFFFFF"
-    android:layout_centerInParent="true" />
+    app:overlayColor="#80FFFFFF" />
 ```
 
 **Java :**
@@ -132,7 +95,31 @@ blurView.setCornerRadius(15);
 blurView.setOverlayColor(Color.parseColor("#80FFFFFF"));
 ```
 
-### 2. BlurButtonView
+### 2. BlurViewGroup
+
+Utilisez le conteneur `BlurViewGroup`
+
+**XML:**
+```xml
+```xml
+<com.qmdeve.blurview.widget.BlurViewGroup
+    android:id="@+id/blurViewGroup"
+    android:layout_width="200dp"
+    android:layout_height="200dp"
+    app:blurRadius="25dp"
+    app:cornerRadius="15dp"
+    app:overlayColor="#80FFFFFF" />
+```
+
+**Java:**
+```java
+BlurViewGroup blurViewGroup = findViewById(R.id.blurViewGroup);
+blurViewGroup.setBlurRadius(25);
+blurViewGroup.setCornerRadius(15);
+blurViewGroup.setOverlayColor(Color.parseColor("#80FFFFFF"));
+```
+
+### 3. BlurButtonView
 
 Un bouton personnalisable avec un fond flou.
 
@@ -150,7 +137,7 @@ Un bouton personnalisable avec un fond flou.
     app:buttonTextBold="true" />
 ```
 
-### 3. BlurBottomNavigationView
+### 4. BlurBottomNavigationView
 
 Une barre de navigation inférieure avec un effet de flou intégré.
 
@@ -167,7 +154,7 @@ Une barre de navigation inférieure avec un effet de flou intégré.
     android:layout_alignParentBottom="true" />
 ```
 
-### 4. Transformations de Chargement d'Images
+### 5. Transformations de Chargement d'Images
 
 Appliquez le flou directement aux images chargées avec Glide ou Picasso.
 
