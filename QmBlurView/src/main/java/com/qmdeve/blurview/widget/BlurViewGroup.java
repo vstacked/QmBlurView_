@@ -1,5 +1,6 @@
 package com.qmdeve.blurview.widget;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -94,23 +95,53 @@ public class BlurViewGroup extends ViewGroup {
         }
     }
 
+    @SuppressLint("DrawAllocation")
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int count = getChildCount();
+
+        int widthMode = MeasureSpec.getMode(widthMeasureSpec);
+        int widthSize = MeasureSpec.getSize(widthMeasureSpec);
+        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+        int heightSize = MeasureSpec.getSize(heightMeasureSpec);
 
         int maxChildWidth = 0;
         int maxChildHeight = 0;
         int childState = 0;
 
+        int[] childMeasuredWidths = new int[count];
+        int[] childMeasuredHeights = new int[count];
+        boolean[] childMeasured = new boolean[count];
+
         for (int i = 0; i < count; i++) {
             final View child = getChildAt(i);
             if (child.getVisibility() != GONE) {
-                final LayoutParams lp = (LayoutParams) child.getLayoutParams();
+                final ViewGroup.LayoutParams rawLp = child.getLayoutParams();
+                final LayoutParams lp;
 
-                measureChildWithMargins(child, widthMeasureSpec, 0, heightMeasureSpec, 0);
+                if (rawLp instanceof LayoutParams) {
+                    lp = (LayoutParams) rawLp;
+                } else {
+                    ViewGroup.LayoutParams generatedLp = generateLayoutParams(rawLp);
+                    if (generatedLp instanceof LayoutParams) {
+                        lp = (LayoutParams) generatedLp;
+                    } else {
+                        lp = new LayoutParams(generatedLp.width, generatedLp.height);
+                    }
+                    child.setLayoutParams(lp);
+                }
 
-                maxChildWidth = Math.max(maxChildWidth, child.getMeasuredWidth() + lp.leftMargin + lp.rightMargin);
-                maxChildHeight = Math.max(maxChildHeight, child.getMeasuredHeight() + lp.topMargin + lp.bottomMargin);
+                int childWidthMeasureSpec = getChildMeasureSpec(widthMeasureSpec, getPaddingLeft() + getPaddingRight() + lp.leftMargin + lp.rightMargin, lp.width);
+                int childHeightMeasureSpec = getChildMeasureSpec(heightMeasureSpec, getPaddingTop() + getPaddingBottom() + lp.topMargin + lp.bottomMargin, lp.height);
+
+                child.measure(childWidthMeasureSpec, childHeightMeasureSpec);
+
+                childMeasuredWidths[i] = child.getMeasuredWidth();
+                childMeasuredHeights[i] = child.getMeasuredHeight();
+                childMeasured[i] = true;
+
+                maxChildWidth = Math.max(maxChildWidth, childMeasuredWidths[i] + lp.leftMargin + lp.rightMargin);
+                maxChildHeight = Math.max(maxChildHeight, childMeasuredHeights[i] + lp.topMargin + lp.bottomMargin);
                 childState = combineMeasuredStates(childState, child.getMeasuredState());
             }
         }
@@ -119,11 +150,6 @@ public class BlurViewGroup extends ViewGroup {
         maxChildHeight += getPaddingTop() + getPaddingBottom();
         maxChildWidth = Math.max(maxChildWidth, getSuggestedMinimumWidth());
         maxChildHeight = Math.max(maxChildHeight, getSuggestedMinimumHeight());
-
-        int widthMode = MeasureSpec.getMode(widthMeasureSpec);
-        int widthSize = MeasureSpec.getSize(widthMeasureSpec);
-        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
-        int heightSize = MeasureSpec.getSize(heightMeasureSpec);
 
         int measuredWidth;
         int measuredHeight;
@@ -148,41 +174,60 @@ public class BlurViewGroup extends ViewGroup {
 
         for (int i = 0; i < count; i++) {
             final View child = getChildAt(i);
-            if (child.getVisibility() != GONE) {
+            if (child.getVisibility() != GONE && childMeasured[i]) {
                 final LayoutParams lp = (LayoutParams) child.getLayoutParams();
 
-                int childWidthMeasureSpec = getChildMeasureSpec(widthMeasureSpec, getPaddingLeft() + getPaddingRight() + lp.leftMargin + lp.rightMargin, lp.width);
-                int childHeightMeasureSpec = getChildMeasureSpec(heightMeasureSpec, getPaddingTop() + getPaddingBottom() + lp.topMargin + lp.bottomMargin, lp.height);
+                boolean needRemasure = false;
+                int newChildWidthMeasureSpec = 0;
+                int newChildHeightMeasureSpec = 0;
 
                 if (lp.width == LayoutParams.MATCH_PARENT) {
                     int availableWidth = measuredWidth - getPaddingLeft() - getPaddingRight() - lp.leftMargin - lp.rightMargin;
-                    if (availableWidth > 0) {
-                        childWidthMeasureSpec = MeasureSpec.makeMeasureSpec(availableWidth, MeasureSpec.EXACTLY);
+                    if (availableWidth > 0 && availableWidth != childMeasuredWidths[i]) {
+                        newChildWidthMeasureSpec = MeasureSpec.makeMeasureSpec(availableWidth, MeasureSpec.EXACTLY);
+                        needRemasure = true;
                     }
                 }
 
                 if (lp.height == LayoutParams.MATCH_PARENT) {
                     int availableHeight = measuredHeight - getPaddingTop() - getPaddingBottom() - lp.topMargin - lp.bottomMargin;
-                    if (availableHeight > 0) {
-                        childHeightMeasureSpec = MeasureSpec.makeMeasureSpec(availableHeight, MeasureSpec.EXACTLY);
+                    if (availableHeight > 0 && availableHeight != childMeasuredHeights[i]) {
+                        newChildHeightMeasureSpec = MeasureSpec.makeMeasureSpec(availableHeight, MeasureSpec.EXACTLY);
+                        needRemasure = true;
                     }
                 }
 
-                if (lp.gravity != -1 && (lp.gravity & Gravity.FILL_HORIZONTAL) == Gravity.FILL_HORIZONTAL) {
-                    int availableWidth = measuredWidth - getPaddingLeft() - getPaddingRight() - lp.leftMargin - lp.rightMargin;
-                    if (availableWidth > 0 && lp.width != LayoutParams.MATCH_PARENT) {
-                        childWidthMeasureSpec = MeasureSpec.makeMeasureSpec(availableWidth, MeasureSpec.EXACTLY);
+                if (lp.gravity != -1) {
+                    if ((lp.gravity & Gravity.FILL_HORIZONTAL) == Gravity.FILL_HORIZONTAL &&
+                            lp.width != LayoutParams.MATCH_PARENT) {
+                        int availableWidth = measuredWidth - getPaddingLeft() - getPaddingRight() - lp.leftMargin - lp.rightMargin;
+                        if (availableWidth > 0 && availableWidth != childMeasuredWidths[i]) {
+                            newChildWidthMeasureSpec = MeasureSpec.makeMeasureSpec(availableWidth, MeasureSpec.EXACTLY);
+                            needRemasure = true;
+                        }
+                    }
+
+                    if ((lp.gravity & Gravity.FILL_VERTICAL) == Gravity.FILL_VERTICAL &&
+                            lp.height != LayoutParams.MATCH_PARENT) {
+                        int availableHeight = measuredHeight - getPaddingTop() - getPaddingBottom() - lp.topMargin - lp.bottomMargin;
+                        if (availableHeight > 0 && availableHeight != childMeasuredHeights[i]) {
+                            newChildHeightMeasureSpec = MeasureSpec.makeMeasureSpec(availableHeight, MeasureSpec.EXACTLY);
+                            needRemasure = true;
+                        }
                     }
                 }
 
-                if (lp.gravity != -1 && (lp.gravity & Gravity.FILL_VERTICAL) == Gravity.FILL_VERTICAL) {
-                    int availableHeight = measuredHeight - getPaddingTop() - getPaddingBottom() - lp.topMargin - lp.bottomMargin;
-                    if (availableHeight > 0 && lp.height != LayoutParams.MATCH_PARENT) {
-                        childHeightMeasureSpec = MeasureSpec.makeMeasureSpec(availableHeight, MeasureSpec.EXACTLY);
+                if (needRemasure) {
+                    if (newChildWidthMeasureSpec == 0) {
+                        newChildWidthMeasureSpec = getChildMeasureSpec(widthMeasureSpec, getPaddingLeft() + getPaddingRight() + lp.leftMargin + lp.rightMargin, lp.width);
                     }
-                }
 
-                child.measure(childWidthMeasureSpec, childHeightMeasureSpec);
+                    if (newChildHeightMeasureSpec == 0) {
+                        newChildHeightMeasureSpec = getChildMeasureSpec(heightMeasureSpec, getPaddingTop() + getPaddingBottom() + lp.topMargin + lp.bottomMargin, lp.height);
+                    }
+
+                    child.measure(newChildWidthMeasureSpec, newChildHeightMeasureSpec);
+                }
             }
         }
     }
@@ -190,7 +235,6 @@ public class BlurViewGroup extends ViewGroup {
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         final int count = getChildCount();
-
         final int parentLeft = getPaddingLeft();
         final int parentTop = getPaddingTop();
         final int parentRight = r - l - getPaddingRight();
@@ -202,35 +246,48 @@ public class BlurViewGroup extends ViewGroup {
             final View child = getChildAt(i);
             if (child.getVisibility() != GONE) {
                 final LayoutParams lp = (LayoutParams) child.getLayoutParams();
-
                 final int childWidth = child.getMeasuredWidth();
                 final int childHeight = child.getMeasuredHeight();
-
-                int childLeft;
-                int childTop;
 
                 int gravity = lp.gravity;
                 if (gravity == -1) {
                     gravity = Gravity.TOP | Gravity.START;
                 }
-
                 final int horizontalGravity = gravity & Gravity.HORIZONTAL_GRAVITY_MASK;
                 final int verticalGravity = gravity & Gravity.VERTICAL_GRAVITY_MASK;
 
-                childLeft = switch (horizontalGravity) {
-                    case Gravity.CENTER_HORIZONTAL -> parentLeft + (parentWidth - childWidth) / 2 + lp.leftMargin - lp.rightMargin;
-                    case Gravity.RIGHT -> parentRight - childWidth - lp.rightMargin;
-                    default -> parentLeft + lp.leftMargin;
-                };
+                int childLeft;
+                int childTop;
 
-                childTop = switch (verticalGravity) {
-                    case Gravity.CENTER_VERTICAL -> parentTop + (parentHeight - childHeight) / 2 + lp.topMargin - lp.bottomMargin;
-                    case Gravity.BOTTOM -> parentBottom - childHeight - lp.bottomMargin;
-                    default -> parentTop + lp.topMargin;
-                };
+                switch (horizontalGravity) {
+                    case Gravity.CENTER_HORIZONTAL:
+                        childLeft = parentLeft + (parentWidth - childWidth) / 2 + lp.leftMargin - lp.rightMargin;
+                        break;
+                    case Gravity.RIGHT:
+                        childLeft = parentRight - childWidth - lp.rightMargin;
+                        break;
+                    default:
+                        childLeft = parentLeft + lp.leftMargin;
+                        break;
+                }
 
-                childLeft = Math.max(parentLeft, Math.min(childLeft, parentRight - childWidth));
-                childTop = Math.max(parentTop, Math.min(childTop, parentBottom - childHeight));
+                switch (verticalGravity) {
+                    case Gravity.CENTER_VERTICAL:
+                        childTop = parentTop + (parentHeight - childHeight) / 2 + lp.topMargin - lp.bottomMargin;
+                        break;
+                    case Gravity.BOTTOM:
+                        childTop = parentBottom - childHeight - lp.bottomMargin;
+                        break;
+                    default:
+                        childTop = parentTop + lp.topMargin;
+                        break;
+                }
+
+                int maxLeft = parentRight - Math.min(childWidth, parentWidth);
+                childLeft = Math.max(parentLeft, Math.min(childLeft, maxLeft));
+
+                int maxTop = parentBottom - Math.min(childHeight, parentHeight);
+                childTop = Math.max(parentTop, Math.min(childTop, maxTop));
 
                 child.layout(childLeft, childTop, childLeft + childWidth, childTop + childHeight);
             }
