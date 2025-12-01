@@ -1,0 +1,95 @@
+name: Publish New Version
+
+on:
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Validate gradle.properties exists
+        run: |
+          if [ ! -f "gradle.properties" ]; then
+            echo "gradle.properties file not found!"
+            exit 1
+          fi
+
+      - name: Read properties from gradle.properties
+        id: read_props
+        run: |
+          # 读取 QMBLURVIEW_VERSION
+          if grep -q "^QMBLURVIEW_VERSION=" gradle.properties; then
+            VERSION=$(grep "^QMBLURVIEW_VERSION=" gradle.properties | cut -d'=' -f2 | tr -d '\r')
+            if [ -z "$VERSION" ]; then
+              echo "Version is empty in gradle.properties"
+              exit 1
+            fi
+            echo "version=$VERSION" >> $GITHUB_OUTPUT
+            echo "version_tag=v$VERSION" >> $GITHUB_OUTPUT
+            echo "Publishing version: $VERSION"
+          else
+            echo "QMBLURVIEW_VERSION property not found in gradle.properties"
+            exit 1
+          fi
+          
+          if grep -q "^JAVA_VERSION=" gradle.properties; then
+            JAVA_VERSION=$(grep "^JAVA_VERSION=" gradle.properties | cut -d'=' -f2 | tr -d '\r')
+            echo "java_version=$JAVA_VERSION" >> $GITHUB_OUTPUT
+            echo "Using Java version: $JAVA_VERSION"
+          else
+            echo "JAVA_VERSION property not found in gradle.properties, using default '8'"
+            echo "java_version=8" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Check if tag already exists
+        id: check_tag
+        run: |
+          TAG_NAME="v${{ steps.read_props.outputs.version }}"
+          if git rev-parse "refs/tags/$TAG_NAME" >/dev/null 2>&1; then
+            echo "Tag $TAG_NAME already exists!"
+            exit 1
+          fi
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '${{ steps.read_props.outputs.java_version }}'
+          distribution: 'temurin'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Publish to Maven Central
+        run: ./gradlew publishToMavenCentral
+        env:
+          ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.SIGNING_KEY }}
+          ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.SIGNING_PASSWORD }}
+          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
+          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
+
+      - name: Create Tag
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          TAG_NAME="v${{ steps.read_props.outputs.version }}"
+          git tag $TAG_NAME
+          git push origin $TAG_NAME
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ steps.read_props.outputs.version }}
+          name: Release v${{ steps.read_props.outputs.version }}
+          body: |
+            ## What's Changed
+            - Version: ${{ steps.read_props.outputs.version }}
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
