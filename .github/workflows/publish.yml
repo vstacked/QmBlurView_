@@ -66,7 +66,9 @@ jobs:
         uses: gradle/actions/setup-gradle@v3
 
       - name: Publish to Maven Central
-        run: ./gradlew publishToMavenCentral
+        run: |
+          chmod +x ./gradlew
+          ./gradlew publishToMavenCentral
         env:
           ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.SIGNING_KEY }}
           ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.SIGNING_PASSWORD }}
