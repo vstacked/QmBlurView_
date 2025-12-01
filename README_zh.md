@@ -57,7 +57,7 @@
 
 ### Maven Central 集成方式 (推荐)
 
-[![最新版本](https://img.shields.io/maven-central/v/com.qmdeve.blurview/core?label=最新版本)](https://central.sonatype.com/artifact/com.qmdeve.blurview/core)
+[![最新版本](https://img.shields.io/maven-central/v/com.qmdeve.blurview/core?label=Maven%20Central最新版本)](https://central.sonatype.com/artifact/com.qmdeve.blurview/core)
 
 在模块的 `build.gradle` 文件中添加依赖项：
 
@@ -76,7 +76,7 @@ dependencies {
 
 ### JitPack 集成方式
 
-[![JitPack 最新版本](https://jitpack.io/v/com.qmdeve/QmBlurView.svg?label=JitPack%20版本)](https://jitpack.io/#com.qmdeve/QmBlurView)
+[![JitPack 最新版本](https://jitpack.io/v/com.qmdeve/QmBlurView.svg?label=JitPack%20最新版本)](https://jitpack.io/#com.qmdeve/QmBlurView)
 
 **1.在项目的 `settings.gradle` 文件中添加存储库：**
 
@@ -97,11 +97,11 @@ dependencies {
     // 核心库（必需）
     implementation 'com.qmdeve.QmBlurView:QmBlurView:<version>'
 	
-	// 导航支持（可选）
+    // 导航支持（可选）
     implementation 'com.qmdeve.QmBlurView:Navigation:<version>'
 	
-	// 图片加载变换（可选 - Glide/Picasso）
-    implementation 'com.qmdeve.QmBlurView:Transform:v1.0.5-Beta05'
+    // 图片加载变换（可选 - Glide/Picasso）
+    implementation 'com.qmdeve.QmBlurView:Transform:<version>'
 }
 ```
 

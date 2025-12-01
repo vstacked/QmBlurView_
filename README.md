@@ -77,7 +77,7 @@ dependencies {
 
 [![JitPack Latest Version](https://jitpack.io/v/com.qmdeve/QmBlurView.svg?label=JitPack%20Latest%20Version)](https://jitpack.io/#com.qmdeve/QmBlurView)
 
-**1.Add the repository to the project's `settings.gradle `file:**
+**1.Add the repository to the project's `settings.gradle` file:**
 
 ```gradle
 dependencyResolutionManagement {
@@ -96,11 +96,11 @@ dependencies {
     // Core Library (Required)
     implementation 'com.qmdeve.QmBlurView:QmBlurView:<version>'
 	
-	// Navigation Support (Optional)
+    // Navigation Support (Optional)
     implementation 'com.qmdeve.QmBlurView:Navigation:<version>'
 	
-	// Image Loading Transformations (Optional - Glide/Picasso)
-    implementation 'com.qmdeve.QmBlurView:Transform:v1.0.5-Beta05'
+    // Image Loading Transformations (Optional - Glide/Picasso)
+    implementation 'com.qmdeve.QmBlurView:Transform:<version>'
 }
 ```
 
