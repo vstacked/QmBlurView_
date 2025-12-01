@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
-    id "com.vanniktech.maven.publish" version "0.35.0"
-    id 'signing'
+    alias(libs.plugins.vanniktech.maven.publish)
+    alias(libs.plugins.signing)
 }
 
 android {
@@ -43,8 +43,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.toVersion(project.JAVA_VERSION)
-        targetCompatibility JavaVersion.toVersion(project.JAVA_VERSION)
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 }
 
@@ -57,7 +57,7 @@ mavenPublishing {
     coordinates(GROUP_NAME, ARTIFACT_NAME, QMBLURVIEW_VERSION)
 
     pom {
-        name = 'QmBlurView Library'
+        name = 'QmBlurView Core'
         description = 'QmBlurView is an Android UI component library that integrates a variety of blur effects, including BlurView, BlurButtonView, ProgressiveBlurView, BlurTitleBarView, BottomNavigationView, BlurSwitchButtonView, and BlurFloatingButtonView'
         url = 'https://github.com/QmDeve/QmBlurView'
         inceptionYear = '2025'
