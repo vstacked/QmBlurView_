@@ -43,8 +43,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MenuUtils {
+    /**
+     * Android attribute namespace used for reading standard menu attributes
+     * such as {@code android:title}, {@code android:icon}, and {@code android:id}.
+     */
     private static final String ANDROID_NAMESPACE = "http://schemas.android.com/apk/res/android";
 
+    /**
+     * Parses a menu XML resource and extracts all {@code <item>} elements into a list
+     * of {@link MenuItem} objects. Attributes such as title, icon, and id are resolved
+     * from either resource references or literal values defined in the XML.
+     *
+     * <p>Typical usage involves reading an Android menu layout inside a non-UI component
+     * or utility class that needs access to the menu structure.</p>
+     *
+     * @param context   the application context used to access resources
+     * @param menuResId the resource ID of the menu XML to parse
+     * @return a list of {@link MenuItem} instances extracted from the XML; never {@code null}
+     */
     public static List<MenuItem> parseMenu(Context context, int menuResId) {
         List<MenuItem> menuItems = new ArrayList<>();
 
@@ -67,6 +83,7 @@ public class MenuUtils {
                         if ("item".equals(tagName)) {
                             currentItem = new MenuItem();
 
+                            // Resolve title attribute
                             int titleRes = parser.getAttributeResourceValue(ANDROID_NAMESPACE, "title", 0);
                             if (titleRes != 0) {
                                 currentItem.setTitle(context.getResources().getString(titleRes));
@@ -74,16 +91,16 @@ public class MenuUtils {
                                 currentItem.setTitle(parser.getAttributeValue(ANDROID_NAMESPACE, "title"));
                             }
 
+                            // Resolve icon attribute
                             int iconRes = parser.getAttributeResourceValue(ANDROID_NAMESPACE, "icon", 0);
                             if (iconRes != 0) {
                                 currentItem.setIcon(context.getResources().getResourceName(iconRes));
                             } else {
-                                String iconAttr = parser.getAttributeValue(ANDROID_NAMESPACE, "icon");
-                                currentItem.setIcon(iconAttr);
+                                currentItem.setIcon(parser.getAttributeValue(ANDROID_NAMESPACE, "icon"));
                             }
 
-                            String id = parser.getAttributeValue(ANDROID_NAMESPACE, "id");
-                            currentItem.setId(id);
+                            // Resolve id attribute in raw string form (e.g., "@+id/menu_item")
+                            currentItem.setId(parser.getAttributeValue(ANDROID_NAMESPACE, "id"));
                         }
                         break;
 
@@ -107,18 +124,65 @@ public class MenuUtils {
         return menuItems;
     }
 
+    /**
+     * Represents a menu item parsed from an Android menu XML resource.
+     * Contains the resolved values for ID, title, and icon attributes.
+     */
     public static class MenuItem {
         private String id;
         private String title;
         private String icon;
         private String showAsAction;
+
+        /**
+         * Returns the raw string value of the {@code android:id} attribute.
+         *
+         * @return the menu item ID string
+         */
         public String getId() { return id; }
+
+        /**
+         * Sets the raw string representation of the menu item's ID.
+         *
+         * @param id the ID string extracted from the XML
+         */
         public void setId(String id) { this.id = id; }
+
+        /**
+         * Returns the resolved menu item title. May be either a resource string
+         * or a literal value defined in the XML.
+         *
+         * @return the menu item title
+         */
         public String getTitle() { return title; }
+
+        /**
+         * Sets the title for this menu item.
+         *
+         * @param title the title string
+         */
         public void setTitle(String title) { this.title = title; }
+
+        /**
+         * Returns the icon reference string. When the icon attribute refers to
+         * a drawable resource, this will contain the resource name.
+         *
+         * @return the icon reference or literal value
+         */
         public String getIcon() { return icon; }
+
+        /**
+         * Sets the icon value for this menu item.
+         *
+         * @param icon the icon reference string
+         */
         public void setIcon(String icon) { this.icon = icon; }
 
+        /**
+         * Returns a string representation of this menu item for debugging purposes.
+         *
+         * @return formatted menu item information
+         */
         @Override
         public String toString() {
             return "MenuItem{" +

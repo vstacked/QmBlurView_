@@ -47,20 +47,46 @@ import com.qmdeve.blurview.R;
 import com.qmdeve.blurview.base.BaseBlurView;
 import com.qmdeve.blurview.util.Utils;
 
+/**
+ * Blur view component
+ * Extends BaseBlurView to implement Gaussian blur effect
+ */
 public class BlurView extends BaseBlurView {
 
+    /**
+     * Constructor
+     * @param context Context
+     * @param attrs Attribute set from XML
+     */
     public BlurView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
+    /**
+     * Initialize view attributes
+     * Reads custom attribute values from XML layout file
+     * @param context Context
+     * @param attrs Attribute set from XML
+     */
     @Override
     protected void initAttributes(Context context, AttributeSet attrs) {
+        // Get custom attribute values
         @SuppressLint("CustomViewStyleable")
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.BlurView);
+
+        // Blur radius, default 25dp
         mBlurRadius = a.getDimension(R.styleable.BlurView_blurRadius, Utils.dp2px(getResources(), 25));
+
+        // Overlay color, default semi-transparent white
         mOverlayColor = a.getColor(R.styleable.BlurView_overlayColor, 0xAAFFFFFF);
+
+        // Corner radius, default no rounding
         mCornerRadius = a.getDimension(R.styleable.BlurView_cornerRadius, 0);
+
+        // Downsample factor, default no downsampling
         mDownsampleFactor = a.getFloat(R.styleable.BlurView_downsampleFactor, 0f);
+
+        // Release TypedArray resources
         a.recycle();
     }
 

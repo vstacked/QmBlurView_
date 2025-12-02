@@ -61,6 +61,26 @@ import com.qmdeve.blurview.util.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A custom bottom navigation view with blur background support.
+ * <p>
+ * This component displays a set of tabs parsed from a menu resource and renders them using
+ * {@link TabView}. It supports icon and text customization, integrates with {@link ViewPager}
+ * and {@link ViewPager2}, and automatically adjusts its height when obscured by the system
+ * navigation bar.
+ * </p>
+ *
+ * <p>
+ * The view handles:
+ * <ul>
+ *     <li>Blurred background drawing</li>
+ *     <li>Menu parsing and tab initialization</li>
+ *     <li>Tab selection and state updates</li>
+ *     <li>Touch event delegation to {@link TabViewManager}</li>
+ *     <li>Insets handling for navigation bars</li>
+ * </ul>
+ * </p>
+ */
 public class BlurBottomNavigationView extends BaseBlurView {
     private int mMenuResId;
     private int mSelectedColor;
@@ -79,10 +99,21 @@ public class BlurBottomNavigationView extends BaseBlurView {
     public boolean mIsObscuredByNavigationBar = false;
     private final TabViewManager mTabViewManager;
 
+    /**
+     * Constructs the navigation view programmatically.
+     *
+     * @param context the context used to initialize the view
+     */
     public BlurBottomNavigationView(Context context) {
         this(context, null);
     }
 
+    /**
+     * Constructs the navigation view with attributes from XML.
+     *
+     * @param context the context
+     * @param attrs   the attribute set from XML
+     */
     public BlurBottomNavigationView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
@@ -91,6 +122,12 @@ public class BlurBottomNavigationView extends BaseBlurView {
         mTabViewManager = new TabViewManager(this);
     }
 
+    /**
+     * Initializes custom attributes defined for this view.
+     *
+     * @param context the context used to access resources
+     * @param attrs   the attribute set passed from XML
+     */
     @Override
     protected void initAttributes(Context context, AttributeSet attrs) {
         @SuppressLint("CustomViewStyleable")
@@ -101,14 +138,24 @@ public class BlurBottomNavigationView extends BaseBlurView {
         mMenuResId = a.getResourceId(R.styleable.BlurBottomNavigationView_menu, 0);
         mSelectedColor = a.getColor(R.styleable.BlurBottomNavigationView_navSelectedColor, Color.BLUE);
         mUnselectedColor = a.getColor(R.styleable.BlurBottomNavigationView_navUnselectedColor, Color.GRAY);
-        mIconSize = a.getDimension(R.styleable.BlurBottomNavigationView_item_iconSize,
-                TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24, getResources().getDisplayMetrics()));
-        mTextSize = a.getDimension(R.styleable.BlurBottomNavigationView_item_textSize,
-                TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 12, getResources().getDisplayMetrics()));
+        mIconSize = a.getDimension(
+                R.styleable.BlurBottomNavigationView_item_iconSize,
+                TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24, getResources().getDisplayMetrics())
+        );
+        mTextSize = a.getDimension(
+                R.styleable.BlurBottomNavigationView_item_textSize,
+                TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 12, getResources().getDisplayMetrics())
+        );
         mTextBold = a.getBoolean(R.styleable.BlurBottomNavigationView_item_textBold, false);
         a.recycle();
     }
 
+    /**
+     * Measures the view's height based on its fixed tab height and system navigation bar height.
+     *
+     * @param widthMeasureSpec  horizontal measurement specification
+     * @param heightMeasureSpec vertical measurement specification
+     */
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int totalHeight = mFixedHeightPx + mNavigationBarHeight;
@@ -123,6 +170,10 @@ public class BlurBottomNavigationView extends BaseBlurView {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
+    /**
+     * Called when the size of this view changes. Used here to initialize menu resources
+     * and check navigation bar overlap.
+     */
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
@@ -130,6 +181,12 @@ public class BlurBottomNavigationView extends BaseBlurView {
         checkObscuredByNavigationBar(this);
     }
 
+    /**
+     * Receives window insets and updates navigation bar height and layout adjustment.
+     *
+     * @param insets the window insets containing system UI dimensions
+     * @return the applied insets
+     */
     @RequiresApi(api = Build.VERSION_CODES.KITKAT_WATCH)
     @Override
     public WindowInsets onApplyWindowInsets(WindowInsets insets) {
@@ -144,6 +201,11 @@ public class BlurBottomNavigationView extends BaseBlurView {
         return super.onApplyWindowInsets(insets);
     }
 
+    /**
+     * Checks whether the view is overlapped by the system navigation bar and updates state.
+     *
+     * @param navigationView the navigation view being checked
+     */
     private static void checkObscuredByNavigationBar(BlurBottomNavigationView navigationView) {
         boolean hasSystemWindowInset = false;
 
@@ -170,12 +232,20 @@ public class BlurBottomNavigationView extends BaseBlurView {
         }
     }
 
+    /**
+     * Initializes the menu and tab items if needed.
+     */
     private void initMenuIfNeeded() {
         if (mMenuResId != 0 && (mMenuItems == null || mMenuItems.isEmpty())) {
             initMenu();
         }
     }
 
+    /**
+     * Draws the blurred background and tabs (or preview state when no menu is set).
+     *
+     * @param canvas the canvas on which the view is drawn
+     */
     @Override
     protected void onDraw(@NonNull Canvas canvas) {
         initMenuIfNeeded();
@@ -188,6 +258,9 @@ public class BlurBottomNavigationView extends BaseBlurView {
         }
     }
 
+    /**
+     * Parses the menu resource and initializes corresponding {@link TabView} instances.
+     */
     private void initMenu() {
         mMenuItems = MenuUtils.parseMenu(getContext(), mMenuResId);
 
@@ -204,11 +277,22 @@ public class BlurBottomNavigationView extends BaseBlurView {
         setSelectedTab(0);
     }
 
+    /**
+     * Delegates touch events to {@link TabViewManager}.
+     *
+     * @param event the motion event
+     * @return always {@code true}, indicating the event was handled
+     */
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         return mTabViewManager.handleTouchEvent(event, mTabViews, mFixedHeightPx);
     }
 
+    /**
+     * Adds a selection listener to {@link ViewPager}.
+     *
+     * @param viewPager the ViewPager instance
+     */
     private void setViewPager1Listener(ViewPager viewPager) {
         viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
@@ -218,6 +302,11 @@ public class BlurBottomNavigationView extends BaseBlurView {
         });
     }
 
+    /**
+     * Adds a selection listener to {@link ViewPager2}.
+     *
+     * @param viewPager2 the ViewPager2 instance
+     */
     private void setViewPager2Listener(ViewPager2 viewPager2) {
         viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
@@ -227,18 +316,21 @@ public class BlurBottomNavigationView extends BaseBlurView {
         });
     }
 
+    /**
+     * Synchronizes the initial selected tab with the page of the attached ViewPager.
+     *
+     * @param viewPager instance of ViewPager or ViewPager2
+     */
     private void setInitialSelectedTab(Object viewPager) {
         int currentItem = -1;
         int itemCount = 0;
 
-        if (viewPager instanceof ViewPager) {
-            ViewPager vp1 = (ViewPager) viewPager;
+        if (viewPager instanceof ViewPager vp1) {
             if (vp1.getAdapter() != null) {
                 currentItem = vp1.getCurrentItem();
                 itemCount = vp1.getAdapter().getCount();
             }
-        } else if (viewPager instanceof ViewPager2) {
-            ViewPager2 vp2 = (ViewPager2) viewPager;
+        } else if (viewPager instanceof ViewPager2 vp2) {
             if (vp2.getAdapter() != null) {
                 currentItem = vp2.getCurrentItem();
                 itemCount = vp2.getAdapter().getItemCount();
@@ -251,8 +343,9 @@ public class BlurBottomNavigationView extends BaseBlurView {
     }
 
     /**
-     * Set the selected tab
-     * @param position int
+     * Updates the currently selected tab and triggers page navigation and callbacks.
+     *
+     * @param position index of the tab to select
      */
     public void setSelectedTab(int position) {
         if (position < 0 || position >= mTabViews.size() || position == mCurrentSelected) {
@@ -278,8 +371,9 @@ public class BlurBottomNavigationView extends BaseBlurView {
     }
 
     /**
-     * Set the Menu
-     * @param menuResId int
+     * Sets the menu resource used to create tabs.
+     *
+     * @param menuResId resource ID of the menu
      */
     public void setMenu(int menuResId) {
         this.mMenuResId = menuResId;
@@ -288,8 +382,9 @@ public class BlurBottomNavigationView extends BaseBlurView {
     }
 
     /**
-     * Set the Selected Color
-     * @param color int
+     * Sets the selected tab color.
+     *
+     * @param color the color value
      */
     public void setSelectedColor(int color) {
         this.mSelectedColor = color;
@@ -297,8 +392,9 @@ public class BlurBottomNavigationView extends BaseBlurView {
     }
 
     /**
-     * Set the Unselected Color
-     * @param color int
+     * Sets the unselected tab color.
+     *
+     * @param color the color value
      */
     public void setUnselectedColor(int color) {
         this.mUnselectedColor = color;
@@ -306,8 +402,9 @@ public class BlurBottomNavigationView extends BaseBlurView {
     }
 
     /**
-     * Set the Icon Size
-     * @param size float
+     * Sets the icon size for all tabs.
+     *
+     * @param size icon size in pixels
      */
     public void setIconSize(float size) {
         this.mIconSize = size;
@@ -315,8 +412,9 @@ public class BlurBottomNavigationView extends BaseBlurView {
     }
 
     /**
-     * Set the Text Size
-     * @param size float
+     * Sets the text size for tab labels.
+     *
+     * @param size text size in pixels
      */
     public void setTextSize(float size) {
         this.mTextSize = size;
@@ -324,8 +422,9 @@ public class BlurBottomNavigationView extends BaseBlurView {
     }
 
     /**
-     * Set the Text Bold
-     * @param bold boolean
+     * Enables or disables bold text for tab labels.
+     *
+     * @param bold {@code true} to enable bold text
      */
     public void setTextBold(boolean bold) {
         this.mTextBold = bold;
@@ -333,8 +432,10 @@ public class BlurBottomNavigationView extends BaseBlurView {
     }
 
     /**
-     * Bind the {@link androidx.viewpager.widget.ViewPager} or {@link androidx.viewpager2.widget.ViewPager2}
-     * @param viewPager Object instance of ViewPager or ViewPager2
+     * Binds a ViewPager or ViewPager2 and synchronizes selection changes.
+     *
+     * @param viewPager an instance of ViewPager or ViewPager2
+     * @throws IllegalArgumentException if the argument is neither ViewPager nor ViewPager2
      */
     public void bind(Object viewPager) {
         if (viewPager instanceof ViewPager) {
@@ -347,45 +448,56 @@ public class BlurBottomNavigationView extends BaseBlurView {
             throw new IllegalArgumentException("Parameter must be instance of ViewPager or ViewPager2");
         }
 
-        // Set initial selected tab
         setInitialSelectedTab(viewPager);
     }
 
     /**
-     * Setting up a listener for the Tab
+     * Registers a listener for tab selection events.
      *
-     * <p>A callback method will be triggered when interacting with the Tab</p>
-     * <ul>
-     *     <li>{@link OnTabSelectedListener#onTabSelected(int, int)}</li>
-     * </ul>
-     *
-     * @param listener OnTabSelectedListener
-     *
+     * @param listener the listener to register
      */
     public void setOnTabSelectedListener(OnTabSelectedListener listener) {
         this.mOnTabSelectedListener = listener;
     }
 
+    /**
+     * @return the index of the currently selected tab
+     */
     public int getCurrentSelected() {
         return mCurrentSelected;
     }
 
+    /**
+     * @return the color applied to the selected tab
+     */
     public int getSelectedColor() {
         return mSelectedColor;
     }
 
+    /**
+     * @return the color applied to unselected tabs
+     */
     public int getUnselectedColor() {
         return mUnselectedColor;
     }
 
+    /**
+     * @return the text size used for tab labels
+     */
     public float getTextSize() {
         return mTextSize;
     }
 
+    /**
+     * @return {@code true} if tab text is bold
+     */
     public boolean isTextBold() {
         return mTextBold;
     }
 
+    /**
+     * Releases view resources and clears internal lists.
+     */
     @Override
     public void release() {
         super.release();
@@ -397,7 +509,17 @@ public class BlurBottomNavigationView extends BaseBlurView {
         }
     }
 
+    /**
+     * Callback interface for receiving tab selection events.
+     */
     public interface OnTabSelectedListener {
+
+        /**
+         * Called when a new tab is selected.
+         *
+         * @param newPosition index of the newly selected tab
+         * @param oldPosition index of the previously selected tab
+         */
         void onTabSelected(int newPosition, int oldPosition);
     }
 }
