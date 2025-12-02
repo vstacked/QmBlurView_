@@ -218,7 +218,7 @@ Picasso.get()
 | `app:downsampleFactor` | Downsampling factor for performance optimization. |
 
 ## Documentation
-**Detailed Documentation；[https://blur-docs.qmdeve.com](https://blur-docs.qmdeve.com)**
+**Detailed Documentation；[https://blurview.qmdeve.com](https://blurview.qmdeve.com)**
 
 ## Screenshots
 
