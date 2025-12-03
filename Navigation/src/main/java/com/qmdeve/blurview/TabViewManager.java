@@ -42,13 +42,34 @@ import com.qmdeve.blurview.widget.BlurBottomNavigationView;
 
 import java.util.List;
 
+/**
+ * Manages the rendering and interaction logic for a collection of {@link TabView} instances
+ * within a {@link BlurBottomNavigationView}. This manager is responsible for delegating
+ * drawing operations to each tab and handling touch events to update the selected state.
+ */
 public class TabViewManager {
     private final BlurBottomNavigationView mNavigationView;
 
+    /**
+     * Constructs a new {@code TabViewManager} associated with the specified
+     * {@link BlurBottomNavigationView}.
+     *
+     * @param navigationView the bottom navigation view that hosts the tab items
+     */
     public TabViewManager(BlurBottomNavigationView navigationView) {
         this.mNavigationView = navigationView;
     }
 
+    /**
+     * Draws all tab views onto the provided {@link Canvas}. Each tab receives its
+     * calculated width and the fixed height, and is visually rendered based on
+     * whether it is currently selected.
+     *
+     * @param canvas          the canvas on which the tab views are drawn
+     * @param tabViews        a list of {@link TabView} objects to be rendered
+     * @param currentSelected the index of the currently selected tab
+     * @param fixedHeight     the fixed height allocated for each tab's drawing area
+     */
     public void drawTabs(Canvas canvas, List<TabView> tabViews, int currentSelected, int fixedHeight) {
         if (tabViews.isEmpty()) return;
 
@@ -57,15 +78,31 @@ public class TabViewManager {
 
         for (int i = 0; i < tabViews.size(); i++) {
             TabView tabView = tabViews.get(i);
-            tabView.draw(canvas, i * tabWidth, 0, tabWidth, tabHeight,
+            tabView.draw(
+                    canvas,
+                    i * tabWidth,
+                    0,
+                    tabWidth,
+                    tabHeight,
                     i == currentSelected,
                     mNavigationView.getSelectedColor(),
                     mNavigationView.getUnselectedColor(),
                     mNavigationView.getTextSize(),
-                    mNavigationView.isTextBold());
+                    mNavigationView.isTextBold()
+            );
         }
     }
 
+    /**
+     * Handles touch events for tab interaction. When a touch-up event occurs within
+     * the area allocated for tabs, this method determines which tab (if any) is
+     * being activated and updates the selected tab in the associated navigation view.
+     *
+     * @param event       the touch event to be processed
+     * @param tabViews    the list of tab views that can respond to touch interaction
+     * @param fixedHeight the vertical boundary within which a tab can be selected
+     * @return always returns {@code true} to indicate the event has been handled
+     */
     public boolean handleTouchEvent(MotionEvent event, List<TabView> tabViews, int fixedHeight) {
         if (event.getAction() == MotionEvent.ACTION_UP) {
             float x = event.getX();

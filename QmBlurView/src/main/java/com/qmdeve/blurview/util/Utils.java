@@ -57,10 +57,21 @@ public class Utils {
     public static final String TAG = "BaseBlurView";
     public static boolean sIsGlobalCapturing = false;
 
+    /**
+     * Convert dp to px
+     * @param res Resources
+     * @param dp The dp value to be converted
+     * @return The px value after the conversion is completed
+     */
     public static float dp2px(Resources res, float dp) {
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, res.getDisplayMetrics());
     }
 
+    /**
+     * Get the height of the navigation bar at the bottom of the mobile phone
+     * @param view Root View
+     * @return The height of the navigation bar at the bottom of the mobile phone
+     */
     public static int getNavigationBarHeight(View view) {
         WindowInsetsCompat rootWindowInsets = ViewCompat.getRootWindowInsets(view);
         if (rootWindowInsets != null) {

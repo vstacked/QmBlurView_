@@ -43,10 +43,19 @@ import android.graphics.Canvas;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+/**
+ * Native blur implementation,
+ * Gaussian blur through JNI call cpp code
+ */
 public class BlurNative implements Blur {
 
+    // The maximum value of the blur radius
     private static final int MAX_RADIUS = 25;
+
+    // The minimum value of the blur radius
     private static final int MIN_RADIUS = 2;
+
+    // Thread pool configuration
     private static final int THREAD_COUNT;
     private static final ExecutorService EXECUTOR;
 
@@ -65,6 +74,14 @@ public class BlurNative implements Blur {
     private final AtomicBoolean isBlurring = new AtomicBoolean(false);
     private float radius = MAX_RADIUS;
 
+    /**
+     *
+     * @param bitmap Bitmap objects to be blurred
+     * @param radius Blur radius
+     * @param threadCount Total number of threads
+     * @param threadIndex Current thread index
+     * @param round Blur round
+     */
     public static native void blur(
             Object bitmap,
             int radius,
@@ -109,6 +126,11 @@ public class BlurNative implements Blur {
         }
     }
 
+    /**
+     * Perform fuzzy operations
+     * @param bitmap Blurry bitmaps are needed
+     * @param round Blur round
+     */
     private void doBlurRound(Bitmap bitmap, int round) {
         int r = (int) radius;
         CountDownLatch latch = new CountDownLatch(THREAD_COUNT);
@@ -141,6 +163,11 @@ public class BlurNative implements Blur {
 
     private static Boolean DEBUG = null;
 
+    /**
+     * Determine whether it is currently in debugging mode
+     * @param ctx Context
+     * @return Boolean
+     */
     static boolean isDebug(Context ctx) {
         if (DEBUG == null && ctx != null) {
             DEBUG = (ctx.getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
