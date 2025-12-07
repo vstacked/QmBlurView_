@@ -157,6 +157,13 @@ public class BlurNative implements Blur {
      */
     private void doBlurRound(Bitmap bitmap, int round) {
         int r = (int) radius;
+
+        // Optimization: For small images or single-core devices, skip thread overhead
+        if (THREAD_COUNT == 1) {
+            blur(bitmap, r, 1, 0, round);
+            return;
+        }
+
         CountDownLatch latch = new CountDownLatch(THREAD_COUNT);
 
         for (int i = 0; i < THREAD_COUNT; i++) {

@@ -36,6 +36,7 @@
 #include <jni.h>
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <android/log.h>
 #include <android/bitmap.h>
 
@@ -120,7 +121,10 @@ void qmblurJob(unsigned char* src,
     unsigned int div = (radius * 2) + 1;
     unsigned int mul_sum = qmblur_mul[radius];
     unsigned char shr_sum = qmblur_shr[radius];
-    unsigned char qm[div * 3];
+
+    // Use heap allocation instead of VLA to prevent stack overflow with large radius
+    unsigned char* qm = (unsigned char*)malloc(div * 3);
+    if (!qm) return; // Memory allocation failed
 
     if (step == 1)
     {
@@ -171,10 +175,10 @@ void qmblurJob(unsigned char* src,
             dst_ptr = src + y * w4;
             for(x = 0; x < w; x++)
             {
-                int alpha = dst_ptr[3];
-                dst_ptr[0] = clamp((sum_r * mul_sum) >> shr_sum, 0, alpha);
-                dst_ptr[1] = clamp((sum_g * mul_sum) >> shr_sum, 0, alpha);
-                dst_ptr[2] = clamp((sum_b * mul_sum) >> shr_sum, 0, alpha);
+                // Optimized: Remove alpha clamping (alpha channel doesn't change during blur)
+                dst_ptr[0] = (unsigned char)clamp((sum_r * mul_sum) >> shr_sum, 0, 255);
+                dst_ptr[1] = (unsigned char)clamp((sum_g * mul_sum) >> shr_sum, 0, 255);
+                dst_ptr[2] = (unsigned char)clamp((sum_b * mul_sum) >> shr_sum, 0, 255);
                 dst_ptr += 4;
 
                 sum_r -= sum_out_r;
@@ -219,6 +223,8 @@ void qmblurJob(unsigned char* src,
             }
 
         }
+        free(qm);
+        return;
     }
 
     if (step == 2)
@@ -269,10 +275,10 @@ void qmblurJob(unsigned char* src,
             dst_ptr = src + 4 * x;
             for(y = 0; y < h; y++)
             {
-                int alpha = dst_ptr[3];
-                dst_ptr[0] = clamp((sum_r * mul_sum) >> shr_sum, 0, alpha);
-                dst_ptr[1] = clamp((sum_g * mul_sum) >> shr_sum, 0, alpha);
-                dst_ptr[2] = clamp((sum_b * mul_sum) >> shr_sum, 0, alpha);
+                // Optimized: Remove alpha clamping (alpha channel doesn't change during blur)
+                dst_ptr[0] = (unsigned char)clamp((sum_r * mul_sum) >> shr_sum, 0, 255);
+                dst_ptr[1] = (unsigned char)clamp((sum_g * mul_sum) >> shr_sum, 0, 255);
+                dst_ptr[2] = (unsigned char)clamp((sum_b * mul_sum) >> shr_sum, 0, 255);
                 dst_ptr += w4;
 
                 sum_r -= sum_out_r;
@@ -316,6 +322,7 @@ void qmblurJob(unsigned char* src,
                 sum_in_b  -= qm_ptr[2];
             }
         }
+        free(qm);
     }
 }
 
