@@ -22,6 +22,15 @@
             app:overlayColor="#0161F2" />
 
         <com.qmdeve.blurview.widget.BlurButtonView
+            android:id="@+id/blurIntensityButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="⚡ Blur Intensity Control"
+            android:textColor="@color/white"
+            app:buttonCornerRadius="99dp"
+            app:overlayColor="#FF6F00" />
+
+        <com.qmdeve.blurview.widget.BlurButtonView
             android:id="@+id/blurButtonButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

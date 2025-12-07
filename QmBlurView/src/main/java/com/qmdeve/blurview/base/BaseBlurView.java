@@ -326,6 +326,31 @@ public abstract class BaseBlurView extends View {
         }
     }
 
+    /**
+     * Set the number of blur rounds (iterations) for BlurNative
+     * More rounds = stronger blur effect
+     * @param rounds Number of blur rounds (1-10)
+     */
+    public void setBlurRounds(int rounds) {
+        if (mBlur instanceof com.qmdeve.blurview.BlurNative) {
+            ((com.qmdeve.blurview.BlurNative) mBlur).setBlurRounds(rounds);
+            mDirty = true;
+            mForceRedraw = true;
+            invalidate();
+        }
+    }
+
+    /**
+     * Get the current number of blur rounds
+     * @return Current blur rounds, or -1 if not using BlurNative
+     */
+    public int getBlurRounds() {
+        if (mBlur instanceof com.qmdeve.blurview.BlurNative) {
+            return ((com.qmdeve.blurview.BlurNative) mBlur).getBlurRounds();
+        }
+        return -1;
+    }
+
     public void setDownsampleFactor(float factor) {
         if (mDownsampleFactor != factor && factor >= 0) {
             mDownsampleFactor = factor;

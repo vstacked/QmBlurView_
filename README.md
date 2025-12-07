@@ -127,7 +127,43 @@ BlurView blurView = findViewById(R.id.blurView);
 blurView.setBlurRadius(25);
 blurView.setCornerRadius(15);
 blurView.setOverlayColor(Color.parseColor("#80FFFFFF"));
+
+// NEW: Control blur intensity (number of blur iterations)
+blurView.setBlurRounds(5); // 1-15 iterations, higher = stronger blur
 ```
+
+**Controlling Blur Intensity:**
+
+The blur effect can be fine-tuned using two parameters:
+- **Blur Radius** (2-100): Controls the size of the blur kernel (how far pixels blend)
+- **Blur Iterations** (1-15): How many times the 2-pass blur is applied (higher = much stronger blur)
+
+> **Note**: Each iteration performs both horizontal and vertical blur passes, so 5 iterations = 10 total blur passes.
+
+```java
+// Light blur - best performance
+blurView.setBlurRadius(15);
+blurView.setBlurRounds(2);
+
+// Strong blur - balanced (recommended)
+blurView.setBlurRadius(25);
+blurView.setBlurRounds(3);
+
+// Very strong blur - may impact performance
+blurView.setBlurRadius(40);
+blurView.setBlurRounds(5);
+
+// Ultra intense blur - use sparingly (performance impact)
+blurView.setBlurRadius(60);
+blurView.setBlurRounds(8);
+```
+
+> **Performance Tips**:
+> - Each iteration = 2 blur passes (horizontal + vertical)
+> - High iterations (10+) can cause FPS drops on lower-end devices
+> - **Recommended for real-time blur**: radius 20-30 with 2-4 iterations
+> - For static/infrequent updates, you can use higher values
+> - Combine with `setDownsampleFactor()` to blur smaller image for better performance
 
 ### 2. BlurViewGroup
 
