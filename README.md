@@ -1,5 +1,3 @@
-# QmBlurView
-
 <div align="center">
 
 <img src="https://socialify.git.ci/QmDeve/QmBlurView/image?description=1&font=Inter&name=1&owner=1&pattern=Floating+Cogs&theme=Light" alt="QmBlurView" width="100%"/>
@@ -23,14 +21,6 @@
 English | [简体中文](./README_zh.md)
 
 </div>
-
----
-
-> **Note: Mirror Repository**
->
-> This project is maintained on multiple platforms. The content of all repositories is consistent.
-> - **Main Repository**: [GitHub](https://github.com/QmDeve/QmBlurView)
-> - **Mirror**: [GitLab](https://gitlab.com/QmDeve/QmBlurView)
 
 ---
 
@@ -63,13 +53,13 @@ Add the dependencies to your module's `build.gradle` file:
 ```gradle
 dependencies {
     // Core Library (Required)
-    implementation 'com.qmdeve.blurview:core:<version>'
+    implementation 'com.qmdeve.blurview:core:1.0.5'
 
     // Navigation Support (Optional)
-    implementation 'com.qmdeve.blurview:navigation:<version>'
+    implementation 'com.qmdeve.blurview:navigation:1.0.5'
 
     // Image Loading Transformations (Optional - Glide/Picasso)
-    implementation 'com.qmdeve.blurview:transform:<version>'
+    implementation 'com.qmdeve.blurview:transform:1.0.5'
 }
 ```
 
@@ -94,13 +84,13 @@ dependencyResolutionManagement {
 ```gradle
 dependencies {
     // Core Library (Required)
-    implementation 'com.qmdeve.QmBlurView:QmBlurView:<version>'
+    implementation 'com.qmdeve.QmBlurView:QmBlurView:v1.0.5'
 	
     // Navigation Support (Optional)
-    implementation 'com.qmdeve.QmBlurView:Navigation:<version>'
+    implementation 'com.qmdeve.QmBlurView:Navigation:v1.0.5'
 	
     // Image Loading Transformations (Optional - Glide/Picasso)
-    implementation 'com.qmdeve.QmBlurView:Transform:<version>'
+    implementation 'com.qmdeve.QmBlurView:Transform:v1.0.5'
 }
 ```
 

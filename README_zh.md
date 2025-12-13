@@ -1,5 +1,3 @@
-# QmBlurView
-
 <div align="center">
 
 <img src="https://socialify.git.ci/QmDeve/QmBlurView/image?description=1&font=Inter&name=1&owner=1&pattern=Floating+Cogs&theme=Light" alt="QmBlurView" width="100%"/>
@@ -24,14 +22,6 @@
 [English](./README.md) | 简体中文
 
 </div>
-
----
-
-> **注意：镜像仓库**
->
-> 本项目在多个平台进行维护。所有仓库的内容保持一致。
-> - **主仓库**：[GitHub](https://github.com/QmDeve/QmBlurView)
-> - **镜像**：[GitLab](https://gitlab.com/QmDeve/QmBlurView)
 
 ---
 
@@ -64,13 +54,13 @@
 ```gradle
 dependencies {
     // 核心库（必需）
-    implementation 'com.qmdeve.blurview:core:<version>'
+    implementation 'com.qmdeve.blurview:core:1.0.5'
 
     // 导航支持（可选）
-    implementation 'com.qmdeve.blurview:navigation:<version>'
+    implementation 'com.qmdeve.blurview:navigation:1.0.5'
 
     // 图片加载变换（可选 - Glide/Picasso）
-    implementation 'com.qmdeve.blurview:transform:<version>'
+    implementation 'com.qmdeve.blurview:transform:1.0.5'
 }
 ```
 
@@ -95,13 +85,13 @@ dependencyResolutionManagement {
 ```gradle
 dependencies {
     // 核心库（必需）
-    implementation 'com.qmdeve.QmBlurView:QmBlurView:<version>'
+    implementation 'com.qmdeve.QmBlurView:QmBlurView:v1.0.5'
 	
     // 导航支持（可选）
-    implementation 'com.qmdeve.QmBlurView:Navigation:<version>'
+    implementation 'com.qmdeve.QmBlurView:Navigation:v1.0.5'
 	
     // 图片加载变换（可选 - Glide/Picasso）
-    implementation 'com.qmdeve.QmBlurView:Transform:<version>'
+    implementation 'com.qmdeve.QmBlurView:Transform:v1.0.5'
 }
 ```
 
