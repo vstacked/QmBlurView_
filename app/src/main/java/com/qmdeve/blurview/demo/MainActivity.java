@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
         Utils.transparentNavigationBar(getWindow());
 
         findViewById(R.id.blurViewButton).setOnClickListener(v -> startActivity(new Intent(this, BlurViewActivity.class)));
+        findViewById(R.id.blurIntensityButton).setOnClickListener(v -> startActivity(new Intent(this, BlurIntensityActivity.class)));
         findViewById(R.id.blurButtonButton).setOnClickListener(v -> startActivity(new Intent(this, BlurButtonActivity.class)));
         findViewById(R.id.progerssiveBlurButton).setOnClickListener(v -> startActivity(new Intent(this, ProgerssiveBlurActivity.class)));
         findViewById(R.id.blurTitlebar).setOnClickListener(v -> startActivity(new Intent(this, BlurTitlebarActivity.class)));

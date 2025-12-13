@@ -1,5 +1,3 @@
-# QmBlurView
-
 <div align="center">
 
 <img src="https://socialify.git.ci/QmDeve/QmBlurView/image?description=1&font=Inter&name=1&owner=1&pattern=Floating+Cogs&theme=Light" alt="QmBlurView" width="100%"/>
@@ -23,14 +21,6 @@
 English | [简体中文](./README_zh.md)
 
 </div>
-
----
-
-> **Note: Mirror Repository**
->
-> This project is maintained on multiple platforms. The content of all repositories is consistent.
-> - **Main Repository**: [GitHub](https://github.com/QmDeve/QmBlurView)
-> - **Mirror**: [GitLab](https://gitlab.com/QmDeve/QmBlurView)
 
 ---
 
@@ -63,13 +53,13 @@ Add the dependencies to your module's `build.gradle` file:
 ```gradle
 dependencies {
     // Core Library (Required)
-    implementation 'com.qmdeve.blurview:core:<version>'
+    implementation 'com.qmdeve.blurview:core:1.0.5'
 
     // Navigation Support (Optional)
-    implementation 'com.qmdeve.blurview:navigation:<version>'
+    implementation 'com.qmdeve.blurview:navigation:1.0.5'
 
     // Image Loading Transformations (Optional - Glide/Picasso)
-    implementation 'com.qmdeve.blurview:transform:<version>'
+    implementation 'com.qmdeve.blurview:transform:1.0.5'
 }
 ```
 
@@ -94,13 +84,13 @@ dependencyResolutionManagement {
 ```gradle
 dependencies {
     // Core Library (Required)
-    implementation 'com.qmdeve.QmBlurView:QmBlurView:<version>'
+    implementation 'com.qmdeve.QmBlurView:QmBlurView:v1.0.5'
 	
     // Navigation Support (Optional)
-    implementation 'com.qmdeve.QmBlurView:Navigation:<version>'
+    implementation 'com.qmdeve.QmBlurView:Navigation:v1.0.5'
 	
     // Image Loading Transformations (Optional - Glide/Picasso)
-    implementation 'com.qmdeve.QmBlurView:Transform:<version>'
+    implementation 'com.qmdeve.QmBlurView:Transform:v1.0.5'
 }
 ```
 
@@ -127,7 +117,43 @@ BlurView blurView = findViewById(R.id.blurView);
 blurView.setBlurRadius(25);
 blurView.setCornerRadius(15);
 blurView.setOverlayColor(Color.parseColor("#80FFFFFF"));
+
+// NEW: Control blur intensity (number of blur iterations)
+blurView.setBlurRounds(5); // 1-15 iterations, higher = stronger blur
 ```
+
+**Controlling Blur Intensity:**
+
+The blur effect can be fine-tuned using two parameters:
+- **Blur Radius** (2-100): Controls the size of the blur kernel (how far pixels blend)
+- **Blur Iterations** (1-15): How many times the 2-pass blur is applied (higher = much stronger blur)
+
+> **Note**: Each iteration performs both horizontal and vertical blur passes, so 5 iterations = 10 total blur passes.
+
+```java
+// Light blur - best performance
+blurView.setBlurRadius(15);
+blurView.setBlurRounds(2);
+
+// Strong blur - balanced (recommended)
+blurView.setBlurRadius(25);
+blurView.setBlurRounds(3);
+
+// Very strong blur - may impact performance
+blurView.setBlurRadius(40);
+blurView.setBlurRounds(5);
+
+// Ultra intense blur - use sparingly (performance impact)
+blurView.setBlurRadius(60);
+blurView.setBlurRounds(8);
+```
+
+> **Performance Tips**:
+> - Each iteration = 2 blur passes (horizontal + vertical)
+> - High iterations (10+) can cause FPS drops on lower-end devices
+> - **Recommended for real-time blur**: radius 20-30 with 2-4 iterations
+> - For static/infrequent updates, you can use higher values
+> - Combine with `setDownsampleFactor()` to blur smaller image for better performance
 
 ### 2. BlurViewGroup
 

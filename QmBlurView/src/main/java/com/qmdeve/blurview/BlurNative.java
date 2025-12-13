@@ -50,7 +50,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class BlurNative implements Blur {
 
     // The maximum value of the blur radius
-    private static final int MAX_RADIUS = 25;
+    private static final int MAX_RADIUS = 100;
 
     // The minimum value of the blur radius
     private static final int MIN_RADIUS = 2;
@@ -73,6 +73,7 @@ public class BlurNative implements Blur {
 
     private final AtomicBoolean isBlurring = new AtomicBoolean(false);
     private float radius = MAX_RADIUS;
+    private int blurRounds = 2; // Default to 2 iterations (each = horizontal + vertical pass) for better performance
 
     /**
      *
@@ -96,6 +97,24 @@ public class BlurNative implements Blur {
         return true;
     }
 
+    /**
+     * Set the number of blur iterations
+     * Each iteration applies both horizontal and vertical blur passes
+     * More iterations = stronger blur effect
+     * @param rounds Number of blur iterations (1-15)
+     */
+    public void setBlurRounds(int rounds) {
+        this.blurRounds = Math.max(1, Math.min(15, rounds));
+    }
+
+    /**
+     * Get the current number of blur rounds
+     * @return Current blur rounds
+     */
+    public int getBlurRounds() {
+        return blurRounds;
+    }
+
     @Override
     public void release() {
         // Shared executor, do not shutdown
@@ -115,8 +134,13 @@ public class BlurNative implements Blur {
                 output.eraseColor(0);
                 new Canvas(output).drawBitmap(input, 0, 0, null);
             }
-            doBlurRound(output, 1);
-            doBlurRound(output, 2);
+            // Apply blur iterations
+            // Each iteration is a complete 2-pass blur (horizontal + vertical)
+            // More iterations = stronger blur effect
+            for (int iteration = 0; iteration < blurRounds; iteration++) {
+                doBlurRound(output, 1); // Horizontal pass
+                doBlurRound(output, 2); // Vertical pass
+            }
         } catch (Exception e) {
             // Only print stack trace if debug mode is enabled
             // Note: DEBUG may be null if Context was never provided
@@ -133,6 +157,13 @@ public class BlurNative implements Blur {
      */
     private void doBlurRound(Bitmap bitmap, int round) {
         int r = (int) radius;
+
+        // Optimization: For small images or single-core devices, skip thread overhead
+        if (THREAD_COUNT == 1) {
+            blur(bitmap, r, 1, 0, round);
+            return;
+        }
+
         CountDownLatch latch = new CountDownLatch(THREAD_COUNT);
 
         for (int i = 0; i < THREAD_COUNT; i++) {
