@@ -74,7 +74,6 @@ public class TabViewManager {
         if (tabViews.isEmpty()) return;
 
         int tabWidth = mNavigationView.getWidth() / tabViews.size();
-        int tabHeight = fixedHeight;
 
         for (int i = 0; i < tabViews.size(); i++) {
             TabView tabView = tabViews.get(i);
@@ -83,7 +82,7 @@ public class TabViewManager {
                     i * tabWidth,
                     0,
                     tabWidth,
-                    tabHeight,
+                    fixedHeight,
                     i == currentSelected,
                     mNavigationView.getSelectedColor(),
                     mNavigationView.getUnselectedColor(),

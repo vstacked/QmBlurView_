@@ -47,7 +47,6 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.Shader;
 import android.util.AttributeSet;
-import android.util.TypedValue;
 
 import androidx.annotation.NonNull;
 
@@ -82,10 +81,7 @@ public class ProgressiveBlurView extends BlurView {
             TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ProgressiveBlurView);
             mGradientDirection = a.getInt(R.styleable.ProgressiveBlurView_progressiveDirection, DIRECTION_TOP_TO_BOTTOM);
             mOverlayColor = a.getInt(R.styleable.ProgressiveBlurView_progressiveOverlayColor, 0xAAFFFFFF);
-            mBlurRadius = a.getDimension(
-                    R.styleable.ProgressiveBlurView_progressiveBlurRadius,
-                    TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 25, getResources().getDisplayMetrics())
-            );
+            mBlurRadius = a.getDimension(R.styleable.ProgressiveBlurView_progressiveBlurRadius, Utils.dp2px(getResources(), 25));
             a.recycle();
         }
 
@@ -140,32 +136,24 @@ public class ProgressiveBlurView extends BlurView {
         int[] colors = new int[]{Color.argb(0, 0, 0, 0), Color.argb(endAlpha, 0, 0, 0)};
         float[] pos = new float[]{0f, 1f};
 
-        switch (mGradientDirection) {
-            case DIRECTION_BOTTOM_TO_TOP:
-                return new LinearGradient(0, height, 0, 0, colors, pos, Shader.TileMode.CLAMP);
-            case DIRECTION_LEFT_TO_RIGHT:
-                return new LinearGradient(0, 0, width, 0, colors, pos, Shader.TileMode.CLAMP);
-            case DIRECTION_RIGHT_TO_LEFT:
-                return new LinearGradient(width, 0, 0, 0, colors, pos, Shader.TileMode.CLAMP);
-            default:
-                return new LinearGradient(0, 0, 0, height, colors, pos, Shader.TileMode.CLAMP);
-        }
+        return switch (mGradientDirection) {
+            case DIRECTION_BOTTOM_TO_TOP -> new LinearGradient(0, height, 0, 0, colors, pos, Shader.TileMode.CLAMP);
+            case DIRECTION_LEFT_TO_RIGHT -> new LinearGradient(0, 0, width, 0, colors, pos, Shader.TileMode.CLAMP);
+            case DIRECTION_RIGHT_TO_LEFT -> new LinearGradient(width, 0, 0, 0, colors, pos, Shader.TileMode.CLAMP);
+            default -> new LinearGradient(0, 0, 0, height, colors, pos, Shader.TileMode.CLAMP);
+        };
     }
 
     private LinearGradient createOverlayGradient(int width, int height) {
         int transparentColor = mOverlayColor & 0x00FFFFFF;
         int solidColor = mOverlayColor;
 
-        switch (mGradientDirection) {
-            case DIRECTION_BOTTOM_TO_TOP:
-                return new LinearGradient(0, height, 0, 0, new int[]{transparentColor, solidColor}, new float[]{0f, 1f}, Shader.TileMode.CLAMP);
-            case DIRECTION_LEFT_TO_RIGHT:
-                return new LinearGradient(0, 0, width, 0, new int[]{transparentColor, solidColor}, new float[]{0f, 1f}, Shader.TileMode.CLAMP);
-            case DIRECTION_RIGHT_TO_LEFT:
-                return new LinearGradient(width, 0, 0, 0, new int[]{transparentColor, solidColor}, new float[]{0f, 1f}, Shader.TileMode.CLAMP);
-            default:
-                return new LinearGradient(0, 0, 0, height, new int[]{transparentColor, solidColor}, new float[]{0f, 1f}, Shader.TileMode.CLAMP);
-        }
+        return switch (mGradientDirection) {
+            case DIRECTION_BOTTOM_TO_TOP -> new LinearGradient(0, height, 0, 0, new int[]{transparentColor, solidColor}, new float[]{0f, 1f}, Shader.TileMode.CLAMP);
+            case DIRECTION_LEFT_TO_RIGHT -> new LinearGradient(0, 0, width, 0, new int[]{transparentColor, solidColor}, new float[]{0f, 1f}, Shader.TileMode.CLAMP);
+            case DIRECTION_RIGHT_TO_LEFT -> new LinearGradient(width, 0, 0, 0, new int[]{transparentColor, solidColor}, new float[]{0f, 1f}, Shader.TileMode.CLAMP);
+            default -> new LinearGradient(0, 0, 0, height, new int[]{transparentColor, solidColor}, new float[]{0f, 1f}, Shader.TileMode.CLAMP);
+        };
     }
 
     private void drawPreviewProgressiveBackground(Canvas canvas) {

@@ -41,6 +41,7 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
+
 import androidx.annotation.NonNull;
 
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
@@ -82,19 +83,13 @@ public class BlurTransformation extends BitmapTransformation {
         // Get a bitmap from the pool to reuse memory
         Bitmap.Config config = getSafeConfig(toTransform);
         Bitmap blurred = pool.get(width, height, config);
-        if (blurred == null) {
-            blurred = Bitmap.createBitmap(width, height, config);
-        }
 
         boolean blurSuccess = false;
-        try {
-            // Prepare and apply blur
-            if (BLUR_NATIVE.prepare(blurred, blurRadius)) {
-                BLUR_NATIVE.blur(toTransform, blurred);
-                blurSuccess = true;
-            }
-        } catch (Exception e) {
-            blurSuccess = false;
+
+        // Prepare and apply blur
+        if (BLUR_NATIVE.prepare(blurred, blurRadius)) {
+            BLUR_NATIVE.blur(toTransform, blurred);
+            blurSuccess = true;
         }
 
         if (!blurSuccess) {
@@ -130,9 +125,6 @@ public class BlurTransformation extends BitmapTransformation {
 
         // Get bitmap from pool for output
         Bitmap output = pool.get(width, height, config);
-        if (output == null) {
-            output = Bitmap.createBitmap(width, height, config);
-        }
 
         Canvas canvas = new Canvas(output);
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -158,8 +150,7 @@ public class BlurTransformation extends BitmapTransformation {
 
     @Override
     public boolean equals(Object o) {
-        if (o instanceof BlurTransformation) {
-            BlurTransformation other = (BlurTransformation) o;
+        if (o instanceof BlurTransformation other) {
             return Math.abs(blurRadius - other.blurRadius) < 0.01f &&
                     Math.abs(roundedCorners - other.roundedCorners) < 0.01f;
         }

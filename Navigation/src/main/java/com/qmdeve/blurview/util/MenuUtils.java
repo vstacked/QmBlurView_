@@ -38,6 +38,9 @@ package com.qmdeve.blurview.util;
 import android.content.Context;
 import android.content.res.XmlResourceParser;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
+
 import org.xmlpull.v1.XmlPullParser;
 import java.util.ArrayList;
 import java.util.List;
@@ -183,6 +186,7 @@ public class MenuUtils {
          *
          * @return formatted menu item information
          */
+        @NonNull
         @Override
         public String toString() {
             return "MenuItem{" +

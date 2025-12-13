@@ -44,6 +44,8 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
@@ -53,7 +55,9 @@ import android.view.PixelCopy;
 import android.view.SurfaceView;
 import android.view.TextureView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 
@@ -156,13 +160,10 @@ public abstract class BaseBlurView extends View {
 
         try {
             // Handle ImageView specifically
-            if (view instanceof android.widget.ImageView) {
-                android.widget.ImageView imageView = (android.widget.ImageView) view;
-                android.graphics.drawable.Drawable drawable = imageView.getDrawable();
+            if (view instanceof ImageView imageView) {
+                Drawable drawable = imageView.getDrawable();
 
-                if (drawable instanceof android.graphics.drawable.BitmapDrawable) {
-                    android.graphics.drawable.BitmapDrawable bitmapDrawable =
-                            (android.graphics.drawable.BitmapDrawable) drawable;
+                if (drawable instanceof BitmapDrawable bitmapDrawable) {
                     Bitmap bitmap = bitmapDrawable.getBitmap();
 
                     if (bitmap != null && bitmap.getConfig() == Bitmap.Config.HARDWARE) {
@@ -176,8 +177,7 @@ public abstract class BaseBlurView extends View {
             }
 
             // Recursively process children if it's a ViewGroup
-            if (view instanceof android.view.ViewGroup) {
-                android.view.ViewGroup viewGroup = (android.view.ViewGroup) view;
+            if (view instanceof ViewGroup viewGroup) {
                 int childCount = viewGroup.getChildCount();
                 for (int i = 0; i < childCount; i++) {
                     disableHardwareBitmapsInView(viewGroup.getChildAt(i));
@@ -189,8 +189,7 @@ public abstract class BaseBlurView extends View {
     }
 
     private void drawTextureViews(View view, Canvas canvas) {
-        if (view instanceof TextureView) {
-            TextureView textureView = (TextureView) view;
+        if (view instanceof TextureView textureView) {
             if (textureView.getVisibility() == View.VISIBLE && textureView.isAvailable()) {
                 int[] locDecor = new int[2];
                 mDecorView.getLocationOnScreen(locDecor);
@@ -211,8 +210,7 @@ public abstract class BaseBlurView extends View {
                     bitmap.recycle();
                 }
             }
-        } else if (view instanceof android.view.ViewGroup) {
-            android.view.ViewGroup group = (android.view.ViewGroup) view;
+        } else if (view instanceof ViewGroup group) {
             for (int i = 0; i < group.getChildCount(); i++) {
                 drawTextureViews(group.getChildAt(i), canvas);
             }
@@ -220,8 +218,7 @@ public abstract class BaseBlurView extends View {
     }
 
     private void drawSurfaceViews(View view, Canvas canvas) {
-        if (view instanceof SurfaceView) {
-            SurfaceView surfaceView = (SurfaceView) view;
+        if (view instanceof SurfaceView surfaceView) {
             if (surfaceView.getVisibility() == View.VISIBLE) {
                 // Automatically configure SurfaceView for proper z-ordering
                 if (!mConfiguredSurfaceViews.contains(surfaceView)) {
@@ -309,8 +306,7 @@ public abstract class BaseBlurView extends View {
                     }
                 }
             }
-        } else if (view instanceof android.view.ViewGroup) {
-            android.view.ViewGroup group = (android.view.ViewGroup) view;
+        } else if (view instanceof ViewGroup group) {
             for (int i = 0; i < group.getChildCount(); i++) {
                 drawSurfaceViews(group.getChildAt(i), canvas);
             }
@@ -332,8 +328,8 @@ public abstract class BaseBlurView extends View {
      * @param rounds Number of blur rounds (1-10)
      */
     public void setBlurRounds(int rounds) {
-        if (mBlur instanceof com.qmdeve.blurview.BlurNative) {
-            ((com.qmdeve.blurview.BlurNative) mBlur).setBlurRounds(rounds);
+        if (mBlur instanceof BlurNative) {
+            ((BlurNative) mBlur).setBlurRounds(rounds);
             mDirty = true;
             mForceRedraw = true;
             invalidate();
@@ -345,8 +341,8 @@ public abstract class BaseBlurView extends View {
      * @return Current blur rounds, or -1 if not using BlurNative
      */
     public int getBlurRounds() {
-        if (mBlur instanceof com.qmdeve.blurview.BlurNative) {
-            return ((com.qmdeve.blurview.BlurNative) mBlur).getBlurRounds();
+        if (mBlur instanceof BlurNative) {
+            return ((BlurNative) mBlur).getBlurRounds();
         }
         return -1;
     }

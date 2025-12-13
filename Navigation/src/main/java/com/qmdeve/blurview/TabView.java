@@ -241,10 +241,9 @@ public class TabView {
      */
     private void drawIconAndText(Canvas canvas, int left, int top, int width, int height, int color, float textSize, boolean textBold) {
         int iconLeft = left + (width - (int) mIconSize) / 2;
-        int iconTop = top;
 
         if (mIcon != null) {
-            mIcon.setBounds(iconLeft, iconTop, iconLeft + (int) mIconSize, iconTop + (int) mIconSize);
+            mIcon.setBounds(iconLeft, top, iconLeft + (int) mIconSize, top + (int) mIconSize);
             mIcon.mutate();
             mIcon.setColorFilter(color, PorterDuff.Mode.SRC_IN);
             mIcon.draw(canvas);
