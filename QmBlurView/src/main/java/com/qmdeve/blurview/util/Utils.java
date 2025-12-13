@@ -39,10 +39,14 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Path;
 import android.graphics.RectF;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.RestrictTo;
 
@@ -67,6 +71,15 @@ public class Utils {
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, res.getDisplayMetrics());
     }
 
+    /**
+     * Convert sp to px
+     * @param res Resources
+     * @param sp The sp value to be converted
+     * @return The px value after the conversion is completed
+     */
+    public static float sp2px(Resources res, float sp) {
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, res.getDisplayMetrics());
+    }
     /**
      * Get the height of the navigation bar at the bottom of the mobile phone
      * @param view Root View
@@ -154,13 +167,10 @@ public class Utils {
 
         try {
             // Handle ImageView specifically
-            if (view instanceof android.widget.ImageView) {
-                android.widget.ImageView imageView = (android.widget.ImageView) view;
-                android.graphics.drawable.Drawable drawable = imageView.getDrawable();
+            if (view instanceof ImageView imageView) {
+                Drawable drawable = imageView.getDrawable();
 
-                if (drawable instanceof android.graphics.drawable.BitmapDrawable) {
-                    android.graphics.drawable.BitmapDrawable bitmapDrawable =
-                            (android.graphics.drawable.BitmapDrawable) drawable;
+                if (drawable instanceof BitmapDrawable bitmapDrawable) {
                     Bitmap bitmap = bitmapDrawable.getBitmap();
 
                     if (bitmap != null && bitmap.getConfig() == Bitmap.Config.HARDWARE) {
@@ -174,8 +184,7 @@ public class Utils {
             }
 
             // Recursively process children if it's a ViewGroup
-            if (view instanceof android.view.ViewGroup) {
-                android.view.ViewGroup viewGroup = (android.view.ViewGroup) view;
+            if (view instanceof ViewGroup viewGroup) {
                 int childCount = viewGroup.getChildCount();
                 for (int i = 0; i < childCount; i++) {
                     disableHardwareBitmapsInView(viewGroup.getChildAt(i));

@@ -187,7 +187,6 @@ public class BlurBottomNavigationView extends BaseBlurView {
      * @param insets the window insets containing system UI dimensions
      * @return the applied insets
      */
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT_WATCH)
     @Override
     public WindowInsets onApplyWindowInsets(WindowInsets insets) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -216,7 +215,7 @@ public class BlurBottomNavigationView extends BaseBlurView {
                 hasSystemWindowInset = systemWindowInsetBottom > 0;
                 navigationView.mNavigationBarHeight = systemWindowInsetBottom;
             }
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT_WATCH) {
+        } else if (Build.VERSION.SDK_INT >=  Build.VERSION_CODES.M) {
             WindowInsets windowInsets = navigationView.getRootWindowInsets();
             if (windowInsets != null) {
                 int systemWindowInsetBottom = windowInsets.getSystemWindowInsetBottom();

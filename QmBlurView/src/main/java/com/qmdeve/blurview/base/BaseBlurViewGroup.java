@@ -41,7 +41,9 @@ import android.content.ContextWrapper;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -241,9 +243,6 @@ public class BaseBlurViewGroup {
             return false;
         }
 
-        Bitmap old = mBlurredBitmap;
-        boolean redrawBitmap = mBlurredBitmap != old;
-
         int[] locDecor = new int[2];
         int[] locSelf = new int[2];
         mDecorView.getLocationOnScreen(locDecor);
@@ -293,17 +292,15 @@ public class BaseBlurViewGroup {
 
         blur(mBitmapToBlur, mBlurredBitmap);
 
-        return redrawBitmap || mDifferentRoot || mForceRedraw;
+        return mDifferentRoot || mForceRedraw;
     }
 
-    public boolean ensureBlurReady(int width, int height) {
+    public void ensureBlurReady(int width, int height) {
         if (mFirstDraw || mForceRedraw) {
-            boolean result = performBlurSync(width, height);
+            performBlurSync(width, height);
             mFirstDraw = false;
             mForceRedraw = false;
-            return result;
         }
-        return false;
     }
 
     private final ViewTreeObserver.OnPreDrawListener preDrawListener = new ViewTreeObserver.OnPreDrawListener() {
@@ -361,8 +358,8 @@ public class BaseBlurViewGroup {
         ensureBlurReady(width, height);
 
         if (mBlurredBitmap != null) {
-            android.graphics.Rect srcRect = new android.graphics.Rect(0, 0, mBlurredBitmap.getWidth(), mBlurredBitmap.getHeight());
-            android.graphics.Rect dstRect = new android.graphics.Rect(0, 0, width, height);
+            Rect srcRect = new Rect(0, 0, mBlurredBitmap.getWidth(), mBlurredBitmap.getHeight());
+            Rect dstRect = new Rect(0, 0, width, height);
 
             if (mCornerRadius > 0) {
                 canvas.save();
@@ -376,10 +373,10 @@ public class BaseBlurViewGroup {
             }
         }
 
-        android.graphics.Paint paint = new android.graphics.Paint();
+        Paint paint = new Paint();
         paint.setColor(mOverlayColor);
 
-        android.graphics.Rect dstRect = new android.graphics.Rect(0, 0, width, height);
+        Rect dstRect = new Rect(0, 0, width, height);
         if (mCornerRadius > 0) {
             canvas.save();
             mClipRect.set(dstRect);
@@ -395,8 +392,8 @@ public class BaseBlurViewGroup {
     public void drawPreviewBackground(Canvas canvas, int width, int height) {
         if (width == 0 || height == 0) return;
 
-        android.graphics.Paint previewPaint = new android.graphics.Paint(android.graphics.Paint.ANTI_ALIAS_FLAG);
-        previewPaint.setStyle(android.graphics.Paint.Style.FILL);
+        Paint previewPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        previewPaint.setStyle(Paint.Style.FILL);
         int previewColor = mOverlayColor;
         previewPaint.setColor(previewColor);
         if (mCornerRadius > 0) {

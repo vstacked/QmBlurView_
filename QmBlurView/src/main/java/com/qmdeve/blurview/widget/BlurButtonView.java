@@ -47,7 +47,6 @@ import android.graphics.drawable.Drawable;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -62,6 +61,7 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 
 import com.qmdeve.blurview.R;
+import com.qmdeve.blurview.util.Utils;
 
 public class BlurButtonView extends BlurView {
     private static final float DEFAULT_TEXT_SIZE = 16f;
@@ -127,18 +127,14 @@ public class BlurButtonView extends BlurView {
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.BlurButtonView);
 
         mText = a.getText(R.styleable.BlurButtonView_android_text);
-        mTextSize = a.getDimension(R.styleable.BlurButtonView_android_textSize,
-                TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, DEFAULT_TEXT_SIZE, getResources().getDisplayMetrics()));
+        mTextSize = a.getDimension(R.styleable.BlurButtonView_android_textSize, (int) Utils.sp2px(getResources(), DEFAULT_TEXT_SIZE));
         mTextColor = a.getColor(R.styleable.BlurButtonView_android_textColor, DEFAULT_TEXT_COLOR);
         mTextColorPressed = a.getColor(R.styleable.BlurButtonView_buttonTextColorPressed, mTextColor);
-        mTextColorDisabled = a.getColor(R.styleable.BlurButtonView_buttonTextColorDisabled,
-                applyAlpha(mTextColor));
+        mTextColorDisabled = a.getColor(R.styleable.BlurButtonView_buttonTextColorDisabled, applyAlpha(mTextColor));
         mTextBold = a.getBoolean(R.styleable.BlurButtonView_buttonTextBold, true);
         mIcon = a.getDrawable(R.styleable.BlurButtonView_android_icon);
-        mIconSize = a.getDimensionPixelSize(R.styleable.BlurButtonView_buttonIconSize,
-                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, DEFAULT_ICON_SIZE, getResources().getDisplayMetrics()));
-        mIconPadding = a.getDimensionPixelSize(R.styleable.BlurButtonView_buttonIconPadding,
-                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, DEFAULT_ICON_PADDING, getResources().getDisplayMetrics()));
+        mIconSize = a.getDimensionPixelSize(R.styleable.BlurButtonView_buttonIconSize, (int) Utils.dp2px(getResources(), DEFAULT_ICON_SIZE));
+        mIconPadding = a.getDimensionPixelSize(R.styleable.BlurButtonView_buttonIconPadding, (int) Utils.dp2px(getResources(), DEFAULT_ICON_PADDING));
         mIconTint = a.getColorStateList(R.styleable.BlurButtonView_buttonIconTint);
         mGravity = a.getInt(R.styleable.BlurButtonView_android_gravity, Gravity.CENTER);
         mButtonCornerRadius = a.getDimension(R.styleable.BlurButtonView_buttonCornerRadius, 0);
@@ -151,10 +147,8 @@ public class BlurButtonView extends BlurView {
 
         setCornerRadius(mButtonCornerRadius);
 
-        int horizontalPadding = (int) TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP, DEFAULT_HORIZONTAL_PADDING, getResources().getDisplayMetrics());
-        int verticalPadding = (int) TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP, DEFAULT_VERTICAL_PADDING, getResources().getDisplayMetrics());
+        int horizontalPadding = (int) Utils.dp2px(getResources(), DEFAULT_HORIZONTAL_PADDING);
+        int verticalPadding = (int) Utils.dp2px(getResources(), DEFAULT_VERTICAL_PADDING);
         setPadding(horizontalPadding, verticalPadding, horizontalPadding, verticalPadding);
     }
 
@@ -499,7 +493,7 @@ public class BlurButtonView extends BlurView {
     }
 
     public void setTextSize(float size) {
-        float newSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, size, getResources().getDisplayMetrics());
+        float newSize = Utils.sp2px(getResources(), size);
         if (mTextSize != newSize) {
             mTextSize = newSize;
             mTextPaint.setTextSize(mTextSize);
@@ -546,7 +540,7 @@ public class BlurButtonView extends BlurView {
     }
 
     public void setIconSize(int size) {
-        int newSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, size, getResources().getDisplayMetrics());
+        int newSize = (int) Utils.dp2px(getResources(), size);
         if (mIconSize != newSize) {
             mIconSize = newSize;
             requestLayout();
@@ -555,7 +549,7 @@ public class BlurButtonView extends BlurView {
     }
 
     public void setIconPadding(int padding) {
-        int newPadding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, padding, getResources().getDisplayMetrics());
+        int newPadding = (int) Utils.dp2px(getResources(), padding);
         if (mIconPadding != newPadding) {
             mIconPadding = newPadding;
             requestLayout();
@@ -583,11 +577,9 @@ public class BlurButtonView extends BlurView {
 
     private void setFixedMargin() {
         ViewGroup.LayoutParams params = getLayoutParams();
-        if (params instanceof ViewGroup.MarginLayoutParams) {
-            int fixedMargin = (int) TypedValue.applyDimension(
-                    TypedValue.COMPLEX_UNIT_DIP, 3f, getResources().getDisplayMetrics());
+        if (params instanceof ViewGroup.MarginLayoutParams marginParams) {
+            int fixedMargin = (int) Utils.dp2px(getResources(), 3f);
 
-            ViewGroup.MarginLayoutParams marginParams = (ViewGroup.MarginLayoutParams) params;
             if (marginParams.leftMargin == 0) {
                 marginParams.leftMargin = fixedMargin;
             }
