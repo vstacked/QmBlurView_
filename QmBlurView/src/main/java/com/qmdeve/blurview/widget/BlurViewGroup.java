@@ -69,6 +69,23 @@ public class BlurViewGroup extends ViewGroup {
         mBaseBlurViewGroup.setBlurRadius(radius);
     }
 
+    /**
+     * Set the number of blur rounds (iterations) for BlurNative
+     * More rounds = stronger blur effect
+     * @param rounds Number of blur rounds (1-10)
+     */
+    public void setBlurRounds(int rounds) {
+        mBaseBlurViewGroup.setBlurRounds(rounds);
+    }
+
+    /**
+     * Get the current number of blur rounds
+     * @return Current blur rounds, or -1 if not using BlurNative
+     */
+    public int getBlurRounds() {
+        return mBaseBlurViewGroup.getBlurRounds();
+    }
+
     public void setDownsampleFactor(float factor) {
         mBaseBlurViewGroup.setDownsampleFactor(factor);
     }
