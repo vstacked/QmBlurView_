@@ -50,6 +50,12 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.view.PixelCopy;
+import android.os.Build;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Looper;
+import android.graphics.Rect;
 
 import com.qmdeve.blurview.Blur;
 import com.qmdeve.blurview.BlurNative;
@@ -74,10 +80,24 @@ public class BaseBlurViewGroup {
     private boolean mFirstDraw = true;
     private boolean mForceRedraw = false;
     private boolean mSkipNextPreDraw = false;
+    private boolean mUsePixelCopyFallback = false;
+    private boolean mIsPixelCopyPending = false;
+    private final Handler mHandler = new Handler(Looper.getMainLooper());
+    private HandlerThread mPixelCopyThread;
+    private Handler mPixelCopyHandler;
 
     public BaseBlurViewGroup(Context context, AttributeSet attrs) {
         mBlur = new BlurNative();
+        initPixelCopyThread();
         initAttributes(context, attrs);
+    }
+
+    private void initPixelCopyThread() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            mPixelCopyThread = new HandlerThread("BlurViewGroupPixelCopy");
+            mPixelCopyThread.start();
+            mPixelCopyHandler = new Handler(mPixelCopyThread.getLooper());
+        }
     }
 
     private void initAttributes(Context context, AttributeSet attrs) {
@@ -101,6 +121,33 @@ public class BaseBlurViewGroup {
                 mHostView.invalidate();
             }
         }
+    }
+
+    /**
+     * Set the number of blur rounds (iterations) for BlurNative
+     * More rounds = stronger blur effect
+     * @param rounds Number of blur rounds (1-10)
+     */
+    public void setBlurRounds(int rounds) {
+        if (mBlur instanceof com.qmdeve.blurview.BlurNative) {
+            ((com.qmdeve.blurview.BlurNative) mBlur).setBlurRounds(rounds);
+            mDirty = true;
+            mForceRedraw = true;
+            if (mHostView != null) {
+                mHostView.invalidate();
+            }
+        }
+    }
+
+    /**
+     * Get the current number of blur rounds
+     * @return Current blur rounds, or -1 if not using BlurNative
+     */
+    public int getBlurRounds() {
+        if (mBlur instanceof com.qmdeve.blurview.BlurNative) {
+            return ((com.qmdeve.blurview.BlurNative) mBlur).getBlurRounds();
+        }
+        return -1;
     }
 
     public void setDownsampleFactor(float factor) {
@@ -161,6 +208,11 @@ public class BaseBlurViewGroup {
     public void release() {
         releaseBitmap();
         mBlur.release();
+        if (mPixelCopyThread != null) {
+            mPixelCopyThread.quitSafely();
+            mPixelCopyThread = null;
+            mPixelCopyHandler = null;
+        }
     }
 
     private boolean prepare(int width, int height) {
@@ -171,7 +223,7 @@ public class BaseBlurViewGroup {
 
         float downsampleFactor = mDownsampleFactor > 0 ? mDownsampleFactor : 2.52f;
         float radius = mBlurRadius / downsampleFactor;
-        
+
         if (mDownsampleFactor <= 0 && radius > 25) {
             downsampleFactor *= radius / 25;
             radius = 25;
@@ -211,6 +263,47 @@ public class BaseBlurViewGroup {
         return true;
     }
 
+    private android.view.Window getActivityWindow() {
+        if (mHostView == null) return null;
+        Context ctx = mHostView.getContext();
+        for (int i = 0; i < 4 && !(ctx instanceof Activity) && ctx instanceof ContextWrapper; i++) {
+            ctx = ((ContextWrapper) ctx).getBaseContext();
+        }
+        return (ctx instanceof Activity) ? ((Activity) ctx).getWindow() : null;
+    }
+
+    private void performPixelCopyBlur(int width, int height) {
+        if (mIsPixelCopyPending || Build.VERSION.SDK_INT < Build.VERSION_CODES.O) return;
+
+        android.view.Window window = getActivityWindow();
+        if (window == null) return;
+
+        int[] locWindow = new int[2];
+        mHostView.getLocationInWindow(locWindow);
+
+        Rect rect = new Rect(locWindow[0], locWindow[1], locWindow[0] + width, locWindow[1] + height);
+
+        mIsPixelCopyPending = true;
+
+        try {
+            Handler handler = mPixelCopyHandler != null ? mPixelCopyHandler : mHandler;
+            PixelCopy.request(window, rect, mBitmapToBlur, copyResult -> {
+                mHandler.post(() -> {
+                    mIsPixelCopyPending = false;
+                    if (copyResult == PixelCopy.SUCCESS) {
+                        blur(mBitmapToBlur, mBlurredBitmap);
+                        if (mHostView != null) mHostView.invalidate();
+                    } else {
+                        Log.w(Utils.TAG, "PixelCopy fallback failed: " + copyResult);
+                    }
+                });
+            }, handler);
+        } catch (IllegalArgumentException e) {
+            mIsPixelCopyPending = false;
+            Log.e(Utils.TAG, "PixelCopy fallback exception: " + e.getMessage());
+        }
+    }
+
     private void blur(Bitmap input, Bitmap output) {
         try {
             // Ensure input is software bitmap
@@ -243,6 +336,8 @@ public class BaseBlurViewGroup {
             return false;
         }
 
+        Bitmap old = mBlurredBitmap;
+        boolean redrawBitmap = mBlurredBitmap != old;
         int[] locDecor = new int[2];
         int[] locSelf = new int[2];
         mDecorView.getLocationOnScreen(locDecor);
@@ -278,7 +373,12 @@ public class BaseBlurViewGroup {
                         mBlurringCanvas.translate(-offsetX, -offsetY);
                         mDecorView.draw(mBlurringCanvas);
                     } catch (Exception retryError) {
-                        Log.e(Utils.TAG, "Retry after hardware bitmap conversion failed: " + retryError.getMessage());
+                        Log.e(Utils.TAG, "Retry after hardware bitmap conversion failed: " + retryError.getMessage() + ". Switching to PixelCopy fallback.");
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                            mUsePixelCopyFallback = true;
+                            performPixelCopyBlur(width, height);
+                            return false;
+                        }
                     }
                 } else {
                     throw e;

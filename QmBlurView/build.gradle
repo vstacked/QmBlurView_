@@ -114,7 +114,7 @@ if (!project.hasProperty('jitpack')) {
             developers {
                 developer {
                     id = 'qmdeve'
-                    name = 'QmDeve'
+                    name = 'Donny Yale'
                     email = 'admin@qmdeve.com'
                     organization = 'QmDeve'
                     organizationUrl = 'https://github.com/QmDeve'

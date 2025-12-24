@@ -101,6 +101,8 @@ public abstract class BaseBlurView extends View {
     private boolean mFirstDraw = true;
     private boolean mForceRedraw = false;
     private boolean mSurfaceViewWarningLogged = false;
+    private boolean mUsePixelCopyFallback = false;
+    private boolean mIsPixelCopyPending = false;
 
     public BaseBlurView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -479,6 +481,40 @@ public abstract class BaseBlurView extends View {
         }
     }
 
+    private void performPixelCopyBlur() {
+        if (mIsPixelCopyPending || Build.VERSION.SDK_INT < Build.VERSION_CODES.O) return;
+
+        android.view.Window window = getActivityWindow();
+        if (window == null) return;
+
+        int[] locWindow = new int[2];
+        getLocationInWindow(locWindow);
+
+        // Rect to capture (in window coordinates)
+        Rect rect = new Rect(locWindow[0], locWindow[1], locWindow[0] + getWidth(), locWindow[1] + getHeight());
+
+        mIsPixelCopyPending = true;
+
+        try {
+            Handler handler = mPixelCopyHandler != null ? mPixelCopyHandler : mHandler;
+            // PixelCopy.request(Window) is available since API 24, but we use O (26) check for safety regarding hardware bitmaps
+            PixelCopy.request(window, rect, mBitmapToBlur, copyResult -> {
+                mHandler.post(() -> {
+                    mIsPixelCopyPending = false;
+                    if (copyResult == PixelCopy.SUCCESS) {
+                        blur(mBitmapToBlur, mBlurredBitmap);
+                        invalidate();
+                    } else {
+                        Log.w(TAG, "PixelCopy fallback failed: " + copyResult);
+                    }
+                });
+            }, handler);
+        } catch (IllegalArgumentException e) {
+            mIsPixelCopyPending = false;
+            Log.e(TAG, "PixelCopy fallback exception: " + e.getMessage());
+        }
+    }
+
     private boolean performBlurSync() {
         if (!isShown() || mDecorView == null) return false;
 
@@ -487,6 +523,11 @@ public abstract class BaseBlurView extends View {
         if (!prepare()) return false;
 
         boolean redrawBitmap = mBlurredBitmap != old;
+
+        if (mUsePixelCopyFallback && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            performPixelCopyBlur();
+            return redrawBitmap || mDifferentRoot || mForceRedraw;
+        }
 
         int[] locDecor = new int[2];
         int[] locSelf = new int[2];
@@ -523,7 +564,12 @@ public abstract class BaseBlurView extends View {
                         mBlurringCanvas.translate(-offsetX, -offsetY);
                         mDecorView.draw(mBlurringCanvas);
                     } catch (Exception retryError) {
-                        Log.e(Utils.TAG, "Retry after hardware bitmap conversion failed: " + retryError.getMessage());
+                        Log.e(Utils.TAG, "Retry after hardware bitmap conversion failed: " + retryError.getMessage() + ". Switching to PixelCopy fallback.");
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                            mUsePixelCopyFallback = true;
+                            performPixelCopyBlur();
+                            return false;
+                        }
                     }
                 } else {
                     throw e;
@@ -560,6 +606,14 @@ public abstract class BaseBlurView extends View {
             ctx = ((ContextWrapper) ctx).getBaseContext();
         }
         return (ctx instanceof Activity) ? ((Activity) ctx).getWindow().getDecorView() : null;
+    }
+
+    private android.view.Window getActivityWindow() {
+        Context ctx = getContext();
+        for (int i = 0; i < 4 && !(ctx instanceof Activity) && ctx instanceof ContextWrapper; i++) {
+            ctx = ((ContextWrapper) ctx).getBaseContext();
+        }
+        return (ctx instanceof Activity) ? ((Activity) ctx).getWindow() : null;
     }
 
     @Override
