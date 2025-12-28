@@ -54,13 +54,13 @@ Add the dependencies to your module's `build.gradle` file:
 ```gradle
 dependencies {
     // Core Library (Required)
-    implementation 'com.qmdeve.blurview:core:1.0.6'
+    implementation 'com.qmdeve.blurview:core:1.1.0'
 
     // Navigation Support (Optional)
-    implementation 'com.qmdeve.blurview:navigation:1.0.6'
+    implementation 'com.qmdeve.blurview:navigation:1.1.0'
 
     // Image Loading Transformations (Optional - Glide/Picasso)
-    implementation 'com.qmdeve.blurview:transform:1.0.6'
+    implementation 'com.qmdeve.blurview:transform:1.1.0'
 }
 ```
 
@@ -85,13 +85,13 @@ dependencyResolutionManagement {
 ```gradle
 dependencies {
     // Core Library (Required)
-    implementation 'com.qmdeve.QmBlurView:QmBlurView:v1.0.6'
+    implementation 'com.qmdeve.QmBlurView:core:v1.1.0'
 	
     // Navigation Support (Optional)
-    implementation 'com.qmdeve.QmBlurView:Navigation:v1.0.6'
+    implementation 'com.qmdeve.QmBlurView:navigation:v1.1.0'
 	
     // Image Loading Transformations (Optional - Glide/Picasso)
-    implementation 'com.qmdeve.QmBlurView:Transform:v1.0.6'
+    implementation 'com.qmdeve.QmBlurView:transform:v1.1.0'
 }
 ```
 
