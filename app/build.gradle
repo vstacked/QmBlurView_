@@ -29,9 +29,9 @@ android {
 }
 
 dependencies {
-    implementation project(':QmBlurView')
-    implementation project(':Navigation')
-    implementation project(':Transform')
+    implementation project(':core')
+    implementation project(':navigation')
+    implementation project(':transform')
     implementation libs.appcompat
     implementation libs.constraintlayout
     implementation libs.glide
