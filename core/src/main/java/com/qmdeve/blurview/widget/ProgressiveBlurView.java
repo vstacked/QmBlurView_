@@ -48,6 +48,7 @@ import android.graphics.Rect;
 import android.graphics.Shader;
 import android.util.AttributeSet;
 
+import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 
 import com.qmdeve.blurview.R;
@@ -171,6 +172,24 @@ public class ProgressiveBlurView extends BlurView {
 
     @Override
     public void setOverlayColor(int color) {
+        if (mOverlayColor != color) {
+            mOverlayColor = color;
+            invalidate();
+        }
+    }
+
+    public void setOverlayColorRes(@ColorRes int colorResId) {
+        int color;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            color = getContext().getColor(colorResId);
+        } else {
+            color = getResources().getColor(colorResId);
+        }
+
+        if (mOverlayColor != color) {
+            mOverlayColor = color;
+            invalidate();
+        }
     }
 
     @Override
