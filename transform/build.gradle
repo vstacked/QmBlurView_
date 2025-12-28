@@ -61,7 +61,7 @@ android {
 }
 
 dependencies {
-    implementation project(':QmBlurView')
+    implementation project(':core')
     implementation libs.annotation.jvm
     implementation libs.glide
     implementation libs.picasso

@@ -21,6 +21,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "QmBlurView"
 include ':app'
-include ':QmBlurView'
-include ':Navigation'
-include ':Transform'
+include ':core'
+include ':navigation'
+include ':transform'

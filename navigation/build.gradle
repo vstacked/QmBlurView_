@@ -40,34 +40,11 @@ plugins {
 }
 
 android {
-    namespace 'com.qmdeve.blurview'
+    namespace 'com.qmdeve.blurview.bottomnavigation'
     compileSdk { version = release(36) }
 
     defaultConfig {
         minSdk { version = release(21) }
-
-        externalNativeBuild {
-            cmake {
-                arguments "-DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON"
-            }
-        }
-
-        ndk {
-            abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
-        }
-    }
-
-    packagingOptions {
-        jniLibs {
-            useLegacyPackaging true
-        }
-    }
-
-    externalNativeBuild {
-        cmake {
-            path "src/main/cpp/CMakeLists.txt"
-            version "4.1.2"
-        }
     }
 
     buildTypes {
@@ -84,16 +61,17 @@ android {
 }
 
 dependencies {
-    implementation libs.annotation.jvm
-    implementation libs.core
+    implementation project(':core')
+    implementation libs.viewpager
+    implementation libs.viewpager2
 }
 
 if (!project.hasProperty('jitpack')) {
     mavenPublishing {
-        coordinates(GROUP_NAME, ARTIFACT_NAME, QMBLURVIEW_VERSION)
+        coordinates(GROUP_NAME, NAVIGATION_ARTIFACT_NAME, QMBLURVIEW_VERSION)
 
         pom {
-            name = 'QmBlurView Core'
+            name = 'QmBlurView Navigation'
             description = 'QmBlurView is an Android UI component library that integrates a variety of blur effects, including BlurView, BlurButtonView, ProgressiveBlurView, BlurTitleBarView, BottomNavigationView, BlurSwitchButtonView, and BlurFloatingButtonView'
             url = 'https://github.com/QmDeve/QmBlurView'
             inceptionYear = '2025'
@@ -118,13 +96,6 @@ if (!project.hasProperty('jitpack')) {
                     email = 'admin@qmdeve.com'
                     organization = 'QmDeve'
                     organizationUrl = 'https://github.com/QmDeve'
-                }
-
-                developer {
-                    id = 'sbaiahmed1'
-                    name = 'Ahmed Sbai'
-                    email = 'ahmedclubust@gmail.com'
-                    organizationUrl = 'https://github.com/sbaiahmed1'
                 }
             }
 
