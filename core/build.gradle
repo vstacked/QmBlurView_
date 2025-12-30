@@ -39,48 +39,11 @@ plugins {
     alias(libs.plugins.signing)
 }
 
+apply from: '../config.gradle'
+
 android {
     namespace 'com.qmdeve.blurview'
-    compileSdk { version = release(36) }
-
-    defaultConfig {
-        minSdk { version = release(21) }
-
-        externalNativeBuild {
-            cmake {
-                arguments "-DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON"
-            }
-        }
-
-        ndk {
-            abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
-        }
-    }
-
-    packagingOptions {
-        jniLibs {
-            useLegacyPackaging true
-        }
-    }
-
-    externalNativeBuild {
-        cmake {
-            path "src/main/cpp/CMakeLists.txt"
-            version "3.22.1"
-        }
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt')
-        }
-    }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
-    }
+    coreConfigs(android)
 }
 
 dependencies {
@@ -88,61 +51,4 @@ dependencies {
     implementation libs.core
 }
 
-if (!project.hasProperty('jitpack')) {
-    mavenPublishing {
-        coordinates(GROUP_NAME, ARTIFACT_NAME, QMBLURVIEW_VERSION)
-
-        pom {
-            name = 'QmBlurView Core'
-            description = 'QmBlurView is an Android UI component library that integrates a variety of blur effects, including BlurView, BlurButtonView, ProgressiveBlurView, BlurTitleBarView, BottomNavigationView, BlurSwitchButtonView, and BlurFloatingButtonView'
-            url = 'https://github.com/QmDeve/QmBlurView'
-            inceptionYear = '2025'
-
-            organization {
-                name = 'QmDeve'
-                url = 'https://me.qmdeve.com'
-            }
-
-            licenses {
-                license {
-                    name = 'MIT License'
-                    url = 'https://github.com/QmDeve/QmBlurView/blob/master/LICENSE'
-                    distribution = 'repo'
-                }
-            }
-
-            developers {
-                developer {
-                    id = 'qmdeve'
-                    name = 'Donny Yale'
-                    email = 'admin@qmdeve.com'
-                    organization = 'QmDeve'
-                    organizationUrl = 'https://github.com/QmDeve'
-                }
-
-                developer {
-                    id = 'sbaiahmed1'
-                    name = 'Ahmed Sbai'
-                    email = 'ahmedclubust@gmail.com'
-                    organizationUrl = 'https://github.com/sbaiahmed1'
-                }
-            }
-
-            scm {
-                connection = 'scm:git:github.com/QmDeve/QmBlurView.git'
-                developerConnection = 'scm:git:ssh://github.com/QmDeve/QmBlurView.git'
-                url = 'https://github.com/QmDeve/QmBlurView'
-                tag = "v${QMBLURVIEW_VERSION}"
-            }
-
-            properties = [
-                    'project.icon'            : 'https://github.com/QmDeve/QmBlurView/raw/main/logo.png',
-                    'project.logo'            : 'https://github.com/QmDeve/QmBlurView/raw/main/logo.png',
-                    'project.documentationUrl': 'https://blur-docs.qmdeve.com'
-            ]
-        }
-
-        publishToMavenCentral()
-        signAllPublications()
-    }
-}
+coreMavenConfig(project)

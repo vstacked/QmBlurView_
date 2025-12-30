@@ -10,8 +10,8 @@ android {
         applicationId "com.qmdeve.blurview.demo"
         minSdk { version = release(21) }
         targetSdk { version = release(36) }
-        versionCode 3
-        versionName QMBLURVIEW_VERSION
+        versionCode 1
+        versionName VERSION
     }
 
     buildTypes {

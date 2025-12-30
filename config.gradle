@@ -1,0 +1,241 @@
+ext.configs = { androidExtension ->
+    androidExtension.compileSdk {
+        version = release(36)
+    }
+
+    androidExtension.defaultConfig {
+        minSdk {
+            version = release(21)
+        }
+    }
+
+    androidExtension.buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles androidExtension.getDefaultProguardFile('proguard-android-optimize.txt')
+        }
+    }
+
+    androidExtension.compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+ext.coreConfigs = { androidExtension ->
+    androidExtension.compileSdk {
+        version = release(36)
+    }
+
+    androidExtension.defaultConfig {
+        minSdk {
+            version = release(21)
+        }
+
+        externalNativeBuild {
+            cmake {
+                arguments "-DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON"
+            }
+        }
+
+        ndk {
+            abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+        }
+    }
+
+    androidExtension.packagingOptions {
+        jniLibs {
+            useLegacyPackaging true
+        }
+    }
+
+    androidExtension.externalNativeBuild {
+        cmake {
+            path "src/main/cpp/CMakeLists.txt"
+            version "3.22.1"
+        }
+    }
+
+    androidExtension.buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles androidExtension.getDefaultProguardFile('proguard-android-optimize.txt')
+        }
+    }
+
+    androidExtension.compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+ext.coreMavenConfig = { projectInstance ->
+    if (projectInstance.hasProperty('jitpack')) {
+        return
+    }
+
+    projectInstance.mavenPublishing {
+        coordinates(projectInstance.GROUP_NAME, projectInstance.ARTIFACT_NAME, projectInstance.VERSION)
+
+        pom {
+            name = 'QmBlurView Core'
+            description = 'QmBlurView is an Android UI component library that integrates a variety of blur effects, including BlurView, BlurButtonView, ProgressiveBlurView, BlurTitleBarView, BottomNavigationView, BlurSwitchButtonView, and BlurFloatingButtonView'
+            url = 'https://blurview.qmdeve.com'
+            inceptionYear = '2025'
+
+            organization {
+                name = 'QmDeve'
+                url = 'https://qmdeve.com'
+            }
+
+            licenses {
+                license {
+                    name = 'MIT License'
+                    url = 'https://github.com/QmDeve/QmBlurView/blob/master/LICENSE'
+                    distribution = 'repo'
+                }
+            }
+
+            developers {
+                developer {
+                    id = 'qmdeve'
+                    name = 'Donny Yale'
+                    email = 'admin@qmdeve.com'
+                    organization = 'QmDeve'
+                    organizationUrl = 'https://github.com/QmDeve'
+                }
+
+                developer {
+                    id = 'sbaiahmed1'
+                    name = 'Ahmed Sbai'
+                    email = 'ahmedclubust@gmail.com'
+                    organizationUrl = 'https://github.com/sbaiahmed1'
+                }
+            }
+
+            scm {
+                connection = 'scm:git:github.com/QmDeve/QmBlurView.git'
+                developerConnection = 'scm:git:ssh://github.com/QmDeve/QmBlurView.git'
+                url = 'https://github.com/QmDeve/QmBlurView'
+                tag = "v${projectInstance.VERSION}"
+            }
+        }
+
+        publishToMavenCentral()
+        signAllPublications()
+    }
+}
+
+ext.navMavenConfig = { projectInstance ->
+    if (projectInstance.hasProperty('jitpack')) {
+        return
+    }
+
+    projectInstance.mavenPublishing {
+        coordinates(projectInstance.GROUP_NAME, projectInstance.NAVIGATION_ARTIFACT_NAME, projectInstance.VERSION)
+
+        pom {
+            name = 'QmBlurView Navigation'
+            description = 'QmBlurView is an Android UI component library that integrates a variety of blur effects, including BlurView, BlurButtonView, ProgressiveBlurView, BlurTitleBarView, BottomNavigationView, BlurSwitchButtonView, and BlurFloatingButtonView'
+            url = 'https://blurview.qmdeve.com'
+            inceptionYear = '2025'
+
+            organization {
+                name = 'QmDeve'
+                url = 'https://qmdeve.com'
+            }
+
+            licenses {
+                license {
+                    name = 'MIT License'
+                    url = 'https://github.com/QmDeve/QmBlurView/blob/master/LICENSE'
+                    distribution = 'repo'
+                }
+            }
+
+            developers {
+                developer {
+                    id = 'qmdeve'
+                    name = 'Donny Yale'
+                    email = 'admin@qmdeve.com'
+                    organization = 'QmDeve'
+                    organizationUrl = 'https://github.com/QmDeve'
+                }
+
+                developer {
+                    id = 'sbaiahmed1'
+                    name = 'Ahmed Sbai'
+                    email = 'ahmedclubust@gmail.com'
+                    organizationUrl = 'https://github.com/sbaiahmed1'
+                }
+            }
+
+            scm {
+                connection = 'scm:git:github.com/QmDeve/QmBlurView.git'
+                developerConnection = 'scm:git:ssh://github.com/QmDeve/QmBlurView.git'
+                url = 'https://github.com/QmDeve/QmBlurView'
+                tag = "v${projectInstance.VERSION}"
+            }
+        }
+
+        publishToMavenCentral()
+        signAllPublications()
+    }
+}
+
+ext.tranMavenConfig = { projectInstance ->
+    if (projectInstance.hasProperty('jitpack')) {
+        return
+    }
+
+    projectInstance.mavenPublishing {
+        coordinates(projectInstance.GROUP_NAME, projectInstance.TRANSFORM_ARTIFACT_NAME, projectInstance.VERSION)
+
+        pom {
+            name = 'QmBlurView Transform'
+            description = 'QmBlurView is an Android UI component library that integrates a variety of blur effects, including BlurView, BlurButtonView, ProgressiveBlurView, BlurTitleBarView, BottomNavigationView, BlurSwitchButtonView, and BlurFloatingButtonView'
+            url = 'https://blurview.qmdeve.com'
+            inceptionYear = '2025'
+
+            organization {
+                name = 'QmDeve'
+                url = 'https://qmdeve.com'
+            }
+
+            licenses {
+                license {
+                    name = 'MIT License'
+                    url = 'https://github.com/QmDeve/QmBlurView/blob/master/LICENSE'
+                    distribution = 'repo'
+                }
+            }
+
+            developers {
+                developer {
+                    id = 'qmdeve'
+                    name = 'Donny Yale'
+                    email = 'admin@qmdeve.com'
+                    organization = 'QmDeve'
+                    organizationUrl = 'https://github.com/QmDeve'
+                }
+
+                developer {
+                    id = 'sbaiahmed1'
+                    name = 'Ahmed Sbai'
+                    email = 'ahmedclubust@gmail.com'
+                    organizationUrl = 'https://github.com/sbaiahmed1'
+                }
+            }
+
+            scm {
+                connection = 'scm:git:github.com/QmDeve/QmBlurView.git'
+                developerConnection = 'scm:git:ssh://github.com/QmDeve/QmBlurView.git'
+                url = 'https://github.com/QmDeve/QmBlurView'
+                tag = "v${projectInstance.VERSION}"
+            }
+        }
+
+        publishToMavenCentral()
+        signAllPublications()
+    }
+}
