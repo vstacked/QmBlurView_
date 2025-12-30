@@ -43,6 +43,16 @@ English | [简体中文](./README_zh.md)
 - **Easy Integration**: Simple XML attributes and Java/Kotlin APIs.
 - **Broad Compatibility**: Supports Android 5.0 (API 21) and above.
 
+## Screenshot
+
+|                                BlurView                                |                              BlurButtonView                              |                                ProgressiveBlurView                                |
+|:----------------------------------------------------------------------:|:------------------------------------------------------------------------:|:---------------------------------------------------------------------------------:|
+| <img src="https://cloud.qmdeve.com/f/aRFw/BlurView.jpeg" width="250"/> | <img src="https://cloud.qmdeve.com/f/wKi5/BlurButton.jpeg" width="250"/> | <img src="https://cloud.qmdeve.com/f/MluM/ProgressiveBlurView.jpeg" width="250"/> |
+
+|                                BlurTitleBarView                                |                                BlurSwitchButtonView                                 |                              BlurBottomNavigationView                              |
+|:------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------:|
+| <img src="https://cloud.qmdeve.com/f/Posw/BlurTitlebarView.jpeg" width="250"/> | <img src="https://cloud.qmdeve.com/f/9wHl/BlurSwitchButton_true.jpeg" width="250"/> | <img src="https://cloud.qmdeve.com/f/KbcO/BlurBottomNavigation.jpeg" width="250"/> |
+
 ## Integration
 
 ### Maven Central Integration method (recommended)
@@ -246,16 +256,6 @@ Picasso.get()
 
 ## Documentation
 **Detailed Documentation；[https://blurview.qmdeve.com](https://blurview.qmdeve.com)**
-
-## Screenshots
-
-| BlurView | BlurButtonView | ProgressiveBlurView |
-|:---:|:---:|:---:|
-| <img src="./img/blurview.jpg" width="250"/> | <img src="./img/blurButton.jpg" width="250"/> | <img src="./img/progressiveBlurView.jpg" width="250"/> |
-
-| BlurTitleBarView | BlurSwitchButtonView | BlurBottomNavigationView |
-|:---:|:---:|:---:|
-| <img src="./img/blurTitlebarView.jpg" width="250"/> | <img src="./img/blurSwitchButton_true.jpg" width="250"/> | <img src="./img/blurBottomNavigation.jpg" width="250"/> |
 
 ## Star History
 
