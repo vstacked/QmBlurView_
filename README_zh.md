@@ -239,8 +239,8 @@ Picasso.get()
 
 ## 许可证
 
-```text
-Copyright ©️ 2025 QmDeve
+```
+Copyright ©️ 2025-2026 DonnyYale (QmDeve)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
