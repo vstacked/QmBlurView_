@@ -5,7 +5,6 @@
 <br>
 
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-black?logo=github)](https://GitHub.com/QmDeve/QmBlurView/)
-[![GitLab](https://img.shields.io/badge/GitLab-Repository-orange?logo=gitlab)](https://gitlab.com/QmDeve/QmBlurView)
 
 [![Telegram](https://img.shields.io/badge/Telegram%20群组-QmDeves-blue.svg?logo=telegram)](https://t.me/QmDeves)
 [![QQ](https://img.shields.io/badge/QQ%20群组-1046829337-blue.svg?logo=qq)](https://qm.qq.com/q/wIlrQPTMRO)
