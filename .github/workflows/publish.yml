@@ -26,8 +26,8 @@ jobs:
       - name: Read properties from gradle.properties
         id: read_props
         run: |
-          if grep -q "^QMBLURVIEW_VERSION=" gradle.properties; then
-            VERSION=$(grep "^QMBLURVIEW_VERSION=" gradle.properties | cut -d'=' -f2 | tr -d '\r')
+          if grep -q "^VERSION=" gradle.properties; then
+            VERSION=$(grep "^VERSION=" gradle.properties | cut -d'=' -f2 | tr -d '\r')
             if [ -z "$VERSION" ]; then
               echo "Version is empty in gradle.properties"
               exit 1
@@ -36,7 +36,7 @@ jobs:
             echo "version_tag=v$VERSION" >> $GITHUB_OUTPUT
             echo "Publishing version: $VERSION"
           else
-            echo "QMBLURVIEW_VERSION property not found in gradle.properties"
+            echo "VERSION property not found in gradle.properties"
             exit 1
           fi
 
