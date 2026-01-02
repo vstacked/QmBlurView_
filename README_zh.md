@@ -1,21 +1,17 @@
 <div align="center">
 
-<img src="https://socialify.git.ci/QmDeve/QmBlurView/image?description=1&font=Inter&name=1&owner=1&pattern=Floating+Cogs&theme=Light" alt="QmBlurView" width="100%"/>
-
-<br>
-
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-black?logo=github)](https://GitHub.com/QmDeve/QmBlurView/)
 [![GitLab](https://img.shields.io/badge/GitLab-Repository-orange?logo=gitlab)](https://gitlab.com/QmDeve/QmBlurView)
 
-[![Telegram](https://img.shields.io/badge/Telegram%20群组-QmDeves-blue.svg?logo=telegram)](https://t.me/QmDeves)
 [![QQ](https://img.shields.io/badge/QQ%20群组-1046829337-blue.svg?logo=qq)](https://qm.qq.com/q/wIlrQPTMRO)
+[![Telegram](https://img.shields.io/badge/Telegram%20群组-QmDeves-blue.svg?logo=telegram)](https://t.me/QmDeves)
 
 [![License](https://img.shields.io/github/license/QmDeve/QmBlurView.svg?logo=github&color=blue&label=License)](https://github.com/QmDeve/QmBlurView/blob/master/LICENSE)
 [![Android](https://img.shields.io/badge/Android-5.0%2B-brightgreen.svg)](https://developer.android.com)
 
-[![Maven Central 版本](https://img.shields.io/maven-central/v/com.qmdeve.blurview/core?label=Maven%20Central%20版本)](https://central.sonatype.com/artifact/com.qmdeve.blurview/core)
-[![JitPack 最新版本](https://jitpack.io/v/com.qmdeve/QmBlurView.svg?label=JitPack%20版本)](https://jitpack.io/#com.qmdeve/QmBlurView)
-[![GitHub Release 版本](https://img.shields.io/github/release/QmDeve/QmBlurView?label=GitHub%20Release%20版本)](https://github.com/QmDeve/QmBlurView/releases)
+[![Maven Central](https://img.shields.io/maven-central/v/com.qmdeve.blurview/core?label=Maven%20Central)](https://central.sonatype.com/artifact/com.qmdeve.blurview/core)
+[![JitPack](https://jitpack.io/v/com.qmdeve/QmBlurView.svg?label=JitPack)](https://jitpack.io/#com.qmdeve/QmBlurView)
+[![GitHub Releases](https://img.shields.io/github/release/QmDeve/QmBlurView?label=GitHub%20Releases)](https://github.com/QmDeve/QmBlurView/releases)
 
 <br>
 
@@ -27,7 +23,7 @@
 
 ## 简介
 
-**QmBlurView** 是一个高性能的 Android UI 库，提供实时、动态的模糊效果（毛玻璃）。它利用原生 C++ 代码进行高效的图像处理，并提供了一整套模糊 UI 组件来增强您的应用设计。
+**QmBlurView** 是一个 `Android UI` 组件库，提供实时、动态的模糊效果（高斯模糊）。它使用原生C++代码进行高效的图像处理，并提供一组模糊 UI 组件来增强您的应用程序设计
 
 ## 特性
 
@@ -64,44 +60,13 @@
 ```gradle
 dependencies {
     // 核心库（必需）
-    implementation 'com.qmdeve.blurview:core:1.1.0'
+    implementation 'com.qmdeve.blurview:core:1.1.1'
 
     // 导航支持（可选）
-    implementation 'com.qmdeve.blurview:navigation:1.1.0'
+    implementation 'com.qmdeve.blurview:navigation:1.1.1'
 
     // 图片加载变换（可选 - Glide/Picasso）
-    implementation 'com.qmdeve.blurview:transform:1.1.0'
-}
-```
-
-### JitPack 集成方式
-
-[![JitPack 最新版本](https://jitpack.io/v/com.qmdeve/QmBlurView.svg?label=JitPack%20最新版本)](https://jitpack.io/#com.qmdeve/QmBlurView)
-
-**1.在项目的 `settings.gradle` 文件中添加存储库：**
-
-```gradle
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        mavenCentral()
-        maven { url 'https://jitpack.io' }
-    }
-}
-```
-
-**2.在模块的 `build.gradle` 文件中添加依赖项：**
-
-```gradle
-dependencies {
-    // 核心库（必需）
-    implementation 'com.qmdeve.QmBlurView:core:v1.1.0'
-	
-    // 导航支持（可选）
-    implementation 'com.qmdeve.QmBlurView:navigation:v1.1.0'
-	
-    // 图片加载变换（可选 - Glide/Picasso）
-    implementation 'com.qmdeve.QmBlurView:transform:v1.1.0'
+    implementation 'com.qmdeve.blurview:transform:1.1.1'
 }
 ```
 
@@ -218,7 +183,7 @@ Picasso.get()
 | `app:cornerRadius` | 视图背景的圆角半径。 |
 | `app:downsampleFactor` | 用于性能优化的降采样因子。 |
 
-## 文档
+## 详细文档
 **详细文档请查看；[https://blurview.qmdeve.com](https://blurview.qmdeve.com/zh)**
 
 ## Star 历史
@@ -234,7 +199,6 @@ Picasso.get()
 ## 其他项目
 
 - **[AndroidLiquidGlassView](https://github.com/QmDeve/AndroidLiquidGlassView)**
-- **[QmReflection](https://github.com/QmDeve/QmReflection)**
 - **[Qm Authenticator for Android](https://github.com/Rouneant/Qm-Authenticator-for-Android)**
 
 ## 许可证

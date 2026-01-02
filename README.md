@@ -1,10 +1,5 @@
 <div align="center">
 
-<img src="https://socialify.git.ci/QmDeve/QmBlurView/image?description=1&font=Inter&name=1&owner=1&pattern=Floating+Cogs&theme=Light" alt="QmBlurView" width="100%"/>
-
-<br>
-<br>
-
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-black?logo=github)](https://GitHub.com/QmDeve/QmBlurView/)
 [![GitLab](https://img.shields.io/badge/GitLab-Repository-orange?logo=gitlab)](https://gitlab.com/QmDeve/QmBlurView)
 
@@ -13,13 +8,9 @@
 [![License](https://img.shields.io/github/license/QmDeve/QmBlurView.svg?logo=github&color=blue&label=License)](https://github.com/QmDeve/QmBlurView/blob/master/LICENSE)
 [![Android](https://img.shields.io/badge/Android-5.0%2B-brightgreen.svg)](https://developer.android.com)
 
-[![Maven Central Version](https://img.shields.io/maven-central/v/com.qmdeve.blurview/core?label=Maven%20Central%20Version)](https://central.sonatype.com/artifact/com.qmdeve.blurview/core)
-[![JitPack Latest Version](https://jitpack.io/v/com.qmdeve/QmBlurView.svg?label=JitPack%20Latest%20Version)](https://jitpack.io/#com.qmdeve/QmBlurView)
-[![GitHub Release Version](https://img.shields.io/github/release/QmDeve/QmBlurView?label=GitHub%20Release%20Version)](https://github.com/QmDeve/QmBlurView/releases)
-
-<br>
-
-English | [简体中文](./README_zh.md)
+[![Maven Central Version](https://img.shields.io/maven-central/v/com.qmdeve.blurview/core?label=Maven%20Central)](https://central.sonatype.com/artifact/com.qmdeve.blurview/core)
+[![JitPack Latest Version](https://jitpack.io/v/com.qmdeve/QmBlurView.svg?label=JitPack)](https://jitpack.io/#com.qmdeve/QmBlurView)
+[![GitHub Releases](https://img.shields.io/github/release/QmDeve/QmBlurView?label=GitHub%20Releases)](https://github.com/QmDeve/QmBlurView/releases)
 
 </div>
 
@@ -27,7 +18,7 @@ English | [简体中文](./README_zh.md)
 
 ## Introduction
 
-**QmBlurView** is a high-performance Android UI library that provides real-time, dynamic blur effects (frosted glass). It leverages native C++ code for efficient image processing and offers a comprehensive suite of blurred UI components to enhance your app's design.
+**QmBlurView** is an `Android UI` component library that provides real-time, dynamic blur effects (Gaussian Blur). It uses native C++ code for efficient image processing and provides a set of blur UI components to enhance your application design
 
 ## Features
 
@@ -64,44 +55,13 @@ Add the dependencies to your module's `build.gradle` file:
 ```gradle
 dependencies {
     // Core Library (Required)
-    implementation 'com.qmdeve.blurview:core:1.1.0'
+    implementation 'com.qmdeve.blurview:core:1.1.1'
 
     // Navigation Support (Optional)
-    implementation 'com.qmdeve.blurview:navigation:1.1.0'
+    implementation 'com.qmdeve.blurview:navigation:1.1.1'
 
     // Image Loading Transformations (Optional - Glide/Picasso)
-    implementation 'com.qmdeve.blurview:transform:1.1.0'
-}
-```
-
-### JitPack Integration method
-
-[![JitPack Latest Version](https://jitpack.io/v/com.qmdeve/QmBlurView.svg?label=JitPack%20Latest%20Version)](https://jitpack.io/#com.qmdeve/QmBlurView)
-
-**1.Add the repository to the project's `settings.gradle` file:**
-
-```gradle
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        mavenCentral()
-        maven { url 'https://jitpack.io' }
-    }
-}
-```
-
-**2.Add the dependencies to your module's `build.gradle` file:**
-
-```gradle
-dependencies {
-    // Core Library (Required)
-    implementation 'com.qmdeve.QmBlurView:core:v1.1.0'
-	
-    // Navigation Support (Optional)
-    implementation 'com.qmdeve.QmBlurView:navigation:v1.1.0'
-	
-    // Image Loading Transformations (Optional - Glide/Picasso)
-    implementation 'com.qmdeve.QmBlurView:transform:v1.1.0'
+    implementation 'com.qmdeve.blurview:transform:1.1.1'
 }
 ```
 
@@ -254,7 +214,7 @@ Picasso.get()
 | `app:cornerRadius` | Corner radius for the view background. |
 | `app:downsampleFactor` | Downsampling factor for performance optimization. |
 
-## Documentation
+## Detailed Documentation
 **Detailed Documentation；[https://blurview.qmdeve.com](https://blurview.qmdeve.com)**
 
 ## Star History
