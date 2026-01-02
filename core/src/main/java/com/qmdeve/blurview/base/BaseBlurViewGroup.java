@@ -55,7 +55,6 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
-import android.graphics.Rect;
 
 import com.qmdeve.blurview.Blur;
 import com.qmdeve.blurview.BlurNative;
@@ -80,7 +79,6 @@ public class BaseBlurViewGroup {
     private boolean mFirstDraw = true;
     private boolean mForceRedraw = false;
     private boolean mSkipNextPreDraw = false;
-    private boolean mUsePixelCopyFallback = false;
     private boolean mIsPixelCopyPending = false;
     private final Handler mHandler = new Handler(Looper.getMainLooper());
     private HandlerThread mPixelCopyThread;
@@ -236,9 +234,7 @@ public class BaseBlurViewGroup {
 
         boolean dirty = mDirty;
 
-        if (mBlurredBitmap == null
-                || mBlurredBitmap.getWidth() != scaledWidth
-                || mBlurredBitmap.getHeight() != scaledHeight) {
+        if (mBlurredBitmap == null || mBlurredBitmap.getWidth() != scaledWidth || mBlurredBitmap.getHeight() != scaledHeight) {
             dirty = true;
             releaseBitmap();
 
@@ -250,7 +246,7 @@ public class BaseBlurViewGroup {
                 // Ensure software bitmaps for compatibility
                 mBitmapToBlur = Utils.ensureSoftwareBitmap(mBitmapToBlur);
                 mBlurredBitmap = Utils.ensureSoftwareBitmap(mBlurredBitmap);
-            } catch (OutOfMemoryError e) {
+            } catch (OutOfMemoryError | IllegalArgumentException e) {
                 release();
                 return false;
             }
@@ -336,8 +332,10 @@ public class BaseBlurViewGroup {
             return false;
         }
 
-        Bitmap old = mBlurredBitmap;
-        boolean redrawBitmap = mBlurredBitmap != old;
+        if (mBlurredBitmap == null || mBitmapToBlur == null || mBlurringCanvas == null) {
+            return false;
+        }
+
         int[] locDecor = new int[2];
         int[] locSelf = new int[2];
         mDecorView.getLocationOnScreen(locDecor);
@@ -375,7 +373,6 @@ public class BaseBlurViewGroup {
                     } catch (Exception retryError) {
                         Log.e(Utils.TAG, "Retry after hardware bitmap conversion failed: " + retryError.getMessage() + ". Switching to PixelCopy fallback.");
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                            mUsePixelCopyFallback = true;
                             performPixelCopyBlur(width, height);
                             return false;
                         }
