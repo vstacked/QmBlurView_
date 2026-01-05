@@ -50,7 +50,7 @@
 
 ## 集成
 
-### Maven Central 集成方式 (推荐)
+### Maven Central 集成方式
 
 [![最新版本](https://img.shields.io/maven-central/v/com.qmdeve.blurview/core?label=Maven%20Central最新版本)](https://central.sonatype.com/artifact/com.qmdeve.blurview/core)
 
@@ -99,7 +99,6 @@ blurView.setOverlayColor(Color.parseColor("#80FFFFFF"));
 使用 `BlurViewGroup` 容器
 
 **XML:**
-```xml
 ```xml
 <com.qmdeve.blurview.widget.BlurViewGroup
     android:id="@+id/blurViewGroup"
