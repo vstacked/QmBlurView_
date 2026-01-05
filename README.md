@@ -45,7 +45,7 @@
 
 ## Integration
 
-### Maven Central Integration method (recommended)
+### Maven Central Integration Method
 
 [![Maven Central Version](https://img.shields.io/maven-central/v/com.qmdeve.blurview/core?label=Maven%20Central%20Version)](https://central.sonatype.com/artifact/com.qmdeve.blurview/core)
 
@@ -130,7 +130,6 @@ blurView.setBlurRounds(8);
 Use the `BlurViewGroup` container
 
 **XML:**
-```xml
 ```xml
 <com.qmdeve.blurview.widget.BlurViewGroup
     android:id="@+id/blurViewGroup"
