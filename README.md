@@ -219,12 +219,6 @@ Picasso.get()
 
 [![Star History](https://starchart.qmdeve.com/QmDeve/QmBlurView.svg?variant=adaptive)](https://starchart.qmdeve.com/QmDeve/QmBlurView)
 
-## Contributors
-
-<a href="https://github.com/QmDeve/QmBlurView/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=QmDeve/QmBlurView" alt="Contributors"/>
-</a>
-
 ## Other Projects
 
 - **[AndroidLiquidGlassView](https://github.com/QmDeve/AndroidLiquidGlassView)**
