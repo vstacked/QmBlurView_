@@ -1,5 +1,10 @@
 <div align="center">
 
+## QmBlurView
+**QmBlurView是一个Android UI组件库，提供实时、动态的高斯模糊效果。它使用原生C++代码进行高效的模糊处理，并提供一组模糊UI组件来增强您的应用程序设计**
+
+<br>
+
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-black?logo=github)](https://GitHub.com/QmDeve/QmBlurView/)
 
 [![QQ](https://img.shields.io/badge/QQ%20群组-1046829337-blue.svg?logo=qq)](https://qm.qq.com/q/wIlrQPTMRO)
@@ -188,10 +193,19 @@ Picasso.get()
 
 [![Star History](https://starchart.qmdeve.com/QmDeve/QmBlurView.svg?variant=adaptive)](https://starchart.qmdeve.com/QmDeve/QmBlurView)
 
-## 其他项目
+---
+
+## 我的其他项目
 
 - **[AndroidLiquidGlassView](https://github.com/QmDeve/AndroidLiquidGlassView)**
 - **[Qm Authenticator for Android](https://github.com/Rouneant/Qm-Authenticator-for-Android)**
+
+## Used By
+**以下是一些使用了 QmBlurView 库的开源项目和应用程序：**
+- [react-native-blur](https://github.com/sbaiahmed1/react-native-blur)
+- [react-native-qmblurview](https://github.com/hannojg/react-native-qmblurview)
+
+> 如果您的项目正在使用 QmBlurView 库，请通过 Pull Request 将其添加到此列表中
 
 ## 许可证
 
