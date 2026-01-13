@@ -219,10 +219,19 @@ Picasso.get()
 
 [![Star History](https://starchart.qmdeve.com/QmDeve/QmBlurView.svg?variant=adaptive)](https://starchart.qmdeve.com/QmDeve/QmBlurView)
 
-## Other Projects
+---
+
+## My Other Projects
 
 - **[AndroidLiquidGlassView](https://github.com/QmDeve/AndroidLiquidGlassView)**
 - **[Qm Authenticator for Android](https://github.com/Rouneant/Qm-Authenticator-for-Android)**
+
+## Used By
+**The following are some open-source projects and applications that use the QmBlurView library:**
+- [react-native-blur](https://github.com/sbaiahmed1/react-native-blur)
+- [react-native-qmblurview](https://github.com/hannojg/react-native-qmblurview)
+
+> If your project is using the QmBlurView library, please add it to this list via a Pull Request
 
 ## License
 
