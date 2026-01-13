@@ -1,5 +1,10 @@
 <div align="center">
 
+## QmBlurView
+**QmBlurView is an Android UI component library that provides real-time, dynamic blur effects (Gaussian Blur). It uses native C++ code for efficient image processing and provides a set of blur UI components to enhance your application design**
+
+<br>
+
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-black?logo=github)](https://GitHub.com/QmDeve/QmBlurView/)
 
 [![Telegram](https://img.shields.io/badge/Telegram%20Group-QmDeves-blue.svg?logo=telegram)](https://t.me/QmDeves)
