@@ -232,7 +232,7 @@ Picasso.get()
 - [react-native-blur](https://github.com/sbaiahmed1/react-native-blur)
 - [react-native-qmblurview](https://github.com/hannojg/react-native-qmblurview)
 
-> If your project or application is using the `QmBlurView` library, please send a `Pull Request` or email `donny@qmdeve.com` Add it to this list
+> If your project or application is using the `QmBlurView` library, please add it to this list by `Pull Request` or sending an Email to `donny@qmdeve.com`
 
 ## License
 
