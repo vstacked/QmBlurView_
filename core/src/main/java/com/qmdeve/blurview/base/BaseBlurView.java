@@ -162,10 +162,12 @@ public abstract class BaseBlurView extends View {
 
         try {
             // Handle ImageView specifically
-            if (view instanceof ImageView imageView) {
+            if (view instanceof ImageView) {
+                ImageView imageView = (ImageView) view;
                 Drawable drawable = imageView.getDrawable();
 
-                if (drawable instanceof BitmapDrawable bitmapDrawable) {
+                if (drawable instanceof BitmapDrawable) {
+                    BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
                     Bitmap bitmap = bitmapDrawable.getBitmap();
 
                     if (bitmap != null && bitmap.getConfig() == Bitmap.Config.HARDWARE) {
@@ -179,7 +181,8 @@ public abstract class BaseBlurView extends View {
             }
 
             // Recursively process children if it's a ViewGroup
-            if (view instanceof ViewGroup viewGroup) {
+            if (view instanceof ViewGroup) {
+                ViewGroup viewGroup = (ViewGroup) view;
                 int childCount = viewGroup.getChildCount();
                 for (int i = 0; i < childCount; i++) {
                     disableHardwareBitmapsInView(viewGroup.getChildAt(i));
@@ -191,7 +194,8 @@ public abstract class BaseBlurView extends View {
     }
 
     private void drawTextureViews(View view, Canvas canvas) {
-        if (view instanceof TextureView textureView) {
+        if (view instanceof TextureView) {
+            TextureView textureView = (TextureView) view;
             if (textureView.getVisibility() == View.VISIBLE && textureView.isAvailable()) {
                 int[] locDecor = new int[2];
                 mDecorView.getLocationOnScreen(locDecor);
@@ -212,7 +216,8 @@ public abstract class BaseBlurView extends View {
                     bitmap.recycle();
                 }
             }
-        } else if (view instanceof ViewGroup group) {
+        } else if (view instanceof ViewGroup) {
+            ViewGroup group = (ViewGroup) view;
             for (int i = 0; i < group.getChildCount(); i++) {
                 drawTextureViews(group.getChildAt(i), canvas);
             }
@@ -220,7 +225,8 @@ public abstract class BaseBlurView extends View {
     }
 
     private void drawSurfaceViews(View view, Canvas canvas) {
-        if (view instanceof SurfaceView surfaceView) {
+        if (view instanceof SurfaceView) {
+            SurfaceView surfaceView = (SurfaceView) view;
             if (surfaceView.getVisibility() == View.VISIBLE) {
                 // Automatically configure SurfaceView for proper z-ordering
                 if (!mConfiguredSurfaceViews.contains(surfaceView)) {
@@ -308,7 +314,8 @@ public abstract class BaseBlurView extends View {
                     }
                 }
             }
-        } else if (view instanceof ViewGroup group) {
+        } else if (view instanceof ViewGroup) {
+            ViewGroup group = (ViewGroup) view;
             for (int i = 0; i < group.getChildCount(); i++) {
                 drawSurfaceViews(group.getChildAt(i), canvas);
             }

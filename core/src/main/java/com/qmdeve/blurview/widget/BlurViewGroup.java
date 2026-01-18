@@ -311,17 +311,29 @@ public class BlurViewGroup extends ViewGroup {
                 int childLeft;
                 int childTop;
 
-                childLeft = switch (horizontalGravity) {
-                    case Gravity.CENTER_HORIZONTAL -> parentLeft + (parentWidth - childWidth) / 2 + lp.leftMargin - lp.rightMargin;
-                    case Gravity.RIGHT -> parentRight - childWidth - lp.rightMargin;
-                    default -> parentLeft + lp.leftMargin;
-                };
+                switch (horizontalGravity) {
+                    case Gravity.CENTER_HORIZONTAL:
+                        childLeft = parentLeft + (parentWidth - childWidth) / 2 + lp.leftMargin - lp.rightMargin;
+                        break;
+                    case Gravity.RIGHT:
+                        childLeft = parentRight - childWidth - lp.rightMargin;
+                        break;
+                    default:
+                        childLeft = parentLeft + lp.leftMargin;
+                        break;
+                }
 
-                childTop = switch (verticalGravity) {
-                    case Gravity.CENTER_VERTICAL -> parentTop + (parentHeight - childHeight) / 2 + lp.topMargin - lp.bottomMargin;
-                    case Gravity.BOTTOM -> parentBottom - childHeight - lp.bottomMargin;
-                    default -> parentTop + lp.topMargin;
-                };
+                switch (verticalGravity) {
+                    case Gravity.CENTER_VERTICAL:
+                        childTop = parentTop + (parentHeight - childHeight) / 2 + lp.topMargin - lp.bottomMargin;
+                        break;
+                    case Gravity.BOTTOM:
+                        childTop = parentBottom - childHeight - lp.bottomMargin;
+                        break;
+                    default:
+                        childTop = parentTop + lp.topMargin;
+                        break;
+                }
 
                 int maxLeft = parentRight - Math.min(childWidth, parentWidth);
                 childLeft = Math.max(parentLeft, Math.min(childLeft, maxLeft));

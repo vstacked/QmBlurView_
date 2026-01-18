@@ -47,7 +47,6 @@ import android.view.MotionEvent;
 import android.view.WindowInsets;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -324,12 +323,14 @@ public class BlurBottomNavigationView extends BaseBlurView {
         int currentItem = -1;
         int itemCount = 0;
 
-        if (viewPager instanceof ViewPager vp1) {
+        if (viewPager instanceof ViewPager) {
+            ViewPager vp1 = (ViewPager) viewPager;
             if (vp1.getAdapter() != null) {
                 currentItem = vp1.getCurrentItem();
                 itemCount = vp1.getAdapter().getCount();
             }
-        } else if (viewPager instanceof ViewPager2 vp2) {
+        } else if (viewPager instanceof ViewPager2) {
+            ViewPager2 vp2 = (ViewPager2) viewPager;
             if (vp2.getAdapter() != null) {
                 currentItem = vp2.getCurrentItem();
                 itemCount = vp2.getAdapter().getItemCount();

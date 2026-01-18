@@ -150,7 +150,8 @@ public class BlurTransformation extends BitmapTransformation {
 
     @Override
     public boolean equals(Object o) {
-        if (o instanceof BlurTransformation other) {
+        if (o instanceof BlurTransformation) {
+            BlurTransformation other = (BlurTransformation) o;
             return Math.abs(blurRadius - other.blurRadius) < 0.01f &&
                     Math.abs(roundedCorners - other.roundedCorners) < 0.01f;
         }

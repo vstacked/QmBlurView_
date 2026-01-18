@@ -577,7 +577,8 @@ public class BlurButtonView extends BlurView {
 
     private void setFixedMargin() {
         ViewGroup.LayoutParams params = getLayoutParams();
-        if (params instanceof ViewGroup.MarginLayoutParams marginParams) {
+        if (params instanceof ViewGroup.MarginLayoutParams) {
+            ViewGroup.MarginLayoutParams marginParams = (ViewGroup.MarginLayoutParams) params;
             int fixedMargin = (int) Utils.dp2px(getResources(), 3f);
 
             if (marginParams.leftMargin == 0) {

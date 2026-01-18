@@ -167,10 +167,12 @@ public class Utils {
 
         try {
             // Handle ImageView specifically
-            if (view instanceof ImageView imageView) {
+            if (view instanceof ImageView) {
+                ImageView imageView = (ImageView) view;
                 Drawable drawable = imageView.getDrawable();
 
-                if (drawable instanceof BitmapDrawable bitmapDrawable) {
+                if (drawable instanceof BitmapDrawable) {
+                    BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
                     Bitmap bitmap = bitmapDrawable.getBitmap();
 
                     if (bitmap != null && bitmap.getConfig() == Bitmap.Config.HARDWARE) {
@@ -184,7 +186,8 @@ public class Utils {
             }
 
             // Recursively process children if it's a ViewGroup
-            if (view instanceof ViewGroup viewGroup) {
+            if (view instanceof ViewGroup) {
+                ViewGroup viewGroup = (ViewGroup) view;
                 int childCount = viewGroup.getChildCount();
                 for (int i = 0; i < childCount; i++) {
                     disableHardwareBitmapsInView(viewGroup.getChildAt(i));
