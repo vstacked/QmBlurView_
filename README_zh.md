@@ -14,7 +14,6 @@
 [![Android](https://img.shields.io/badge/Android-5.0%2B-brightgreen.svg)](https://developer.android.com)
 
 [![Maven Central](https://img.shields.io/maven-central/v/com.qmdeve.blurview/core?label=Maven%20Central)](https://central.sonatype.com/artifact/com.qmdeve.blurview/core)
-[![JitPack](https://jitpack.io/v/com.qmdeve/QmBlurView.svg?label=JitPack)](https://jitpack.io/#com.qmdeve/QmBlurView)
 [![GitHub Releases](https://img.shields.io/github/release/QmDeve/QmBlurView?label=GitHub%20Releases)](https://github.com/QmDeve/QmBlurView/releases)
 
 <br>
@@ -51,8 +50,6 @@
 
 ## 集成
 
-### Maven Central 集成方式
-
 [![最新版本](https://img.shields.io/maven-central/v/com.qmdeve.blurview/core?label=Maven%20Central最新版本)](https://central.sonatype.com/artifact/com.qmdeve.blurview/core)
 
 在模块的 `build.gradle` 文件中添加依赖项：
@@ -60,130 +57,20 @@
 ```gradle
 dependencies {
     // 核心库（必需）
-    implementation 'com.qmdeve.blurview:core:1.1.2'
+    implementation 'com.qmdeve.blurview:core:1.1.3'
 
     // 导航支持（可选）
-    implementation 'com.qmdeve.blurview:navigation:1.1.2'
+    implementation 'com.qmdeve.blurview:navigation:1.1.3'
 
     // 图片加载变换（可选 - Glide/Picasso）
-    implementation 'com.qmdeve.blurview:transform:1.1.2'
+    implementation 'com.qmdeve.blurview:transform:1.1.3'
 }
 ```
 
-## 使用方法
+## 使用
 
-### 1. 基础 BlurView
-
-使用 `BlurView` 模糊 UI 的任何部分。当放置在其他内容之上（例如在 `FrameLayout` 或 `RelativeLayout` 中）时效果最佳。
-
-**XML:**
-```xml
-<com.qmdeve.blurview.widget.BlurView
-    android:id="@+id/blurView"
-    android:layout_width="200dp"
-    android:layout_height="200dp"
-    app:blurRadius="25dp"
-    app:cornerRadius="15dp"
-    app:overlayColor="#80FFFFFF" />
-```
-
-**Java:**
-```java
-BlurView blurView = findViewById(R.id.blurView);
-blurView.setBlurRadius(25);
-blurView.setCornerRadius(15);
-blurView.setOverlayColor(Color.parseColor("#80FFFFFF"));
-```
-
-### 2. BlurViewGroup
-
-使用 `BlurViewGroup` 容器
-
-**XML:**
-```xml
-<com.qmdeve.blurview.widget.BlurViewGroup
-    android:id="@+id/blurViewGroup"
-    android:layout_width="200dp"
-    android:layout_height="200dp"
-    app:blurRadius="25dp"
-    app:cornerRadius="15dp"
-    app:overlayColor="#80FFFFFF" />
-```
-
-**Java:**
-```java
-BlurViewGroup blurViewGroup = findViewById(R.id.blurViewGroup);
-blurViewGroup.setBlurRadius(25);
-blurViewGroup.setCornerRadius(15);
-blurViewGroup.setOverlayColor(Color.parseColor("#80FFFFFF"));
-```
-
-### 3. BlurButtonView
-
-具有模糊背景的可定制按钮。
-
-**XML:**
-```xml
-<com.qmdeve.blurview.widget.BlurButtonView
-    android:id="@+id/blurButton"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Blur Button"
-    app:blurRadius="12dp"
-    app:buttonCornerRadius="12dp"
-    app:overlayColor="#80FFFFFF"
-    app:buttonIconSize="24dp"
-    app:buttonTextBold="true" />
-```
-
-### 4. BlurBottomNavigationView
-
-内置模糊效果的底部导航栏。
-
-**XML:**
-```xml
-<com.qmdeve.blurview.widget.BlurBottomNavigationView
-    android:id="@+id/bottomNav"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:menu="@menu/bottom_nav_menu"
-    app:navOverlayColor="#AAFFFFFF"
-    app:navSelectedColor="#0161F2"
-    app:navUnselectedColor="#000000"
-    android:layout_alignParentBottom="true" />
-```
-
-### 5. 图片加载变换
-
-直接对使用 Glide 或 Picasso 加载的图片应用模糊。
-
-**Glide:**
-```java
-Glide.with(context)
-    .load(imageUrl)
-    .transform(new com.qmdeve.blurview.transform.glide.BlurTransformation(25, 40)) // 模糊半径，圆角半径
-    .into(imageView);
-```
-
-**Picasso:**
-```java
-Picasso.get()
-    .load(imageUrl)
-    .transform(new com.qmdeve.blurview.transform.picasso.BlurTransformation(25, 40)) // 模糊半径，圆角半径
-    .into(imageView);
-```
-
-## 常用属性
-
-| 属性 | 描述 |
-|---|---|
-| `app:blurRadius` | 模糊效果的半径（值越大越模糊）。 |
-| `app:overlayColor` | 绘制在模糊图像之上的覆盖颜色。 |
-| `app:cornerRadius` | 视图背景的圆角半径。 |
-| `app:downsampleFactor` | 用于性能优化的降采样因子。 |
-
-## 详细文档
-**详细文档请查看；[https://blurview.qmdeve.com](https://blurview.qmdeve.com/zh)**
+请查看文档，以了解如何使用该库
+**文档；[https://blurview.qmdeve.com](https://blurview.qmdeve.com/zh)**
 
 ## Star 历史
 
@@ -197,11 +84,11 @@ Picasso.get()
 - **[Qm Authenticator for Android](https://github.com/Rouneant/Qm-Authenticator-for-Android)**
 
 ## Used By
-**以下是一些使用了 QmBlurView 库的开源项目和应用程序：**
+**以下是一些使用了 QmBlurView 库的开源项目或应用程序：**
 - [react-native-blur](https://github.com/sbaiahmed1/react-native-blur)
 - [react-native-qmblurview](https://github.com/hannojg/react-native-qmblurview)
 
-> 如果您的项目正在使用 QmBlurView 库，请通过 Pull Request 将其添加到此列表中
+> 如果您的项目或应用程序正在使用 `QmBlurView` 库，请通过 `Pull Request` 将其添加到此列表中或发送电子邮件至 `donny@qmdeve.com`
 
 ## 许可证
 
