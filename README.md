@@ -65,6 +65,7 @@ dependencies {
 ## Usage
 
 Please refer to the documentation to learn how to use the library
+
 **Documentation；[https://blurview.qmdeve.com](https://blurview.qmdeve.com)**
 
 ## Star History
