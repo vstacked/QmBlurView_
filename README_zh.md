@@ -7,7 +7,7 @@
 
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-black?logo=github)](https://GitHub.com/QmDeve/QmBlurView/)
 
-[![QQ](https://img.shields.io/badge/QQ%20群组-1046829337-blue.svg?logo=qq)](https://qm.qq.com/q/wIlrQPTMRO)
+[![QQ](https://img.shields.io/badge/QQ%20群组-1054049593-blue.svg?logo=qq)](https://qm.qq.com/q/FOWGqsSGcy)
 [![Telegram](https://img.shields.io/badge/Telegram%20群组-QmDeve-blue.svg?logo=telegram)](https://t.me/QmDeve)
 
 [![License](https://img.shields.io/github/license/QmDeve/QmBlurView.svg?logo=github&color=blue&label=License)](https://github.com/QmDeve/QmBlurView/blob/master/LICENSE)
