@@ -38,7 +38,7 @@
   - `BlurTitlebarView`、`BlurSwitchButtonView`、`BlurFloatingButtonView` 和 `ProgressiveBlurView`。
 - **图片加载支持**：内置针对 **Glide** 和 **Picasso** 的变换支持。
 
-## 截图
+## 预览
 
 |                                BlurView                                |                              BlurButtonView                              |                                ProgressiveBlurView                                |
 |:----------------------------------------------------------------------:|:------------------------------------------------------------------------:|:---------------------------------------------------------------------------------:|
@@ -50,7 +50,7 @@
 
 ## 集成
 
-[![最新版本](https://img.shields.io/maven-central/v/com.qmdeve.blurview/core?label=Maven%20Central最新版本)](https://central.sonatype.com/artifact/com.qmdeve.blurview/core)
+[![Maven Central](https://img.shields.io/maven-central/v/com.qmdeve.blurview/core?label=Maven%20Central)](https://central.sonatype.com/artifact/com.qmdeve.blurview/core)
 
 在模块的 `build.gradle` 文件中添加依赖项：
 
