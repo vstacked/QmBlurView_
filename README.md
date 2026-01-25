@@ -30,18 +30,16 @@
   - `BlurBottomNavigationView`: Stylish blurred bottom navigation.
   - `BlurTitlebarView`, `BlurSwitchButtonView`, `BlurFloatingButtonView`, and `ProgressiveBlurView`.
 - **Image Loading Support**: Built-in transformations for **Glide** and **Picasso**.
-- **Easy Integration**: Simple XML attributes and Java/Kotlin APIs.
-- **Broad Compatibility**: Supports Android 5.0 (API 21) and above.
 
 ## Screenshot
 
 |                                BlurView                                |                              BlurButtonView                              |                                ProgressiveBlurView                                |
 |:----------------------------------------------------------------------:|:------------------------------------------------------------------------:|:---------------------------------------------------------------------------------:|
-| <img src="https://cloud.qmdeve.com/f/aRFw/BlurView.jpeg" width="250"/> | <img src="https://cloud.qmdeve.com/f/wKi5/BlurButton.jpeg" width="250"/> | <img src="https://cloud.qmdeve.com/f/MluM/ProgressiveBlurView.jpeg" width="250"/> |
+| <img src="https://cloud.qmdeve.com/f/eqsn/BlurView.jpeg" width="250"/> | <img src="https://cloud.qmdeve.com/f/YyT3/BlurButton.jpeg" width="250"/> | <img src="https://cloud.qmdeve.com/f/xYug/ProgressiveBlurView.jpeg" width="250"/> |
 
 |                                BlurTitleBarView                                |                                BlurSwitchButtonView                                 |                              BlurBottomNavigationView                              |
 |:------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------:|
-| <img src="https://cloud.qmdeve.com/f/Posw/BlurTitlebarView.jpeg" width="250"/> | <img src="https://cloud.qmdeve.com/f/9wHl/BlurSwitchButton_true.jpeg" width="250"/> | <img src="https://cloud.qmdeve.com/f/KbcO/BlurBottomNavigation.jpeg" width="250"/> |
+| <img src="https://cloud.qmdeve.com/f/Rbhn/BlurTitlebarView.jpeg" width="250"/> | <img src="https://cloud.qmdeve.com/f/3Nfl/BlurSwitchButton_true.jpeg" width="250"/> | <img src="https://cloud.qmdeve.com/f/gecr/BlurBottomNavigation.jpeg" width="250"/> |
 
 ## Integration
 

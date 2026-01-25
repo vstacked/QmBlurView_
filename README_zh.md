@@ -7,7 +7,7 @@
 
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-black?logo=github)](https://GitHub.com/QmDeve/QmBlurView/)
 
-[![QQ](https://img.shields.io/badge/QQ%20群组-1054049593-blue.svg?logo=qq)](https://qm.qq.com/q/FOWGqsSGcy)
+[![QQ](https://img.shields.io/badge/QQ%20群组-1046829337-blue.svg?logo=qq)](https://qm.qq.com/q/9O8Dzxch1u)
 [![Telegram](https://img.shields.io/badge/Telegram%20群组-QmDeve-blue.svg?logo=telegram)](https://t.me/QmDeve)
 
 [![License](https://img.shields.io/github/license/QmDeve/QmBlurView.svg?logo=github&color=blue&label=License)](https://github.com/QmDeve/QmBlurView/blob/master/LICENSE)
@@ -35,18 +35,16 @@
   - `BlurBottomNavigationView`：时尚的模糊底部导航栏。
   - `BlurTitlebarView`、`BlurSwitchButtonView`、`BlurFloatingButtonView` 和 `ProgressiveBlurView`。
 - **图片加载支持**：内置针对 **Glide** 和 **Picasso** 的变换支持。
-- **易于集成**：简单的 XML 属性和 Java/Kotlin API。
-- **广泛兼容**：支持 Android 5.0 (API 21) 及以上版本。
 
 ## 截图
 
 |                                BlurView                                |                              BlurButtonView                              |                                ProgressiveBlurView                                |
 |:----------------------------------------------------------------------:|:------------------------------------------------------------------------:|:---------------------------------------------------------------------------------:|
-| <img src="https://cloud.qmdeve.com/f/aRFw/BlurView.jpeg" width="250"/> | <img src="https://cloud.qmdeve.com/f/wKi5/BlurButton.jpeg" width="250"/> | <img src="https://cloud.qmdeve.com/f/MluM/ProgressiveBlurView.jpeg" width="250"/> |
+| <img src="https://cloud.qmdeve.com/f/eqsn/BlurView.jpeg" width="250"/> | <img src="https://cloud.qmdeve.com/f/YyT3/BlurButton.jpeg" width="250"/> | <img src="https://cloud.qmdeve.com/f/xYug/ProgressiveBlurView.jpeg" width="250"/> |
 
 |                                BlurTitleBarView                                |                                BlurSwitchButtonView                                 |                              BlurBottomNavigationView                              |
 |:------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------:|
-| <img src="https://cloud.qmdeve.com/f/Posw/BlurTitlebarView.jpeg" width="250"/> | <img src="https://cloud.qmdeve.com/f/9wHl/BlurSwitchButton_true.jpeg" width="250"/> | <img src="https://cloud.qmdeve.com/f/KbcO/BlurBottomNavigation.jpeg" width="250"/> |
+| <img src="https://cloud.qmdeve.com/f/Rbhn/BlurTitlebarView.jpeg" width="250"/> | <img src="https://cloud.qmdeve.com/f/3Nfl/BlurSwitchButton_true.jpeg" width="250"/> | <img src="https://cloud.qmdeve.com/f/gecr/BlurBottomNavigation.jpeg" width="250"/> |
 
 ## 集成
 
