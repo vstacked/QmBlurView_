@@ -6,6 +6,7 @@
 <br>
 
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-black?logo=github)](https://GitHub.com/QmDeve/QmBlurView/)
+[![Publish New Version](https://github.com/QmDeve/QmBlurView/actions/workflows/publish.yml/badge.svg)](https://github.com/QmDeve/QmBlurView/actions/workflows/publish.yml)
 
 [![Telegram](https://img.shields.io/badge/Telegram%20Group-QmDeve-blue.svg?logo=telegram)](https://t.me/QmDeve)
 
@@ -13,6 +14,7 @@
 [![Android](https://img.shields.io/badge/Android-5.0%2B-brightgreen.svg)](https://developer.android.com)
 
 [![Maven Central Version](https://img.shields.io/maven-central/v/com.qmdeve.blurview/core?label=Maven%20Central)](https://central.sonatype.com/artifact/com.qmdeve.blurview/core)
+[![JitPack](https://jitpack.io/v/com.qmdeve/QmBlurView.svg)](https://jitpack.io/#com.qmdeve/QmBlurView)
 [![GitHub Releases](https://img.shields.io/github/release/QmDeve/QmBlurView?label=GitHub%20Releases)](https://github.com/QmDeve/QmBlurView/releases)
 
 </div>
@@ -31,7 +33,7 @@
   - `BlurTitlebarView`, `BlurSwitchButtonView`, `BlurFloatingButtonView`, and `ProgressiveBlurView`.
 - **Image Loading Support**: Built-in transformations for **Glide** and **Picasso**.
 
-## Screenshot
+## Preview
 
 |                                BlurView                                |                              BlurButtonView                              |                                ProgressiveBlurView                                |
 |:----------------------------------------------------------------------:|:------------------------------------------------------------------------:|:---------------------------------------------------------------------------------:|
@@ -74,15 +76,8 @@ Please refer to the documentation to learn how to use the library
 
 ## My Other Projects
 
-- **[AndroidLiquidGlassView](https://github.com/QmDeve/AndroidLiquidGlassView)**
+- **[AndroidLiquidGlassView](https://liquidglass.qmdeve.com)**
 - **[Qm Authenticator for Android](https://github.com/Rouneant/Qm-Authenticator-for-Android)**
-
-## Used By
-**The following are some open-source projects or applications that use the QmBlurView library:**
-- [react-native-blur](https://github.com/sbaiahmed1/react-native-blur)
-- [react-native-qmblurview](https://github.com/hannojg/react-native-qmblurview)
-
-> If your project or application is using the `QmBlurView` library, please add it to this list by `Pull Request` or sending an Email to `donny@qmdeve.com`
 
 ## License
 

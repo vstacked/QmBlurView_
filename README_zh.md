@@ -6,6 +6,7 @@
 <br>
 
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-black?logo=github)](https://GitHub.com/QmDeve/QmBlurView/)
+[![Publish New Version](https://github.com/QmDeve/QmBlurView/actions/workflows/publish.yml/badge.svg)](https://github.com/QmDeve/QmBlurView/actions/workflows/publish.yml)
 
 [![QQ](https://img.shields.io/badge/QQ%20群组-1046829337-blue.svg?logo=qq)](https://qm.qq.com/q/9O8Dzxch1u)
 [![Telegram](https://img.shields.io/badge/Telegram%20群组-QmDeve-blue.svg?logo=telegram)](https://t.me/QmDeve)
@@ -14,6 +15,7 @@
 [![Android](https://img.shields.io/badge/Android-5.0%2B-brightgreen.svg)](https://developer.android.com)
 
 [![Maven Central](https://img.shields.io/maven-central/v/com.qmdeve.blurview/core?label=Maven%20Central)](https://central.sonatype.com/artifact/com.qmdeve.blurview/core)
+[![JitPack](https://jitpack.io/v/com.qmdeve/QmBlurView.svg)](https://jitpack.io/#com.qmdeve/QmBlurView)
 [![GitHub Releases](https://img.shields.io/github/release/QmDeve/QmBlurView?label=GitHub%20Releases)](https://github.com/QmDeve/QmBlurView/releases)
 
 <br>
@@ -79,15 +81,8 @@ dependencies {
 
 ## 我的其他项目
 
-- **[AndroidLiquidGlassView](https://github.com/QmDeve/AndroidLiquidGlassView)**
+- **[AndroidLiquidGlassView](https://liquidglass.qmdeve.com)**
 - **[Qm Authenticator for Android](https://github.com/Rouneant/Qm-Authenticator-for-Android)**
-
-## Used By
-**以下是一些使用了 QmBlurView 库的开源项目或应用程序：**
-- [react-native-blur](https://github.com/sbaiahmed1/react-native-blur)
-- [react-native-qmblurview](https://github.com/hannojg/react-native-qmblurview)
-
-> 如果您的项目或应用程序正在使用 `QmBlurView` 库，请通过 `Pull Request` 将其添加到此列表中或发送电子邮件至 `donny@qmdeve.com`
 
 ## 许可证
 
