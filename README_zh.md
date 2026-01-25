@@ -30,12 +30,7 @@
 
 - **高性能**：使用 C/C++ 实现的原生模糊算法，确保最大的速度和流畅度。
 - **实时模糊**：随着背景内容的变化自动更新模糊效果。
-- **丰富的组件库**：
-  - `BlurView`：通用模糊视图。
-  - `BlurViewGroup`：适用于任何布局的可定制容器
-  - `BlurButtonView`：具有毛玻璃效果的按钮。
-  - `BlurBottomNavigationView`：时尚的模糊底部导航栏。
-  - `BlurTitlebarView`、`BlurSwitchButtonView`、`BlurFloatingButtonView` 和 `ProgressiveBlurView`。
+- **丰富的组件库**：包含多种模糊效果的组件。
 - **图片加载支持**：内置针对 **Glide** 和 **Picasso** 的变换支持。
 
 ## 预览
