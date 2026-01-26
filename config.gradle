@@ -111,13 +111,13 @@ ext.coreMavenConfig = { projectInstance ->
 
         pom {
             name = 'QmBlurView Core'
-            description = 'QmBlurView is an Android UI component library that integrates a variety of blur effects, including BlurView, BlurButtonView, ProgressiveBlurView, BlurTitleBarView, BottomNavigationView, BlurSwitchButtonView, and BlurFloatingButtonView'
-            url = 'https://blurview.qmdeve.com'
+            description = projectInstance.DESCRIPTION
+            url = projectInstance.WEBSITE
             inceptionYear = '2025'
 
             organization {
                 name = 'QmDeve'
-                url = 'https://qmdeve.com'
+                url = 'https://www.qmdeve.com'
             }
 
             licenses {
@@ -132,9 +132,9 @@ ext.coreMavenConfig = { projectInstance ->
                 developer {
                     id = 'qmdeve'
                     name = 'Donny Yale'
-                    email = 'admin@qmdeve.com'
+                    email = 'donny@qmdeve.com'
                     organization = 'QmDeve'
-                    organizationUrl = 'https://github.com/QmDeve'
+                    organizationUrl = 'https://qmdeve.com'
                 }
 
                 developer {
@@ -168,13 +168,13 @@ ext.navMavenConfig = { projectInstance ->
 
         pom {
             name = 'QmBlurView Navigation'
-            description = 'QmBlurView is an Android UI component library that integrates a variety of blur effects, including BlurView, BlurButtonView, ProgressiveBlurView, BlurTitleBarView, BottomNavigationView, BlurSwitchButtonView, and BlurFloatingButtonView'
-            url = 'https://blurview.qmdeve.com'
+            description = projectInstance.DESCRIPTION
+            url = projectInstance.WEBSITE
             inceptionYear = '2025'
 
             organization {
                 name = 'QmDeve'
-                url = 'https://qmdeve.com'
+                url = 'https://www.qmdeve.com'
             }
 
             licenses {
@@ -189,9 +189,9 @@ ext.navMavenConfig = { projectInstance ->
                 developer {
                     id = 'qmdeve'
                     name = 'Donny Yale'
-                    email = 'admin@qmdeve.com'
+                    email = 'donny@qmdeve.com'
                     organization = 'QmDeve'
-                    organizationUrl = 'https://github.com/QmDeve'
+                    organizationUrl = 'https://qmdeve.com'
                 }
 
                 developer {
@@ -225,13 +225,13 @@ ext.tranMavenConfig = { projectInstance ->
 
         pom {
             name = 'QmBlurView Transform'
-            description = 'QmBlurView is an Android UI component library that integrates a variety of blur effects, including BlurView, BlurButtonView, ProgressiveBlurView, BlurTitleBarView, BottomNavigationView, BlurSwitchButtonView, and BlurFloatingButtonView'
-            url = 'https://blurview.qmdeve.com'
+            description = projectInstance.DESCRIPTION
+            url = projectInstance.WEBSITE
             inceptionYear = '2025'
 
             organization {
                 name = 'QmDeve'
-                url = 'https://qmdeve.com'
+                url = 'https://www.qmdeve.com'
             }
 
             licenses {
@@ -246,9 +246,9 @@ ext.tranMavenConfig = { projectInstance ->
                 developer {
                     id = 'qmdeve'
                     name = 'Donny Yale'
-                    email = 'admin@qmdeve.com'
+                    email = 'donny@qmdeve.com'
                     organization = 'QmDeve'
-                    organizationUrl = 'https://github.com/QmDeve'
+                    organizationUrl = 'https://qmdeve.com'
                 }
 
                 developer {
