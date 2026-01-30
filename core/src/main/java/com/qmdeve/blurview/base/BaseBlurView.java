@@ -585,7 +585,14 @@ public abstract class BaseBlurView extends View {
         } finally {
             mIsRendering = false;
             Utils.sIsGlobalCapturing = false;
-            mBlurringCanvas.restoreToCount(saveCount);
+            // mBlurringCanvas.restoreToCount(saveCount);
+                if (mBlurringCanvas != null) {
+            try {
+                mBlurringCanvas.restoreToCount(saveCount);
+            } catch (Exception e) {
+                Log.e(Utils.TAG, "Failed to restore canvas: " + e.getMessage());
+            }
+        }
         }
 
         blur(mBitmapToBlur, mBlurredBitmap);
